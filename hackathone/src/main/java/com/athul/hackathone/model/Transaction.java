@@ -2,17 +2,22 @@ package com.athul.hackathone.model;
 import java.time.LocalDate;
 
 
-public record Transaction(
+public record Transaction (
         String id,
         LocalDate date,
         String description,
         double amount,
         String categoryName,
         TransactionType type
-) {
+) implements  Comparable<Transaction>{
     // TODO: CHALLENGE 7 - Add Comparable implementation here
 
     public String toCsv() {
         return String.join(",", id, date.toString(), description, String.valueOf(amount), categoryName, type.name());
+    }
+
+    @Override
+    public int compareTo(Transaction e) {
+        return this.date.compareTo(e.date);
     }
 }

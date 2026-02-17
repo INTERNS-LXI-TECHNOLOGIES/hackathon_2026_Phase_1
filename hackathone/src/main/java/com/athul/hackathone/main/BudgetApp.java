@@ -1,10 +1,19 @@
 package com.athul.hackathone.main;
 
 import com.athul.hackathone.controller.AppController;
+import com.athul.hackathone.model.Transaction;
+import com.athul.hackathone.repo.BaseRepository;
+import com.athul.hackathone.repo.Repository.CategoryRepository;
+import com.athul.hackathone.repo.Repository.TransactionRepository;
+import com.athul.hackathone.repo.Repository.UserProfileRepository;
+import com.athul.hackathone.service.BudgetService;
 
 import java.util.Scanner;
 
 public class BudgetApp {
+
+    static AppController appController;
+    public BudgetApp(AppController appController){this.appController = appController;}
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -12,13 +21,17 @@ public class BudgetApp {
 
         // CHALLENGE 5: ARCHITECTURAL WIRING
         // TODO: Wire layers together (Repos -> Service -> Controller)
-       
-       // AppController controller = null; // CHALLENGE: Wire your controller here!
 
-       /* if (controller == null) {
+        CategoryRepository categoryRepository= new CategoryRepository();
+        TransactionRepository transactionRepository = new TransactionRepository();
+        UserProfileRepository userProfileRepository = new UserProfileRepository();
+        BudgetService budgetService = new BudgetService(transactionRepository,userProfileRepository,categoryRepository);
+        AppController controller = new AppController(budgetService, categoryRepository); // CHALLENGE: Wire your controller here!
+
+       if (controller == null) {
             System.err.println("\n[!] FATAL: Application wiring incomplete.");
             System.exit(1);
-        }*/
+        }
 
         while (true) {
             System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7] Exit");
@@ -32,10 +45,17 @@ public class BudgetApp {
                     System.out.print("Cat: "); String c = sc.nextLine();
                     System.out.print("Type: "); String t = sc.nextLine();
                     // TODO: Wire controller
+                    controller.handleAddTransaction(d,a,c,t);
+
                 }
-                case "2" -> { /* TODO: List by date */ }
-                case "3" -> { /* TODO: List by amount */ }
+                case "2" -> { /* TODO: List by date */
+                //System.out.println("Enter date :");  String e = sc.nextLine();
+                controller.listTransactions(true);
+                }
+                case "3" -> { /* TODO: List by amount */
+                controller.listTransactions(false);}
                 case "4" -> {
+                    controller.showAdvancedStats();
                     // TODO: Wire showAdvancedStats()
                 }
                 case "5" -> {

@@ -1,4 +1,5 @@
 package com.athul.hackathone.model;
 
-public class Category {
+public record Category(String name, double budgetLimit) {
+    public String toCsv() { return name + "," + budgetLimit; }
 }

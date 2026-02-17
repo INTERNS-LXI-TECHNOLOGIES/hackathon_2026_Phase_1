@@ -4,23 +4,38 @@ package com.athul.hackathone.service;
 import com.athul.hackathone.execption.DataPersistenceException;
 import com.athul.hackathone.model.Transaction;
 import com.athul.hackathone.model.TransactionType;
+import com.athul.hackathone.repo.Repository.CategoryRepository;
+import com.athul.hackathone.repo.Repository.TransactionRepository;
+import com.athul.hackathone.repo.Repository.UserProfileRepository;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-class BudgetService {
+public class BudgetService {
 
     // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for wiring
-
+     TransactionRepository transactionRepository ;
+     CategoryRepository categoryRepository;
+     UserProfileRepository userProfileRepository;
+    public BudgetService(TransactionRepository transactionRepository,UserProfileRepository userProfileRepository,CategoryRepository categoryRepository){
+        this.transactionRepository= transactionRepository;
+        this.categoryRepository = categoryRepository;
+        this.userProfileRepository = userProfileRepository;
+    }
     public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
         // CHALLENGE 12: PARTITIONING DATA
         // TODO: Implement using .stream().collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME))
-        return new HashMap<>();
+             var trns = transactionRepository.findAll();
+
+        return trns.stream().collect(Collectors.partitioningBy( n -> n.type() == TransactionType.INCOME));
     }
 
     public DoubleSummaryStatistics getExpenseStatistics() {
         // CHALLENGE 13: STATISTICAL SUMMARY
         // TODO: Implement using .stream().filter(expenses).mapToDouble(t -> t.amount()).summaryStatistics()
+
         return new DoubleSummaryStatistics();
     }
 
@@ -54,18 +69,24 @@ class BudgetService {
     public void addTransaction(Transaction t) throws DataPersistenceException {
         if (t.type() == TransactionType.EXPENSE) {
             // TODO: CHALLENGE 3 - Implement budget ceiling check
+
         }
         // TODO: CHALLENGE 5 - Save via transRepo
     }
 
     public List<Transaction> getTransactionsSortedByAmount() {
         // TODO: CHALLENGE 7 - Implement sorting
-        return new ArrayList<>();
+        var transAm = transactionRepository.findAll();
+               return   transAm.stream()
+                         .sorted(Comparator.comparingDouble( Transaction :: amount))
+                         .toList();//return new ArrayList<>();
     }
 
     public List<Transaction> fetchAllSortedByDate() {
         // TODO: CHALLENGE 7 - Implement sorting
-        return new ArrayList<>();
+          var  transDate = transactionRepository.findAll();
+
+      return  transDate.stream().sorted().toList();
     }
 
     public String getGoalStatus() {

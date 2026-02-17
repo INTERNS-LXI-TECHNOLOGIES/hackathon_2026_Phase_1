@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //import com.athul.hackathone.model.Cartogory;
-class CategoryRepository implements BaseRepository<Category> {
+public class CategoryRepository implements BaseRepository<Category> {
     private final Path path = Paths.get("data_categories.csv");
 
     public CategoryRepository() {

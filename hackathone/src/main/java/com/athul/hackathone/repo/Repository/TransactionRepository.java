@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class TransactionRepository implements BaseRepository<Transaction> {
+ public class TransactionRepository implements BaseRepository<Transaction> {
     private final Path path = Paths.get("data_transactions.csv");
 
     public TransactionRepository() {
