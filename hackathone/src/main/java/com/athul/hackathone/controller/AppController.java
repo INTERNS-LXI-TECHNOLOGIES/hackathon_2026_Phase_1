@@ -52,6 +52,7 @@ public class AppController {
         if(sortByAmount == true ) {
             List<Transaction> list = service.getTransactionsSortedByAmount();
             list.forEach( System.out::println);
+           // System.out.println("Method working");
         } else {
           List<Transaction> list = service.fetchAllSortedByDate();
           list.forEach(System.out::println);

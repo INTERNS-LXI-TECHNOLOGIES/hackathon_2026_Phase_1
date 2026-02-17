@@ -12,8 +12,6 @@ import java.util.Scanner;
 
 public class BudgetApp {
 
-    static AppController appController;
-    public BudgetApp(AppController appController){this.appController = appController;}
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -26,7 +24,7 @@ public class BudgetApp {
         TransactionRepository transactionRepository = new TransactionRepository();
         UserProfileRepository userProfileRepository = new UserProfileRepository();
         BudgetService budgetService = new BudgetService(transactionRepository,userProfileRepository,categoryRepository);
-        AppController controller = new AppController(budgetService, categoryRepository); // CHALLENGE: Wire your controller here!
+       AppController controller = new AppController(budgetService, categoryRepository); // CHALLENGE: Wire your controller here!
 
        if (controller == null) {
             System.err.println("\n[!] FATAL: Application wiring incomplete.");
@@ -62,8 +60,11 @@ public class BudgetApp {
                     System.out.print("Name: "); String n = sc.nextLine();
                     System.out.print("Limit: "); String l = sc.nextLine();
                     // TODO: Wire controller
+                    controller.addCategory(n,l);
                 }
-                case "6" -> { /* TODO: Wire showDashboard() */ }
+                case "6" -> { /* TODO: Wire showDashboard() */
+                controller.showDashboard();
+                }
                 case "7" -> System.exit(0);
                 default -> System.out.println("Invalid option.");
             }

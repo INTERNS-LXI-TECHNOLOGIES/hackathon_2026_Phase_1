@@ -19,7 +19,10 @@ import java.util.stream.Collectors;
     private final Path path = Paths.get("data_transactions.csv");
 
     public TransactionRepository() {
-        try { if(!Files.exists(path)) Files.write(path, "id,date,desc,amt,cat,type\n".getBytes()); }
+        try {
+            if (!Files.exists(path)) Files.write(path, "id,date,desc,amt,cat,type\n".getBytes());
+            //  Files.write(path, )}
+        }
         catch(IOException e) {}
     }
 

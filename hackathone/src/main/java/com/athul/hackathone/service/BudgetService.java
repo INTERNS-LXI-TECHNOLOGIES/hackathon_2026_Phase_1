@@ -35,20 +35,25 @@ public class BudgetService {
     public DoubleSummaryStatistics getExpenseStatistics() {
         // CHALLENGE 13: STATISTICAL SUMMARY
         // TODO: Implement using .stream().filter(expenses).mapToDouble(t -> t.amount()).summaryStatistics()
-
-        return new DoubleSummaryStatistics();
+        var statics = transactionRepository.findAll();
+        return statics.stream().mapToDouble( n -> n.amount()).summaryStatistics() ;
     }
 
     public boolean hasHighValueTransaction(String category, double threshold) {
         // CHALLENGE 14: EXISTENCE & THRESHOLDS
         // TODO: Implement using .stream().anyMatch(...)
-        return false;
+          var highValTrans = transactionRepository.findAll();
+
+        return highValTrans.stream().filter( n -> n.categoryName().equals(category))
+                .anyMatch( n -> n.amount() > threshold);
     }
 
     public Optional<Transaction> getHighestExpense() {
         // CHALLENGE 15: TOP EXPENSE FINDER
         // TODO: Implement using .stream().filter(expenses).max(Comparator.comparingDouble(...))
-        return Optional.empty();
+       var expenser = transactionRepository.findAll();
+
+        return expenser.stream().max(Comparator.comparingDouble( n -> n.amount()));
     }
 
     public String getCategoryReport() {
@@ -70,13 +75,17 @@ public class BudgetService {
         if (t.type() == TransactionType.EXPENSE) {
             // TODO: CHALLENGE 3 - Implement budget ceiling check
 
+
+
         }
         // TODO: CHALLENGE 5 - Save via transRepo
+        transactionRepository.save(t);
     }
 
     public List<Transaction> getTransactionsSortedByAmount() {
         // TODO: CHALLENGE 7 - Implement sorting
         var transAm = transactionRepository.findAll();
+       // System.out.println("Method working");
                return   transAm.stream()
                          .sorted(Comparator.comparingDouble( Transaction :: amount))
                          .toList();//return new ArrayList<>();
@@ -96,7 +105,9 @@ public class BudgetService {
 
     public Map<String, Double> getSpendingByCategory() {
         // TODO: CHALLENGE 4 - Implement groupingBy
-        return new HashMap<>();
+        var spendByCat = transactionRepository.findAll();
+        return spendByCat.stream().collect(Collectors.groupingBy( n -> n.categoryName()
+        ,Collectors.summingDouble(n -> n.amount())));
     }
 }
 
