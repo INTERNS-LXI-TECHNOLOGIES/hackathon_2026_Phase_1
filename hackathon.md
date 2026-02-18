@@ -7,7 +7,7 @@ This project is a starter template for a Java 21-based budget tracking applicati
 ## 1. Project Source Code (`BudgetApp.java`)
 
 ```java
-package com.replace_me.hackathon; // CHALLENGE 6: Change this to com.{yourname}.hackathon
+package com.akshay.hackathon; // CHALLENGE 6: Change this to com.{yourname}.hackathon
 
 import java.io.*;
 import java.nio.file.*;
