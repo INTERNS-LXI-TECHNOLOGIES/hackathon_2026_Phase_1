@@ -7,6 +7,7 @@ import com.athul.hackathone.service.BudgetService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class AppController {
@@ -16,7 +17,7 @@ public class AppController {
    CategoryRepository catRepo;
    public  AppController(BudgetService service, CategoryRepository catRepo){
        this.service=service;
-      this.catRepo = catRepo;
+       this.catRepo = catRepo;
    }
 
     public void handleAddTransaction(String desc, String amtStr, String cat, String typeStr) {
@@ -38,7 +39,7 @@ public class AppController {
        Double limt = Double.valueOf(limitStr);
         Category category = new Category(name ,limt);
         try {
-            // TODO: CHALLENGE 5 (Part C) - Wire call to catRepo.save()
+            //TODO: CHALLENGE 5 (Part C) - Wire call to catRepo.save()
               catRepo.save(category);
             System.out.println("Category added.");
         } catch (Exception e) {
@@ -70,6 +71,8 @@ public class AppController {
     public void showDashboard() {
         System.out.println("\n--- BUDGET DASHBOARD ---");
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
+        Map<Boolean ,List<Transaction>> partitioning =  service.getPartitionedTransactions();
+
         System.out.println("-------------------------");
     }
 }

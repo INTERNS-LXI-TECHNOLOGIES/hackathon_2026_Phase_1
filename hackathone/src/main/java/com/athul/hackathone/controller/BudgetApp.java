@@ -1,8 +1,5 @@
-package com.athul.hackathone.main;
+package com.athul.hackathone.controller;
 
-import com.athul.hackathone.controller.AppController;
-import com.athul.hackathone.model.Transaction;
-import com.athul.hackathone.repo.BaseRepository;
 import com.athul.hackathone.repo.Repository.CategoryRepository;
 import com.athul.hackathone.repo.Repository.TransactionRepository;
 import com.athul.hackathone.repo.Repository.UserProfileRepository;

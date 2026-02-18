@@ -7,7 +7,6 @@ import com.athul.hackathone.model.TransactionType;
 import com.athul.hackathone.repo.Repository.CategoryRepository;
 import com.athul.hackathone.repo.Repository.TransactionRepository;
 import com.athul.hackathone.repo.Repository.UserProfileRepository;
-
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
@@ -59,7 +58,10 @@ public class BudgetService {
     public String getCategoryReport() {
         // CHALLENGE 16: DATA JOINING
         // TODO: Implement using .stream().map(...).distinct().sorted().collect(Collectors.joining(", "))
-        return "";
+
+         var report = categoryRepository.findAll();
+         var name = report.stream().map(  n -> n.name());
+        return report.stream().map( n -> n.name() ).distinct().sorted().collect(Collectors.joining(", "));
     }
 
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
