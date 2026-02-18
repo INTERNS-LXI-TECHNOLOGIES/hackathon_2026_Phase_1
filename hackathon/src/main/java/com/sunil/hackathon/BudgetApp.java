@@ -2,6 +2,8 @@ package com.sunil.hackathon;
 import java.util.Scanner;
 
 import com.sunil.hackathon.controller.AppController;
+import com.sunil.hackathon.repository.TransactionRepository;
+import com.sunil.hackathon.service.BudgetService;
 public class BudgetApp {
     private static final Scanner sc = new Scanner(System.in);
 
@@ -13,8 +15,11 @@ public class BudgetApp {
         // TODO: Wire layers together (Repos -> Service -> Controller)
        
 
+        TransactionRepository transactionRepository = new TransactionRepository();
 
-        AppController controller = new AppController(); // CHALLENGE: Wire your controller here!
+        BudgetService budgetService = new BudgetService(transactionRepository);
+
+        AppController controller = new AppController(budgetService); // CHALLENGE: Wire your controller here!
          
         if (controller == null){
 
@@ -31,6 +36,7 @@ public class BudgetApp {
             switch (choice) {
                 
                 case "1" -> {
+
                     System.out.print("Desc: "); String d = sc.nextLine();
                     System.out.print("Amt: "); String a = sc.nextLine();
                     System.out.print("Cat: "); String c = sc.nextLine();
@@ -38,8 +44,14 @@ public class BudgetApp {
 
 
                      controller.handleAddTransaction(d,a,c,t);
+
                     // TODO: Wire controller
                 }
+
+
+
+
+
 
 
 

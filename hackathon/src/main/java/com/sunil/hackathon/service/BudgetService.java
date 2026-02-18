@@ -9,9 +9,23 @@ import java.util.function.*;
 import com.sunil.hackathon.exception.DataPersistenceException;
 import com.sunil.hackathon.model.Transaction;
 import com.sunil.hackathon.model.TransactionType;
+import com.sunil.hackathon.repository.TransactionRepository;
 
-class BudgetService {
+public class BudgetService {
+
+    private TransactionRepository transactionRepository;
+
+
+
+    public BudgetService(TransactionRepository transactionRepository){
+
+    this.transactionRepository = transactionRepository;
+
+    }
    
+
+
+
     // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for wiring
 
     public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
@@ -54,12 +68,30 @@ class BudgetService {
         return new HashSet<>();
     }
 
+
+
+    // now doing work
+
     public void addTransaction(Transaction t) throws DataPersistenceException {
+
         if (t.type() == TransactionType.EXPENSE) {
+
             // TODO: CHALLENGE 3 - Implement budget ceiling check
+            
         }
+
+        transactionRepository.save(t);
+
         // TODO: CHALLENGE 5 - Save via transRepo
     }
+
+                       
+
+
+
+
+
+
 
     public List<Transaction> getTransactionsSortedByAmount() {
         // TODO: CHALLENGE 7 - Implement sorting

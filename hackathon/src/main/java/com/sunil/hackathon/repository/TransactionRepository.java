@@ -32,9 +32,14 @@ public  class TransactionRepository implements BaseRepository<Transaction> {
         } catch (IOException e) { return new ArrayList<>(); }
     }
 
+
+
+    
     @Override
     public void save(Transaction t) throws DataPersistenceException {
         try { Files.write(path, (t.toCsv() + "\n").getBytes(), StandardOpenOption.APPEND); }
         catch (IOException e) { throw new DataPersistenceException("IO Failure", e); }
     }
+
+
 }

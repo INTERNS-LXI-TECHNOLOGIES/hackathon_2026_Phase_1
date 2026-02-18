@@ -1,17 +1,47 @@
 package com.sunil.hackathon.controller;
+import com.sunil.hackathon.service.BudgetService;
+import com.sunil.hackathon.model.TransactionType;
+import com.sunil.hackathon.model.Transaction;
+
+import java.time.LocalDate;
+
+
+import java.util.UUID;
 
 public class AppController {
    
        
 
+    private BudgetService budgetService;
+
+ 
+    public  AppController(BudgetService bService){
+  
+    this.budgetService = bService;
+
+
+   }
+
+
     // TODO: CHALLENGE 5 (Part A/B) - Define and wire Service & Category Repo
 
     public void handleAddTransaction(String desc, String amtStr, String cat, String typeStr) {
         try {
-            
+
             // TODO: Parse inputs and call service.addTransaction
-                   
-             
+
+              Double amount = Double.parseDouble(amtStr);
+              TransactionType type = TransactionType.valueOf(typeStr);
+
+           UUID id = UUID.randomUUID();
+           String value = String.valueOf(id);
+
+            LocalDate  nowTime = LocalDate.now(); 
+
+             Transaction t = new Transaction(value,nowTime,desc,amount,cat,type);
+            
+             budgetService.addTransaction(t);
+
 
             System.out.println("Transaction recorded.");
         } catch (Exception e) {
