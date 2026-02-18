@@ -50,6 +50,7 @@ enum TransactionType { INCOME, EXPENSE }
  * CHALLENGE 7: Implement Comparable for natural sorting by Date (newest first).
  */
 record Transaction(
+    
     String id,
     LocalDate date,
     String description,
