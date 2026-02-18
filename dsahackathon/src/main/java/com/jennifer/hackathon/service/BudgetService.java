@@ -1,4 +1,5 @@
 package com.jennifer.hackathon.service;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
@@ -12,22 +13,30 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.jennifer.hackathon.model.Transaction;
+import com.jennifer.hackathon.repositry.TransactionRepository;
 import com.jennifer.hackathon.enumType.TransactionType;
 import com.jennifer.hackathon.exceptions.DataPersistenceException;
 
-class BudgetService {
-   
-    // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for wiring
+public class BudgetService {
+    private final TransactionRepository transactionrepo;
+
+    public BudgetService(TransactionRepository transactionrepo) {
+        this.transactionrepo = transactionrepo;
+    }
+    // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for
+    // wiring
 
     public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
         // CHALLENGE 12: PARTITIONING DATA
-        // TODO: Implement using .stream().collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME))
+        // TODO: Implement using .stream().collect(Collectors.partitioningBy(t ->
+        // t.type() == TransactionType.INCOME))
         return new HashMap<>();
     }
 
     public DoubleSummaryStatistics getExpenseStatistics() {
         // CHALLENGE 13: STATISTICAL SUMMARY
-        // TODO: Implement using .stream().filter(expenses).mapToDouble(t -> t.amount()).summaryStatistics()
+        // TODO: Implement using .stream().filter(expenses).mapToDouble(t ->
+        // t.amount()).summaryStatistics()
         return new DoubleSummaryStatistics();
     }
 
@@ -39,13 +48,15 @@ class BudgetService {
 
     public Optional<Transaction> getHighestExpense() {
         // CHALLENGE 15: TOP EXPENSE FINDER
-        // TODO: Implement using .stream().filter(expenses).max(Comparator.comparingDouble(...))
+        // TODO: Implement using
+        // .stream().filter(expenses).max(Comparator.comparingDouble(...))
         return Optional.empty();
     }
 
     public String getCategoryReport() {
         // CHALLENGE 16: DATA JOINING
-        // TODO: Implement using .stream().map(...).distinct().sorted().collect(Collectors.joining(", "))
+        // TODO: Implement using
+        // .stream().map(...).distinct().sorted().collect(Collectors.joining(", "))
         return "";
     }
 
@@ -61,8 +72,11 @@ class BudgetService {
 
     public void addTransaction(Transaction t) throws DataPersistenceException {
         if (t.type() == TransactionType.EXPENSE) {
+
+
             // TODO: CHALLENGE 3 - Implement budget ceiling check
         }
+        transactionrepo.save(t);
         // TODO: CHALLENGE 5 - Save via transRepo
     }
 

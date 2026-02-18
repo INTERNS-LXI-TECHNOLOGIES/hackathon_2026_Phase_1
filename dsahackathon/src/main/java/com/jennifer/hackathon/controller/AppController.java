@@ -1,11 +1,29 @@
 package com.jennifer.hackathon.controller;
 
+import java.time.LocalDate;
+import java.util.UUID;
+import com.jennifer.hackathon.service.*;
+import com.jennifer.hackathon.enumType.TransactionType;
+import com.jennifer.hackathon.model.Transaction;
+import com.jennifer.hackathon.repositry.TransactionRepository;
+
 public class AppController {
-   
+    private TransactionRepository transactionrepo = new TransactionRepository();
+    private BudgetService budgetService = new BudgetService(transactionrepo);
     // TODO: CHALLENGE 5 (Part A/B) - Define and wire Service & Category Repo
 
     public void handleAddTransaction(String desc, String amtStr, String cat, String typeStr) {
         try {
+
+            double amount = Double.parseDouble(amtStr);
+            TransactionType transactionType = TransactionType.valueOf(typeStr);
+            UUID uuid = UUID.randomUUID();
+            String id = String.valueOf(uuid);
+            LocalDate date = LocalDate.now();
+
+            Transaction t = new Transaction(id, date, desc, amount, cat, transactionType);
+
+            budgetService.addTransaction(t);
             // TODO: Parse inputs and call service.addTransaction
             System.out.println("Transaction recorded.");
         } catch (Exception e) {

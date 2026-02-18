@@ -9,6 +9,8 @@ public record Transaction(
     String categoryName,
     TransactionType type
 )
+
+
 {public String toCsv() {
         return String.join(",", id, date.toString(), description, String.valueOf(amount), categoryName, type.name());
     }
