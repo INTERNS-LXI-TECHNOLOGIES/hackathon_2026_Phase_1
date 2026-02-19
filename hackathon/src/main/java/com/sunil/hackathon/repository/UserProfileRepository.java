@@ -7,6 +7,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 class UserProfileRepository {
+
+
     private final Path path = Paths.get("data_user.csv");
     public UserProfile load() {
         try (var lines = Files.lines(path)) {
@@ -15,7 +17,12 @@ class UserProfileRepository {
             return new UserProfile(p[0], Double.parseDouble(p[1]));
         } catch (IOException e) { return new UserProfile("Candidate", 500.0); }
     }
+
+
     public void save(UserProfile u) {
         try { Files.write(path, u.toCsv().getBytes()); } catch (IOException a) {}
     }
+
+
+
 }

@@ -4,8 +4,8 @@ import com.sunil.hackathon.model.TransactionType;
 import com.sunil.hackathon.model.Transaction;
 
 import java.time.LocalDate;
-
-
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
 
 public class AppController {
@@ -51,7 +51,7 @@ public class AppController {
 
 
 
-
+    
     
     public void addCategory(String name, String limitStr) {
         try {
@@ -62,8 +62,31 @@ public class AppController {
         }
     }
 
+
+
+
+
+    //now working
+
+   public  List<Transaction>  listOfTransactionsByDate(String date){
+
+   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+   LocalDate mydate = LocalDate.parse(date, formatter);
+
+
+    return  budgetService.fetchAllSortedByDate(mydate);
+
+    }
+
+
+  
+
+
     public void listTransactions(boolean sortByAmount) {
+
         // TODO: CHALLENGE 7 - Wire service calls for sorting
+
+
     }
 
     public void showAdvancedStats() {

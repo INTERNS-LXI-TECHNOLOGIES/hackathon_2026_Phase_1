@@ -15,30 +15,57 @@ import com.sunil.hackathon.model.TransactionType;
 
 
 public  class TransactionRepository implements BaseRepository<Transaction> {
+
     private final Path path = Paths.get("data_transactions.csv");
 
     public TransactionRepository() {
         try { if(!Files.exists(path)) Files.write(path, "id,date,desc,amt,cat,type\n".getBytes()); }
         catch(IOException e) {}
+
+
+
     }
 
-    @Override
-    public List<Transaction> findAll() {
-        try (var lines = Files.lines(path)) {
+
+
+
+    public List<Transaction> findAll(LocalDate date){
+
+      
+
+        try (var lines = Files.lines(path)){
+
             return lines.skip(1)
                 .map(l -> l.split(","))
                 .map(p -> new Transaction(p[0], LocalDate.parse(p[1]), p[2], Double.parseDouble(p[3]), p[4], TransactionType.valueOf(p[5])))
+                .filter(t -> t.date().equals(date))
                 .collect(Collectors.toList());
-        } catch (IOException e) { return new ArrayList<>(); }
-    }
+                 
+
+        } catch (IOException e) { return new ArrayList<>();}
+
+
+
+    }   
 
 
 
     
     @Override
     public void save(Transaction t) throws DataPersistenceException {
+
         try { Files.write(path, (t.toCsv() + "\n").getBytes(), StandardOpenOption.APPEND); }
         catch (IOException e) { throw new DataPersistenceException("IO Failure", e); }
+
+
+    }
+
+
+
+    @Override
+    public List<Transaction> findAll() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
 

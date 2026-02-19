@@ -70,15 +70,48 @@ public class BudgetService {
 
 
 
-    // now doing work
+
 
     public void addTransaction(Transaction t) throws DataPersistenceException {
 
+        double myBudget = 5000;
+
+        List<Double> listOfTransactions = new ArrayList<>();
+
         if (t.type() == TransactionType.EXPENSE) {
 
+            
+           double transactionsAmounts = t.amount();
+
+           double reducedBudget = myBudget - transactionsAmounts;
+       
+            listOfTransactions.add(reducedBudget);
+
+           System.out.println("Total Cash in Your Account : " + myBudget );
+
+            System.out.println("Now Your Balance - " + listOfTransactions );
+
+      
             // TODO: CHALLENGE 3 - Implement budget ceiling check
             
-        }
+        }else{
+
+       double pluseAmount = t.amount();
+       
+     double  mySavings = myBudget + pluseAmount;
+
+     listOfTransactions.add(mySavings);
+
+     System.out.println("Total Cash in Your Account : " + myBudget );
+
+     System.out.println("Now Your Balance + " + listOfTransactions );
+
+    }if(t.amount() > myBudget){
+
+       throw new DataPersistenceException("Insufficient Money", null);
+    }
+
+
 
         transactionRepository.save(t);
 
@@ -86,22 +119,36 @@ public class BudgetService {
     }
 
                        
-
-
-
-
-
-
-
     public List<Transaction> getTransactionsSortedByAmount() {
         // TODO: CHALLENGE 7 - Implement sorting
         return new ArrayList<>();
     }
 
-    public List<Transaction> fetchAllSortedByDate() {
+
+
+
+
+
+
+
+
+
+    //now working 
+    public List<Transaction> fetchAllSortedByDate(LocalDate date){
+
         // TODO: CHALLENGE 7 - Implement sorting
-        return new ArrayList<>();
+       List<Transaction>  lista =  transactionRepository.findAll(date);
+        
+        return lista;
+
+
     }
+
+
+
+
+
+
 
     public String getGoalStatus() {
         // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal

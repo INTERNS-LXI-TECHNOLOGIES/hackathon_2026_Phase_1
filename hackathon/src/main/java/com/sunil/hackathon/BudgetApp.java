@@ -1,7 +1,9 @@
 package com.sunil.hackathon;
+import java.util.List;
 import java.util.Scanner;
 
 import com.sunil.hackathon.controller.AppController;
+import com.sunil.hackathon.model.Transaction;
 import com.sunil.hackathon.repository.TransactionRepository;
 import com.sunil.hackathon.service.BudgetService;
 public class BudgetApp {
@@ -46,24 +48,36 @@ public class BudgetApp {
                      controller.handleAddTransaction(d,a,c,t);
 
                     // TODO: Wire controller
+
+                    
                 }
 
 
+                //now working 
+
+                case "2" -> {
+
+                System.out.print("Enter Date : "); String date = sc.nextLine();
+                    
+                  List<Transaction> transactions = controller.listOfTransactionsByDate(date);
+
+                  System.out.println(transactions);
+                    /* TODO: List by date */ }
 
 
-
-
-
-
-
-                case "2" -> { /* TODO: List by date */ }
                 case "3" -> { /* TODO: List by amount */ }
                 case "4" -> {
                     // TODO: Wire showAdvancedStats()
                 }
+
                 case "5" -> {
+
+     
                     System.out.print("Name: "); String n = sc.nextLine();
                     System.out.print("Limit: "); String l = sc.nextLine();
+
+                             
+
                     // TODO: Wire controller
                 }
                 case "6" -> { /* TODO: Wire showDashboard() */ }
