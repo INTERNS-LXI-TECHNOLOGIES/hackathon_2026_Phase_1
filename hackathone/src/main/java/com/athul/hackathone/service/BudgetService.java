@@ -4,6 +4,7 @@ package com.athul.hackathone.service;
 import com.athul.hackathone.execption.DataPersistenceException;
 import com.athul.hackathone.model.Transaction;
 import com.athul.hackathone.model.TransactionType;
+import com.athul.hackathone.repo.BaseRepository;
 import com.athul.hackathone.repo.Repository.CategoryRepository;
 import com.athul.hackathone.repo.Repository.TransactionRepository;
 import com.athul.hackathone.repo.Repository.UserProfileRepository;
@@ -66,7 +67,9 @@ public class BudgetService {
 
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
         // TODO: CHALLENGE 9 - Implementation needed
-        return new ArrayList<>();
+          var list = transactionRepository.findAll();
+        return list.stream().filter(filter)
+                .toList();
     }
 
     public Set<String> getUniqueDescriptions() {
@@ -74,11 +77,17 @@ public class BudgetService {
         return new HashSet<>();
     }
     public void addTransaction(Transaction t) throws DataPersistenceException {
-        if (t.type() == TransactionType.EXPENSE) {
-            // TODO: CHALLENGE 3 - Implement budget ceiling check
+        if(t.type() == TransactionType.EXPENSE) {
+            //TODO: CHALLENGE 3 - Implement budget ceiling check
+            double limit = 1000;
+            double totalExpense = transactionRepository.findAll().stream()
+                    .filter(tx -> tx.type() == TransactionType.EXPENSE)
+                    .mapToDouble(Transaction::amount)
+                    .sum();
+             if(totalExpense + t.amount() >limit){
 
-
-
+                 throw  new DataPersistenceException("Amount Grater than limit  ");
+             }
         }
         // TODO: CHALLENGE 5 - Save via transRepo
         transactionRepository.save(t);

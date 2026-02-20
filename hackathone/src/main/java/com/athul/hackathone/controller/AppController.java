@@ -64,6 +64,15 @@ public class AppController {
     public void showAdvancedStats() {
         System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
         // TODO: CHALLENGE 13 & 15 & 16 - Call service methods and display results
+      var  statistics =  service.getExpenseStatistics();
+       System.out.println("Max "+statistics.getMax());
+       System.out.println("Min "+ statistics.getMin());
+       System.out.println("Avg "+ statistics.getAverage());
+       System.out.print("Count "+statistics.getCount());
+       System.out.println("Sum "+ statistics.getSum());
+           System.out.println(service.getHighestExpense());
+
+       System.out.println( service.getCategoryReport());
 
         System.out.println("------------------------------------");
     }
@@ -71,7 +80,10 @@ public class AppController {
     public void showDashboard() {
         System.out.println("\n--- BUDGET DASHBOARD ---");
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
+        System.out.println(service.getSpendingByCategory());
         Map<Boolean ,List<Transaction>> partitioning =  service.getPartitionedTransactions();
+      partitioning.forEach((l ,c ) ->
+              System.out.println(l + " : "+ c));
 
         System.out.println("-------------------------");
     }

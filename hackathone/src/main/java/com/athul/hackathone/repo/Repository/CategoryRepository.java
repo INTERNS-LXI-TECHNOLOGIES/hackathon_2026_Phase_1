@@ -28,6 +28,6 @@ public class CategoryRepository implements BaseRepository<Category> {
     @Override
     public void save(Category c) throws DataPersistenceException {
         try { Files.write(path, (c.toCsv() + "\n").getBytes(), StandardOpenOption.APPEND); }
-        catch (IOException e) { throw new DataPersistenceException("IO Failure", e); }
+        catch (IOException e) { throw new DataPersistenceException("IO Failure"); }
     }
 }
