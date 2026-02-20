@@ -3,12 +3,20 @@ package com.akshay.hackthon.service;
 import java.util.function.Predicate;
 import java.util.*;
 import com.akshay.hackthon.model.TransactionType;
-
+import com.akshay.hackthon.repo.TransactionRepository;
 import com.akshay.hackthon.model.Transaction;
 
 import com.akshay.hackthon.exception.*;
 
 public class BudgetService {
+
+
+    private TransactionRepository transactionRepository;
+
+    public BudgetService (TransactionRepository transactionRepository){
+
+        this.transactionRepository=transactionRepository;
+    }
    
     // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for wiring
 
@@ -53,11 +61,19 @@ public class BudgetService {
     }
 
     public void addTransaction(Transaction t) throws DataPersistenceException {
+
+    
+
+      transactionRepository.save(t);
+
+
     if (t.type() == TransactionType.EXPENSE) {
 
             // TODO: CHALLENGE 3 - Implement budget ceiling check
         }
         // TODO: CHALLENGE 5 - Save via transRepo
+
+        
     }
 
     public List<TransactionType> getTransactionsSortedByAmount() {

@@ -1,12 +1,51 @@
  package com.akshay.hackthon.controller;
 import java.util.*;
+import com.akshay.hackthon.service.BudgetService;
+import com.akshay.hackthon.model.*;
+import java.time.LocalDate;
+import java.time.*;
+import java.util.UUID;
+
 
  public  class AppController {
    
     // TODO: CHALLENGE 5 (Part A/B) - Define and wire Service & Category Repo
 
+       BudgetService budgetService;
+        
+       public AppController (BudgetService budgetService){
+
+        this.budgetService=budgetService;
+
+          
+
+       }
+         
+
+
+       
+       
+
     public void handleAddTransaction(String desc, String amtStr, String cat, String typeStr) {
+
+        LocalDate date = LocalDate.now();
+       
+        String id = String.valueOf(UUID.randomUUID());
+         
+       double amt = Double.parseDouble(amtStr);
+    TransactionType type = TransactionType.valueOf(typeStr.toUpperCase());
+
         try {
+
+            
+
+            
+            Transaction transaction = new Transaction(id,date,desc,amt,cat,type);
+
+            
+
+            budgetService.addTransaction(transaction);
+            
             // TODO: Parse inputs and call service.addTransaction
             System.out.println("Transaction recorded.");
         } catch (Exception e) {

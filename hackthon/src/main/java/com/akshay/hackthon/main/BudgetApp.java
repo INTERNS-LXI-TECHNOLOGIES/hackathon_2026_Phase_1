@@ -1,6 +1,8 @@
 package com.akshay.hackthon.main;
 import java.util.Scanner;
 import com.akshay.hackthon.controller.AppController;
+import com.akshay.hackthon.repo.TransactionRepository;
+import com.akshay.hackthon.service.BudgetService;
 
 
 
@@ -12,13 +14,19 @@ public class BudgetApp {
 
         // CHALLENGE 5: ARCHITECTURAL WIRING
         // TODO: Wire layers together (Repos -> Service -> Controller)
-       
-        AppController controller = null; // CHALLENGE: Wire your controller here!
+        
+           TransactionRepository transactionRepository = new TransactionRepository();
 
-        if (controller == null) {
-            System.err.println("\n[!] FATAL: Application wiring incomplete.");
-            System.exit(1);
-        }
+           BudgetService budgetService = new BudgetService(transactionRepository);
+
+        AppController controller = new AppController(budgetService);
+
+        
+        
+
+
+        
+             // CHALLENGE: Wire your controller here!
 
         while (true) {
             System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7] Exit");
@@ -32,12 +40,17 @@ public class BudgetApp {
                     System.out.print("Cat: "); String c = sc.nextLine();
                     System.out.print("Type: "); String t = sc.nextLine();
                     // TODO: Wire controller
+
+                    controller.handleAddTransaction(d, a, c, t);
                 }
-                case "2" -> { /* TODO: List by date */ }
-                case "3" -> { /* TODO: List by amount */ }
+                case "2" -> { /* TODO: List by date */  controller.listTransactions(false); }
+                case "3" -> { /* TODO: List by amount */ controller.listTransactions(true); }
                 case "4" -> {
                     // TODO: Wire showAdvancedStats()
-                }
+
+                    controller.showAdvancedStats();
+                    }
+
                 case "5" -> {
                     System.out.print("Name: "); String n = sc.nextLine();
                     System.out.print("Limit: "); String l = sc.nextLine();

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 ) {
     // TODO: CHALLENGE 7 - Add Comparable implementation here
    
+
     public String toCsv() {
         return String.join(",", id, date.toString(), description, String.valueOf(amount), categoryName, type.name());
     }
