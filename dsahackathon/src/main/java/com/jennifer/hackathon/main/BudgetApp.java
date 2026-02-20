@@ -2,18 +2,25 @@ package com.jennifer.hackathon.main;
 
 import java.util.Scanner;
 import com.jennifer.hackathon.controller.AppController;
+import com.jennifer.hackathon.repositry.CategoryRepository;
+import com.jennifer.hackathon.repositry.TransactionRepository;
 import com.jennifer.hackathon.service.*;
 
 public class BudgetApp {
     private static final Scanner sc = new Scanner(System.in);
-   
+    private static TransactionRepository transactionrepo = new TransactionRepository();
+    private static CategoryRepository categoryrepo = new CategoryRepository();
+    private static BudgetService budgetService = new BudgetService(transactionrepo, categoryrepo);
+
     public static void main(String[] args) {
         System.out.println("=== JAVA 21 INTERN HACKATHON: PERSONAL BUDGET TRACKER ===");
 
         // CHALLENGE 5: ARCHITECTURAL WIRING
         // TODO: Wire layers together (Repos -> Service -> Controller)
 
-        AppController controller = new AppController(); // CHALLENGE: Wire your controller here!
+        AppController controller = new AppController(transactionrepo, categoryrepo, budgetService); // CHALLENGE: Wire
+                                                                                                    // your controller
+                                                                                                    // here!
 
         if (controller == null) {
             System.err.println("\n[!] FATAL: Application wiring incomplete.");
@@ -36,11 +43,15 @@ public class BudgetApp {
                     String c = sc.nextLine();
                     System.out.print("Type: ");
                     String t = sc.nextLine();
-controller.handleAddTransaction(d, a, c, t);
+                    controller.handleAddTransaction(d, a, c, t);
 
                     // TODO: Wire controller
                 }
                 case "2" -> {
+                    System.out.println("Enter date to See list of trancations: ");
+                    String date = sc.nextLine();
+                    controller.listTransactionsByDate(true);
+
                     /* TODO: List by date */ }
                 case "3" -> {
                     /* TODO: List by amount */ }
@@ -52,6 +63,7 @@ controller.handleAddTransaction(d, a, c, t);
                     String n = sc.nextLine();
                     System.out.print("Limit: ");
                     String l = sc.nextLine();
+                    controller.addCategory(n, l);
                     // TODO: Wire controller
                 }
                 case "6" -> {

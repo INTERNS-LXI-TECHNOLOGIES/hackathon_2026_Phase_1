@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import com.jennifer.hackathon.model.Category;
 import com.jennifer.hackathon.exceptions.DataPersistenceException;
-class CategoryRepository implements BaseRepository<Category> {
+public class CategoryRepository implements BaseRepository<Category> {
     private final Path path = Paths.get("data_categories.csv");
 
     public CategoryRepository() {

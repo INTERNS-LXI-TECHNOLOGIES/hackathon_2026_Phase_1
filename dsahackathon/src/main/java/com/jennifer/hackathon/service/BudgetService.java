@@ -11,17 +11,23 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
+import com.jennifer.hackathon.model.Category;
 import com.jennifer.hackathon.model.Transaction;
+import com.jennifer.hackathon.repositry.CategoryRepository;
 import com.jennifer.hackathon.repositry.TransactionRepository;
 import com.jennifer.hackathon.enumType.TransactionType;
 import com.jennifer.hackathon.exceptions.DataPersistenceException;
+import com.jennifer.hackathon.exceptions.BudgetException;
 
 public class BudgetService {
-    private final TransactionRepository transactionrepo;
 
-    public BudgetService(TransactionRepository transactionrepo) {
+    private final TransactionRepository transactionrepo;
+    private final CategoryRepository categoryrepo;
+    List<Transaction> transactions = new ArrayList<>();
+
+    public BudgetService(TransactionRepository transactionrepo, CategoryRepository categoryrepo) {
         this.transactionrepo = transactionrepo;
+        this.categoryrepo = categoryrepo;
     }
     // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for
     // wiring
@@ -71,13 +77,34 @@ public class BudgetService {
     }
 
     public void addTransaction(Transaction t) throws DataPersistenceException {
+
+        double newAmount = t.amount();
+        List<Category> category = categoryrepo.findAll();
         if (t.type() == TransactionType.EXPENSE) {
+            Category c = category.stream()
+                    .filter(n -> n.name().equals(t.categoryName()))
+                    .findFirst()
+                    .orElseThrow(() -> new BudgetException("category not found"));
+                    double budgetLimit = c.budgetLimit();
+            List<Transaction> transaction = transactionrepo.findAll();
 
+            double existingAmount = transaction.stream()
+                    .filter(k -> k.type() == TransactionType.EXPENSE)
+                    .filter(n -> n.categoryName().equals(t.categoryName()))
+                    .mapToDouble(Transaction::amount)
+                    .sum();
 
+            double userAmount = existingAmount + newAmount;
+            if (userAmount > budgetLimit) {
+                throw new BudgetException("Budget limit exceeded: "+t.categoryName());
+            }
+
+            
             // TODO: CHALLENGE 3 - Implement budget ceiling check
         }
         transactionrepo.save(t);
         // TODO: CHALLENGE 5 - Save via transRepo
+
     }
 
     public List<Transaction> getTransactionsSortedByAmount() {
@@ -85,9 +112,13 @@ public class BudgetService {
         return new ArrayList<>();
     }
 
-    public List<Transaction> fetchAllSortedByDate() {
+    public List<Transaction> fetchAllSortedByDate(boolean date) {
+        List<Transaction> t=transactionrepo.findAll();
+        List<Transaction> s=t.stream()
+    
+        .toList();
         // TODO: CHALLENGE 7 - Implement sorting
-        return new ArrayList<>();
+        return s;
     }
 
     public String getGoalStatus() {

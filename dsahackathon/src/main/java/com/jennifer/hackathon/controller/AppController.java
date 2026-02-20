@@ -1,16 +1,28 @@
 package com.jennifer.hackathon.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
+import com.jennifer.hackathon.model.Category;
+import java.util.List.*;
 import com.jennifer.hackathon.service.*;
 import com.jennifer.hackathon.enumType.TransactionType;
 import com.jennifer.hackathon.model.Transaction;
 import com.jennifer.hackathon.repositry.TransactionRepository;
+import com.jennifer.hackathon.repositry.CategoryRepository;
 
 public class AppController {
-    private TransactionRepository transactionrepo = new TransactionRepository();
-    private BudgetService budgetService = new BudgetService(transactionrepo);
+    private final TransactionRepository transactionrepo;
+    private final CategoryRepository categoryrepo;
+    private final BudgetService budgetService;
+
     // TODO: CHALLENGE 5 (Part A/B) - Define and wire Service & Category Repo
+    public AppController(TransactionRepository transactionrepo, CategoryRepository categoryrepo,
+            BudgetService budgetService) {
+        this.transactionrepo = transactionrepo;
+        this.categoryrepo = categoryrepo;
+        this.budgetService = budgetService;
+    }
 
     public void handleAddTransaction(String desc, String amtStr, String cat, String typeStr) {
         try {
@@ -33,15 +45,33 @@ public class AppController {
 
     public void addCategory(String name, String limitStr) {
         try {
+
+            double budgetLimit = Double.parseDouble(limitStr);
+
+            Category category = new Category(name, budgetLimit);
             // TODO: CHALLENGE 5 (Part C) - Wire call to catRepo.save()
+            categoryrepo.save(category);
             System.out.println("Category added.");
         } catch (Exception e) {
             System.err.println("Category Error: " + e.getMessage());
         }
     }
 
-    public void listTransactions(boolean sortByAmount) {
+    public void listTransactionsByAmount(boolean sortByAmount) {
+
+        budgetService.getTransactionsSortedByAmount();
+
         // TODO: CHALLENGE 7 - Wire service calls for sorting
+    }
+
+    public void listTransactionsByDate(boolean sortByDate) {
+
+        List<Transaction> transcations = budgetService.fetchAllSortedByDate(sortByDate);
+        if (transcations.isEmpty()) {
+            System.out.println("transcations is not found");
+        }
+        transcations.stream()
+                .forEach(System.out::println);
     }
 
     public void showAdvancedStats() {
