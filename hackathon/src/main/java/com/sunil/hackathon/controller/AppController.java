@@ -66,28 +66,41 @@ public class AppController {
 
 
 
-    //now working
+ 
 
-   public  List<Transaction>  listOfTransactionsByDate(String date){
+   public  List<Transaction> listOfTransactionsByDate(String date){
 
    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
    LocalDate mydate = LocalDate.parse(date, formatter);
 
 
-    return  budgetService.fetchAllSortedByDate(mydate);
+    return budgetService.fetchAllSortedByDate(mydate);
 
     }
 
 
   
 
+// now woking 
 
-    public void listTransactions(boolean sortByAmount) {
+
+    public List<Transaction> listTransactions(String sortByAmount) {
+ 
+        
+        Double amount = Double.parseDouble(sortByAmount);
+        
+        
+            return  budgetService.getTransactionsSortedByAmount(amount);
+
 
         // TODO: CHALLENGE 7 - Wire service calls for sorting
-
+        
 
     }
+
+
+
+
 
     public void showAdvancedStats() {
         System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");

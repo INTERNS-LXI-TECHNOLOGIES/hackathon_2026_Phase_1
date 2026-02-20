@@ -112,41 +112,35 @@ public class BudgetService {
     }
 
 
-
         transactionRepository.save(t);
 
         // TODO: CHALLENGE 5 - Save via transRepo
     }
 
-                       
-    public List<Transaction> getTransactionsSortedByAmount() {
+    
+
+
+
+    //now working
+    public List<Transaction> getTransactionsSortedByAmount(double amount) {
+
+
+        return  transactionRepository.amountSort(amount);
+
         // TODO: CHALLENGE 7 - Implement sorting
-        return new ArrayList<>();
+       
+
     }
 
 
 
 
-
-
-
-
-
-
-    //now working 
     public List<Transaction> fetchAllSortedByDate(LocalDate date){
 
-        // TODO: CHALLENGE 7 - Implement sorting
-       List<Transaction>  lista =  transactionRepository.findAll(date);
+        //TODO: CHALLENGE 7 - Implement sorting
+      return  transactionRepository.findAll(date);
         
-        return lista;
-
-
     }
-
-
-
-
 
 
 

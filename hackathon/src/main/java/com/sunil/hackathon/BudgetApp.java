@@ -59,13 +59,25 @@ public class BudgetApp {
 
                 System.out.print("Enter Date : "); String date = sc.nextLine();
                     
-                  List<Transaction> transactions = controller.listOfTransactionsByDate(date);
+                List<Transaction> transactions =  controller.listOfTransactionsByDate(date);
 
-                  System.out.println(transactions);
+                 System.out.println(transactions);
+
                     /* TODO: List by date */ }
 
 
-                case "3" -> { /* TODO: List by amount */ }
+                case "3" -> { System.out.print("Enter Amount Sort  : "); String amount = sc.nextLine();
+
+                 
+               List<Transaction> sortedAmountWise = controller.listTransactions(amount);
+
+               System.out.println(sortedAmountWise);
+                
+               }
+                                      
+        
+                 
+
                 case "4" -> {
                     // TODO: Wire showAdvancedStats()
                 }
