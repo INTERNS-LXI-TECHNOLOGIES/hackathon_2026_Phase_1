@@ -61,7 +61,13 @@ public class BudgetApp {
                     /* TODO: List by date */ }
                 case "3" -> {
 
-                    
+                    System.out.println("1. small Amount to Large");
+                    System.out.println("2. Large Amount to small");
+                    String input = sc.nextLine();
+
+                    boolean transactionsByAmount = input.equals("1");
+
+                    controller.listTransactionsByAmount(transactionsByAmount);
                     /* TODO: List by amount */ }
                 case "4" -> {
                     // TODO: Wire showAdvancedStats()

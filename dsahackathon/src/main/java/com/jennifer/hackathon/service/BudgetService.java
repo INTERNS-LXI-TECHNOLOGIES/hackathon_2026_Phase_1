@@ -108,8 +108,14 @@ public class BudgetService {
     }
 
     public List<Transaction> getTransactionsSortedByAmount(boolean amount) {
-       
-        return new ArrayList<>();
+        List<Transaction> t = transactionrepo.findAll();
+        List<Transaction> transactionsAmount = t.stream()
+                .sorted((a1, a2) -> amount
+                        ? Double.compare(a1.amount(), a2.amount())
+                        : Double.compare(a2.amount(), a1.amount()))
+                .toList();
+        // TODO: CHALLENGE 7 - Implement sorting
+        return transactionsAmount;
     }
 
     public List<Transaction> fetchAllSortedByDate(boolean date) {

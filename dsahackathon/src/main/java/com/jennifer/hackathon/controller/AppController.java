@@ -58,8 +58,13 @@ public class AppController {
     }
 
     public void listTransactionsByAmount(boolean sortByAmount) {
-        
+        List<Transaction> transactions = budgetService.getTransactionsSortedByAmount(sortByAmount);
+        transactions.stream()
+                .forEach(System.out::println);
+
+        // TODO: CHALLENGE 7 - Wire service calls for sorting
     }
+
     public void listTransactionsByDate(boolean sortByDate) {
 
         List<Transaction> transcations = budgetService.fetchAllSortedByDate(sortByDate);
