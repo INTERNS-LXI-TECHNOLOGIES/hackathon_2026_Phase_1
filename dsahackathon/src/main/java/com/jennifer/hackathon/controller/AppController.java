@@ -58,20 +58,16 @@ public class AppController {
     }
 
     public void listTransactionsByAmount(boolean sortByAmount) {
-
-        budgetService.getTransactionsSortedByAmount();
-
-        // TODO: CHALLENGE 7 - Wire service calls for sorting
+        
     }
-
     public void listTransactionsByDate(boolean sortByDate) {
 
         List<Transaction> transcations = budgetService.fetchAllSortedByDate(sortByDate);
         if (transcations.isEmpty()) {
             System.out.println("transcations is not found");
         }
-        transcations.stream()
-                .forEach(System.out::println);
+
+        transcations.forEach(System.out::println);
     }
 
     public void showAdvancedStats() {
