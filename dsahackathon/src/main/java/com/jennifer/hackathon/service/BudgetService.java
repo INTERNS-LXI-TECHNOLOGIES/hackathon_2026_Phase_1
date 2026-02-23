@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import com.jennifer.hackathon.model.Category;
@@ -85,7 +86,7 @@ public class BudgetService {
                     .filter(n -> n.name().equals(t.categoryName()))
                     .findFirst()
                     .orElseThrow(() -> new BudgetException("category not found"));
-                    double budgetLimit = c.budgetLimit();
+            double budgetLimit = c.budgetLimit();
             List<Transaction> transaction = transactionrepo.findAll();
 
             double existingAmount = transaction.stream()
@@ -96,10 +97,9 @@ public class BudgetService {
 
             double userAmount = existingAmount + newAmount;
             if (userAmount > budgetLimit) {
-                throw new BudgetException("Budget limit exceeded: "+t.categoryName());
+                throw new BudgetException("Budget limit exceeded: " + t.categoryName());
             }
 
-            
             // TODO: CHALLENGE 3 - Implement budget ceiling check
         }
         transactionrepo.save(t);
@@ -107,16 +107,24 @@ public class BudgetService {
 
     }
 
-    public List<Transaction> getTransactionsSortedByAmount() {
+    public List<Transaction> getTransactionsSortedByAmount(boolean amount) {
+        List<Transaction> t = transactionrepo.findAll();
+        List<Transaction> transactionsAmount = t.stream()
+                .sorted((a1, a2) -> amount
+                        ? Double.compare(a1.amount(), a2.amount())
+                        : Double.compare(a2.amount(), a1.amount()))
+                .toList();
         // TODO: CHALLENGE 7 - Implement sorting
-        return new ArrayList<>();
+        return transactionsAmount;
     }
 
     public List<Transaction> fetchAllSortedByDate(boolean date) {
-        List<Transaction> t=transactionrepo.findAll();
-        List<Transaction> s=t.stream()
-    
-        .toList();
+        List<Transaction> t = transactionrepo.findAll();
+        List<Transaction> s = t.stream()
+                .sorted((t1, t2) -> date
+                        ? t1.date().compareTo(t2.date())
+                        : t2.date().compareTo(t1.date()))
+                .toList();
         // TODO: CHALLENGE 7 - Implement sorting
         return s;
     }

@@ -1,5 +1,6 @@
 package com.jennifer.hackathon.main;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 import com.jennifer.hackathon.controller.AppController;
 import com.jennifer.hackathon.repositry.CategoryRepository;
@@ -48,12 +49,25 @@ public class BudgetApp {
                     // TODO: Wire controller
                 }
                 case "2" -> {
-                    System.out.println("Enter date to See list of trancations: ");
-                    String date = sc.nextLine();
-                    controller.listTransactionsByDate(true);
+
+                    System.out.println("1. First Transcation to Last");
+                    System.out.println("2. Last Transcation to First");
+                    String input = sc.nextLine();
+
+                    boolean transactionsByDate = input.equals("1");
+
+                    controller.listTransactionsByDate(transactionsByDate);
 
                     /* TODO: List by date */ }
                 case "3" -> {
+
+                    System.out.println("1. small Amount to Large");
+                    System.out.println("2. Large Amount to small");
+                    String input = sc.nextLine();
+
+                    boolean transactionsByAmount = input.equals("1");
+
+                    controller.listTransactionsByAmount(transactionsByAmount);
                     /* TODO: List by amount */ }
                 case "4" -> {
                     // TODO: Wire showAdvancedStats()

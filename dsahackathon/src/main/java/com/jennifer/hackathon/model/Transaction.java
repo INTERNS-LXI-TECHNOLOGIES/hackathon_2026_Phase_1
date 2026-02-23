@@ -1,7 +1,7 @@
 package com.jennifer.hackathon.model;
 import java.time.LocalDate;
 import com.jennifer.hackathon.enumType.*;
-public record Transaction(
+public record Transaction (
     String id,
     LocalDate date,
     String description,
