@@ -26,18 +26,14 @@ public  class TransactionRepository implements BaseRepository<Transaction> {
 
 
 // now working 
-public List<Transaction> amountSort(double amount){
+public List<Transaction> amountSort(){
 
 
   try(var lines = Files.lines(path)){
    return lines.skip(1)
                .map(line -> line.split(",")) 
-              
                .map(p -> new Transaction(p[0], LocalDate.parse(p[1]), p[2], Double.parseDouble(p[3]), p[4], TransactionType.valueOf(p[5])))
-               .filter(n -> n.amount()== amount)
                .collect(Collectors.toList());
-
-
 
 
   }catch(Exception e){
@@ -51,25 +47,19 @@ public List<Transaction> amountSort(double amount){
 }
 
 
-
-
- public List<Transaction> findAll(LocalDate date){
+ public List<Transaction> findAllDate(){
 
       try (var lines = Files.lines(path)){
 
                 return lines.skip(1)
                 .map(l -> l.split(","))
                 .map(p -> new Transaction(p[0], LocalDate.parse(p[1]), p[2], Double.parseDouble(p[3]), p[4], TransactionType.valueOf(p[5])))
-                .filter(t -> t.date().equals(date))
                 .collect(Collectors.toList());
+                
                  
         } catch (IOException e){
 
     }
-
-
-
-
 
     { return new ArrayList<>();}
 
@@ -91,9 +81,26 @@ public List<Transaction> amountSort(double amount){
 
     @Override
     public List<Transaction> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
 
+      
+      try (var lines = Files.lines(path)){
+
+                return lines.skip(1)
+                .map(l -> l.split(","))
+                .map(p -> new Transaction(p[0], LocalDate.parse(p[1]), p[2], Double.parseDouble(p[3]), p[4], TransactionType.valueOf(p[5])))
+                .collect(Collectors.toList());
+                 
+        } catch (IOException e){
+
+
+        //   TODO Auto-generated method stub
+        
+    }
+    
+ { return new ArrayList<>();}
+
+
+
+}
 
 }

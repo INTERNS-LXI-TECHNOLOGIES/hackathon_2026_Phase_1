@@ -6,8 +6,10 @@ com\sunil\hackathon\repository\CategoryRepository.class
 com\sunil\hackathon\model\TransactionType.class
 com\sunil\hackathon\exception\BudgetException.class
 com\sunil\hackathon\repository\UserProfileRepository.class
+com\sunil\hackathon\service\CategoryService.class
 com\sunil\hackathon\model\Category.class
 com\sunil\hackathon\model\Transaction.class
 com\sunil\hackathon\service\BudgetService.class
+com\sunil\hackathon\service\Lsit.class
 com\sunil\hackathon\model\UserProfile.class
 com\sunil\hackathon\repository\BaseRepository.class

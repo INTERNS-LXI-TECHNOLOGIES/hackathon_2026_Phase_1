@@ -1,9 +1,7 @@
 id,date,desc,amt,cat,type
-2b76edb2-aef6-49f8-acdd-abca527d8240,2026-02-18,personal ,100.0,personal,INCOME
-bd2169d6-a6a3-4d1b-a90b-bcdee8e5d1e6,2026-02-18,purchase,400.0,watch,EXPENSE
-73f4dc14-49a9-47bd-a51e-21ec10f80084,2026-02-18,amazone prime,1500.0,video streaming ,EXPENSE
-d9f62573-5c33-4657-b971-3ae253a3d20d,2026-02-18,movie,500.0,movie ticket booking ,EXPENSE
-0632106c-e588-4224-bd62-7916c1939358,2026-02-18,pack unloack,500.0,saving,INCOME
-523a4c4e-ac22-4231-bf08-1d28496a9aa0,2026-02-18,purchase,55000.0,watch,EXPENSE
-7d05e0b9-08e0-468e-9ae1-fb95df972f37,2026-02-19,puchase,400.0,watch,EXPENSE
-7d05e0b9-08e0-468e-9ae1-fb95df972f37,2026-02-19,puchase,400.0,watch,EXPENSE
+58689419-3e0e-4e0f-a41c-c83d38c396cb,2026-02-22,Job,10000.0,Salary,INCOME
+3516d98d-9ffa-4e47-8ae8-c1d43e7646b2,2026-02-22,purchase,500.0,OnlineShoping,EXPENSE
+f83aa92b-d453-4ca0-9960-d77f7d2c4e30,2026-02-22,prchasing food,500.0,Food,EXPENSE
+88bf6df1-e38b-4d2a-b051-d55e32b199f6,2026-02-22,purchasing,500.0,Food,EXPENSE
+3c31f16c-f929-47fd-94a4-8f74ad75a612,2026-02-22,purchase food,600.0,Food,EXPENSE
+5d7dee6b-f14e-4d1e-bbc7-e215479e29e8,2026-02-22,purchase,700.0,OnlineShoping,EXPENSE

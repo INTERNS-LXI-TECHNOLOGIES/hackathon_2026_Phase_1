@@ -1,6 +1,8 @@
 package com.sunil.hackathon.controller;
 import com.sunil.hackathon.service.BudgetService;
+import com.sunil.hackathon.service.CategoryService;
 import com.sunil.hackathon.model.TransactionType;
+import com.sunil.hackathon.repository.CategoryRepository;
 import com.sunil.hackathon.model.Transaction;
 
 import java.time.LocalDate;
@@ -13,11 +15,17 @@ public class AppController {
        
 
     private BudgetService budgetService;
+    private CategoryRepository categoryRepository;
+    private CategoryService  categoryService;
+
+    public Object addCategory;
 
  
-    public  AppController(BudgetService bService){
+    public  AppController(BudgetService bService,CategoryRepository categoryRepository,CategoryService categoryService){
   
     this.budgetService = bService;
+    this.categoryRepository = categoryRepository; 
+    this.categoryService = categoryService;
 
 
    }
@@ -52,29 +60,33 @@ public class AppController {
 
 
     
-    
     public void addCategory(String name, String limitStr) {
         try {
+
+              
+
             // TODO: CHALLENGE 5 (Part C) - Wire call to catRepo.save()
+        
+                
+            categoryService.addCategoryService(name,limitStr);
+            
+           
+
             System.out.println("Category added.");
         } catch (Exception e) {
             System.err.println("Category Error: " + e.getMessage());
         }
     }
 
-
-
-
-
  
 
-   public  List<Transaction> listOfTransactionsByDate(String date){
+   public  List<Transaction> listOfTransactionsByDate(){
 
-   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-   LocalDate mydate = LocalDate.parse(date, formatter);
+   //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+  // LocalDate mydate = LocalDate.parse(date, formatter);
 
 
-    return budgetService.fetchAllSortedByDate(mydate);
+    return budgetService.fetchAllSortedByDate();
 
     }
 
@@ -84,15 +96,9 @@ public class AppController {
 // now woking 
 
 
-    public List<Transaction> listTransactions(String sortByAmount) {
+    public List<Transaction> listTransactions() {
  
-        
-        Double amount = Double.parseDouble(sortByAmount);
-        
-        
-            return  budgetService.getTransactionsSortedByAmount(amount);
-
-
+            return  budgetService.getTransactionsSortedByAmount();
         // TODO: CHALLENGE 7 - Wire service calls for sorting
         
 
@@ -102,10 +108,17 @@ public class AppController {
 
 
 
-    public void showAdvancedStats() {
+    public String showAdvancedStats(String name) {
+
+        
         System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
         // TODO: CHALLENGE 13 & 15 & 16 - Call service methods and display results
         System.out.println("------------------------------------");
+
+       return   budgetService.getGoalStatus(name);
+
+
+
     }
 
     public void showDashboard() {
