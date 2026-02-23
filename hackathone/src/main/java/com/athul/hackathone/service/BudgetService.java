@@ -2,16 +2,20 @@ package com.athul.hackathone.service;
 
 
 import com.athul.hackathone.execption.DataPersistenceException;
+import com.athul.hackathone.model.Category;
 import com.athul.hackathone.model.Transaction;
 import com.athul.hackathone.model.TransactionType;
+import com.athul.hackathone.model.UserProfile;
 import com.athul.hackathone.repo.BaseRepository;
 import com.athul.hackathone.repo.Repository.CategoryRepository;
 import com.athul.hackathone.repo.Repository.TransactionRepository;
 import com.athul.hackathone.repo.Repository.UserProfileRepository;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 public class BudgetService {
 
@@ -36,7 +40,9 @@ public class BudgetService {
         // CHALLENGE 13: STATISTICAL SUMMARY
         // TODO: Implement using .stream().filter(expenses).mapToDouble(t -> t.amount()).summaryStatistics()
         var statics = transactionRepository.findAll();
-        return statics.stream().mapToDouble( n -> n.amount()).summaryStatistics() ;
+        return statics.stream().
+                filter(t -> t.type() == TransactionType.EXPENSE).
+                mapToDouble( n -> n.amount()).summaryStatistics();
     }
 
     public boolean hasHighValueTransaction(String category, double threshold) {
@@ -53,7 +59,9 @@ public class BudgetService {
         // TODO: Implement using .stream().filter(expenses).max(Comparator.comparingDouble(...))
        var expenser = transactionRepository.findAll();
 
-        return expenser.stream().max(Comparator.comparingDouble( n -> n.amount()));
+        return expenser.stream()
+                .filter( t -> t.type().equals(TransactionType.INCOME))
+                .max(Comparator.comparingDouble(Transaction::amount));
     }
 
     public String getCategoryReport() {
@@ -61,10 +69,10 @@ public class BudgetService {
         // TODO: Implement using .stream().map(...).distinct().sorted().collect(Collectors.joining(", "))
 
          var report = categoryRepository.findAll();
-         var name = report.stream().map(  n -> n.name());
-        return report.stream().map( n -> n.name() ).distinct().sorted().collect(Collectors.joining(", "));
-    }
+        // var name = report.stream().map(  n -> n.name());
 
+        return report.stream().map(t -> t.name()).distinct().sorted().collect(Collectors.joining(", "));
+    }
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
         // TODO: CHALLENGE 9 - Implementation needed
           var list = transactionRepository.findAll();
@@ -79,12 +87,19 @@ public class BudgetService {
     public void addTransaction(Transaction t) throws DataPersistenceException {
         if(t.type() == TransactionType.EXPENSE) {
             //TODO: CHALLENGE 3 - Implement budget ceiling check
-            double limit = 1000;
-            double totalExpense = transactionRepository.findAll().stream()
-                    .filter(tx -> tx.type() == TransactionType.EXPENSE)
-                    .mapToDouble(Transaction::amount)
-                    .sum();
-             if(totalExpense + t.amount() >limit){
+
+            double limit = categoryRepository.findAll().stream()
+                    .filter( u -> u.name().equals(t.categoryName()))
+                    .mapToDouble( u -> u.budgetLimit())
+                                            .findFirst()
+                    .orElseThrow(() -> new DataPersistenceException("Catogary not found "));
+
+           double totalExpense = transactionRepository.findAll().stream()
+                   .filter( r -> r.categoryName().equals(t.categoryName()))
+                   .filter(r -> r.type() == TransactionType.EXPENSE)
+                   .mapToDouble( Transaction::amount)
+                   .sum();
+             if(totalExpense  + t.amount()>limit){
 
                  throw  new DataPersistenceException("Amount Grater than limit  ");
              }
@@ -111,13 +126,33 @@ public class BudgetService {
 
     public String getGoalStatus() {
         // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal
-        return "Pending...";
+         var v =  userProfileRepository.load();
+        var goal = v.monthlySavingsGoal();
+           double income = transactionRepository.findAll()
+                   .stream().filter(t -> t.type() == TransactionType.INCOME)
+                  .mapToDouble(t -> t.amount())
+                  .sum();
+           double expense = transactionRepository.findAll()
+                   .stream().filter(t -> t.type() == TransactionType.EXPENSE)
+                   .mapToDouble( t -> t.amount())
+                   .sum();
+           double savings = income - expense;
+           if (savings >goal){
+               return  "Yess ,Goal  Achieved!" + savings;
+           }
+             else if (savings == goal ){
+                 return     "No savings but income exceed expense ";
+             }
+
+        return "Ohh ..Goal missed Pending...";
     }
 
     public Map<String, Double> getSpendingByCategory() {
         // TODO: CHALLENGE 4 - Implement groupingBy
         var spendByCat = transactionRepository.findAll();
-        return spendByCat.stream().collect(Collectors.groupingBy( n -> n.categoryName()
+        return spendByCat.stream()
+                .filter(n -> n.type() == TransactionType.EXPENSE)
+                .collect(Collectors.groupingBy( n -> n.categoryName()
         ,Collectors.summingDouble(n -> n.amount())));
     }
 }

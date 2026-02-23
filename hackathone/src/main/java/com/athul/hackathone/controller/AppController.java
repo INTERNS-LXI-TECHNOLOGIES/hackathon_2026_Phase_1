@@ -52,11 +52,42 @@ public class AppController {
 
         if(sortByAmount == true ) {
             List<Transaction> list = service.getTransactionsSortedByAmount();
-            list.forEach( System.out::println);
+            for (Transaction x : list){
+                System.out.printf("""
+                        Id     :%s
+                        Date   :%tF
+                        Descr  :%s
+                        Amount :%.2f
+                        Cat Name:%s
+                        Type   :%s \n
+                        ----------------
+                        """,x.id(),x.date(),x.description(),x.amount(),x.categoryName(),x.type());
+            }
+
+              /*  System.out.printf("""
+                        Date   :%tF
+                        Id     :%s
+                        Descr  :%s
+                        Amount :%.2f
+                        Cat Name:%s
+                        Type   :%s \n
+                        ----------------
+                        """,x.date(),x.id(),x.description(),x.amount(),x.categoryName(),x.type());
+            }*/
            // System.out.println("Method working");
         } else {
           List<Transaction> list = service.fetchAllSortedByDate();
-          list.forEach(System.out::println);
+            for (Transaction x : list){
+                System.out.printf("""
+                        Date   :%tF
+                        Id     :%s
+                        Descr  :%s
+                        Amount :%.2f
+                        Cat Name:%s
+                        Type   :%s \n
+                        ----------------
+                        """,x.date(),x.id(),x.description(),x.amount(),x.categoryName(),x.type());
+            }
         }
 
     }
@@ -65,12 +96,13 @@ public class AppController {
         System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
         // TODO: CHALLENGE 13 & 15 & 16 - Call service methods and display results
       var  statistics =  service.getExpenseStatistics();
+
        System.out.println("Max "+statistics.getMax());
        System.out.println("Min "+ statistics.getMin());
        System.out.println("Avg "+ statistics.getAverage());
-       System.out.print("Count "+statistics.getCount());
+       System.out.println("Count "+statistics.getCount());
        System.out.println("Sum "+ statistics.getSum());
-           System.out.println(service.getHighestExpense());
+           System.out.println("Highest Exp " +service.getHighestExpense());
 
        System.out.println( service.getCategoryReport());
 
@@ -82,8 +114,9 @@ public class AppController {
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
         System.out.println(service.getSpendingByCategory());
         Map<Boolean ,List<Transaction>> partitioning =  service.getPartitionedTransactions();
-      partitioning.forEach((l ,c ) ->
-              System.out.println(l + " : "+ c));
+
+        partitioning.forEach((l ,c ) ->
+        System.out.println(l + " : "+ c +"\n"));
 
         System.out.println("-------------------------");
     }

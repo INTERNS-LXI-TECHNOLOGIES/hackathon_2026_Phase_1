@@ -38,17 +38,17 @@ public class BudgetApp {
                     System.out.print("Desc: "); String d = sc.nextLine();
                     System.out.print("Amt: "); String a = sc.nextLine();
                     System.out.print("Cat: "); String c = sc.nextLine();
-                    System.out.print("Type: "); String t = sc.nextLine();
+                    System.out.print("Type: "); String t = sc.nextLine().toUpperCase();
                     // TODO: Wire controller
                     controller.handleAddTransaction(d,a,c,t);
 
                 }
                 case "2" -> { /* TODO: List by date */
                 //System.out.println("Enter date :");  String e = sc.nextLine();
-                controller.listTransactions(true);
+                controller.listTransactions(false);
                 }
                 case "3" -> { /* TODO: List by amount */
-                controller.listTransactions(false);}
+                controller.listTransactions(true );}
                 case "4" -> {
                     controller.showAdvancedStats();
                     // TODO: Wire showAdvancedStats()
