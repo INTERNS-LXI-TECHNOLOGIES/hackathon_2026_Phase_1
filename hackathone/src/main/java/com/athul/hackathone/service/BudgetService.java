@@ -2,20 +2,14 @@ package com.athul.hackathone.service;
 
 
 import com.athul.hackathone.execption.DataPersistenceException;
-import com.athul.hackathone.model.Category;
 import com.athul.hackathone.model.Transaction;
 import com.athul.hackathone.model.TransactionType;
-import com.athul.hackathone.model.UserProfile;
-import com.athul.hackathone.repo.BaseRepository;
 import com.athul.hackathone.repo.Repository.CategoryRepository;
 import com.athul.hackathone.repo.Repository.TransactionRepository;
 import com.athul.hackathone.repo.Repository.UserProfileRepository;
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 public class BudgetService {
 

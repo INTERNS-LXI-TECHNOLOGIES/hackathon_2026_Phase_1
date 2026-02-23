@@ -1,0 +1,4 @@
+id,date,desc,amt,cat,type
+b802f33b-6f91-464a-802e-7d8b5b0d65bf,2026-02-19,Biriyani,100.0,food,EXPENSE
+3df145de-4ce7-4649-9901-e5c844bbfc5c,2026-02-19,Salary,1000.0,salary,INCOME
+259125dc-5f89-4047-a00a-36c5530629bb,2026-02-22,phone Reacharge ,299.0,Recharge,EXPENSE

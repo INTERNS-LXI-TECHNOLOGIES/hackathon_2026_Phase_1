@@ -112,11 +112,13 @@ public class AppController {
     public void showDashboard() {
         System.out.println("\n--- BUDGET DASHBOARD ---");
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
-        System.out.println(service.getSpendingByCategory());
+        System.out.println("Showing spent by Category "+service.getSpendingByCategory());
         Map<Boolean ,List<Transaction>> partitioning =  service.getPartitionedTransactions();
 
         partitioning.forEach((l ,c ) ->
         System.out.println(l + " : "+ c +"\n"));
+
+         System.out.println(service.getGoalStatus());
 
         System.out.println("-------------------------");
     }
