@@ -27,7 +27,16 @@ public record Transaction(
 
     @Override
     public int compareTo(Transaction t){
+
     return this.date().compareTo(t.date());
+    }
+
+
+
+
+    public Object expenses() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'expenses'");
     }
     
 }

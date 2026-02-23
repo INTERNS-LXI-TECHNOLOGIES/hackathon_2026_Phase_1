@@ -7,7 +7,9 @@ import com.sunil.hackathon.model.Transaction;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class AppController {
@@ -108,14 +110,44 @@ public class AppController {
 
 
 
-    public String showAdvancedStats(String name) {
+    public String showAdvancedStats() {
 
         
         System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
         // TODO: CHALLENGE 13 & 15 & 16 - Call service methods and display results
         System.out.println("------------------------------------");
 
-       return   budgetService.getGoalStatus(name);
+        //13
+       DoubleSummaryStatistics  transaction1 = budgetService.getExpenseStatistics();
+
+       System.out.println("Total Transactions : " + transaction1.getCount());
+       System.out.println("Total Amount: " +  transaction1.getSum());
+       System.out.println("Minimum Transaction : " +  transaction1.getMin());
+       System.out.println("Maximum Transaction : " + transaction1.getMax());
+
+        //15
+        Optional<Transaction> transaction2 = budgetService.getHighestExpense();
+
+        System.out.println("");
+      
+      
+transaction2.ifPresent(t -> {
+    System.out.println("Highest Expense Transaction:");
+    System.out.println("ID: " + t.id());
+    System.out.println("Date: " + t.date());
+    System.out.println("Description: " + t.description());
+    System.out.printf("Amount: ₹%.2f%n", t.amount());
+    System.out.println("Category: " + t.categoryName());
+    System.out.println("Type: " + t.type());
+});
+
+        //16
+        String transaction3 =  budgetService.getCategoryReport();
+        System.out.println("");
+        System.out.println("Tracked Categories :" + transaction3);
+
+
+         return  null ;
 
 
 
@@ -125,5 +157,9 @@ public class AppController {
         System.out.println("\n--- BUDGET DASHBOARD ---");
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
         System.out.println("-------------------------");
+        
+        
+
+
     }
 }

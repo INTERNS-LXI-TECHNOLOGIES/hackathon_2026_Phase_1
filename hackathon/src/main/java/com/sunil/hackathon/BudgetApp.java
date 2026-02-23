@@ -86,21 +86,9 @@ public class BudgetApp {
                                       
         
                 case "4" -> {
-
-
-                List<Category>  categories =  categoryRepository.findAll();
-
-                System.out.println("Available Categorie : " + categories);
-
-                System.out.print("Enter Category  : "); String category = sc.nextLine();
-
-                    // TODO: Wire showAdvancedStats()
-
-                   String  value  = controller.showAdvancedStats(category);
-                   
                  
-                
-                   System.out.println("Remain Balance : " + value);
+                    controller.showAdvancedStats();
+
                 }
 
                 case "5" -> {
@@ -112,6 +100,8 @@ public class BudgetApp {
                              controller.addCategory(n,l);
 
                     // TODO: Wire controller
+
+                    
                 }
                 case "6" -> { /* TODO: Wire showDashboard() */ }
 
