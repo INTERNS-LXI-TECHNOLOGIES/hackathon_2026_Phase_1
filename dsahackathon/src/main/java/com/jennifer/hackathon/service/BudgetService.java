@@ -58,10 +58,17 @@ public class BudgetService {
 
     public boolean hasHighValueTransaction(String category, double threshold) {
         // CHALLENGE 14: EXISTENCE & THRESHOLDS
-        // TODO: Implement using .stream().anyMatch(...)
-        return false;
-    }
+        List<Transaction> transactions=transactionrepo.findAll();
+boolean t=transactions.stream()
+.anyMatch(n->n.categoryName().equals(category) && n.amount()>threshold);
+return t;
 
+
+        // TODO: Implement using .stream().anyMatch(...)
+        
+    }
+  
+    
     public Optional<Transaction> getHighestExpense() {
         // CHALLENGE 15: TOP EXPENSE FINDER
         List<Transaction> highestExpense = transactionrepo.findAll();

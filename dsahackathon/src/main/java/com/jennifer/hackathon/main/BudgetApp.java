@@ -30,7 +30,7 @@ public class BudgetApp {
 
         while (true) {
             System.out.println(
-                    "\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7] Exit");
+                    "\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7]Check High Transcation | [8] Exit");
             System.out.print("Input: ");
             String choice = sc.nextLine();
 
@@ -84,7 +84,15 @@ public class BudgetApp {
                 case "6" -> {
                     controller.showDashboard();
                     /* TODO: Wire showDashboard() */ }
-                case "7" -> System.exit(0);
+                case "7" -> {
+                    System.out.println("Enter the Category: ");
+                    String category=sc.nextLine();
+                    System.out.println("Enter the thereshold Amount: ");
+                    double amount=sc.nextDouble();
+                    controller.showAdvancedStats();
+                }
+                case "8" -> System.exit(0);
+
                 default -> System.out.println("Invalid option.");
             }
         }

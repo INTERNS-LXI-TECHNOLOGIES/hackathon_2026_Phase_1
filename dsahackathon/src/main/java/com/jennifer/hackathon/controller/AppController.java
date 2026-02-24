@@ -100,25 +100,29 @@ public class AppController {
 
         // #16 (**********Category Report********)
         String category = budgetService.getCategoryReport();
-       System.out.println(category);
+        System.out.println(category);
 
+    }
+
+    public void highValueTranscation(String category,double thereshold){
+budgetService.hasHighValueTransaction(category, thereshold);
 
     }
 
     public void showDashboard() {
         System.out.println("\n--- BUDGET DASHBOARD ---");
-       
+
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
-        //#4
-         Map<String,Double> spending=budgetService.getSpendingByCategory();
-        
+        // #4
+        Map<String, Double> spending = budgetService.getSpendingByCategory();
+
         System.out.println("-------------------------");
         System.out.println("***spending*****");
         System.out.println(spending);
 
-        //#12
+        // #12
         System.out.println("*****************************");
-        Map<Boolean, List<Transaction>> partitionedTransactions=budgetService.getPartitionedTransactions();
+        Map<Boolean, List<Transaction>> partitionedTransactions = budgetService.getPartitionedTransactions();
         System.out.println(partitionedTransactions);
     }
 }
