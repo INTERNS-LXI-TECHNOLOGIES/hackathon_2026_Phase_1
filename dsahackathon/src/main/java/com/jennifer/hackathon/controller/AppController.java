@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 import com.jennifer.hackathon.model.Category;
 import java.util.List.*;
+import java.util.function.Predicate;
 import java.util.List;
 
 import com.jennifer.hackathon.service.*;
@@ -106,6 +107,16 @@ public class AppController {
     public void highValueTranscation(String category, double thereshold) {
         boolean highTranscation = budgetService.hasHighValueTransaction(category, thereshold);
         System.out.println("High Value Transcation exists: " + highTranscation);
+    }
+
+    public void filteringTranscationsDetails(Predicate<Transaction> filtering) {
+        List<Transaction> transactions = budgetService.filterTransactions(filtering);
+        if (transactions.isEmpty()) {
+            System.out.println("Transcation is not found");
+        } else {
+            transactions.forEach(System.out::println);
+        }
+
     }
 
     public void showDashboard() {

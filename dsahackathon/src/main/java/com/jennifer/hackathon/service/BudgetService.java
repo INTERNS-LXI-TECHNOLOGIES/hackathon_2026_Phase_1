@@ -94,8 +94,13 @@ public class BudgetService {
     }
 
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
+      return transactionrepo.findAll()
+        .stream()
+        .filter(filter)
+        .toList();
+        
         // TODO: CHALLENGE 9 - Implementation needed
-        return new ArrayList<>();
+       
     }
 
     public Set<String> getUniqueDescriptions() {

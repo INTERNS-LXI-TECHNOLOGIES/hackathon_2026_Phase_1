@@ -3,6 +3,7 @@ package com.jennifer.hackathon.main;
 import java.time.LocalDate;
 import java.util.Scanner;
 import com.jennifer.hackathon.controller.AppController;
+import com.jennifer.hackathon.enumType.TransactionType;
 import com.jennifer.hackathon.repositry.CategoryRepository;
 import com.jennifer.hackathon.repositry.TransactionRepository;
 import com.jennifer.hackathon.service.*;
@@ -30,7 +31,7 @@ public class BudgetApp {
 
         while (true) {
             System.out.println(
-                    "\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7]Check High Transcation | [8] Exit");
+                    "\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7]Check High Transcation | [8]Filter by types |  [9]Create User  | [10] Exit");
             System.out.print("Input: ");
             String choice = sc.nextLine();
 
@@ -86,13 +87,58 @@ public class BudgetApp {
                     /* TODO: Wire showDashboard() */ }
                 case "7" -> {
                     System.out.println("Enter the Category: ");
-                    String category=sc.nextLine();
+                    String category = sc.nextLine();
                     System.out.println("Enter the thereshold Amount: ");
-                    String a=sc.nextLine();
-                    double amount=Double.parseDouble(a);
+                    String a = sc.nextLine();
+                    double amount = Double.parseDouble(a);
                     controller.highValueTranscation(category, amount);
                 }
-                case "8" -> System.exit(0);
+                case "8" -> {
+                    System.out.println("1.Filter by Date: ");
+                    System.out.println("2.Filter by TranscationType: ");
+                    System.out.println("3.Filter by Category: ");
+                    System.out.println("4.Filter by Amount: ");
+                    System.out.println("Enter Your Choice: ");
+                    String filterByChoice = sc.nextLine();
+
+                    switch (filterByChoice) {
+                        case "1" -> {
+                            System.out.println("From date:");
+                            String d = sc.nextLine();
+                            LocalDate fromdate = LocalDate.parse(d);
+                            System.out.println("To date:");
+                            String tod = sc.nextLine();
+                            LocalDate toDate = LocalDate.parse(tod);
+                            controller.filteringTranscationsDetails(
+                                    t -> !t.date().isBefore(fromdate) && !t.date().isAfter(toDate));
+                        }
+                        case "2" -> {
+                            System.out.println("Enter Transcation Type:(INCOME/EXPENSE)");
+                            String type = sc.nextLine();
+                            controller.filteringTranscationsDetails(t->t.type().name().equalsIgnoreCase(type));
+
+                        }
+
+                        case "3" ->{
+                            System.out.println("Enter Category : ");
+                            String category=sc.nextLine();
+                            controller.filteringTranscationsDetails(c->c.categoryName().equals(category));
+
+                        }
+
+                        case "4" ->{
+                            System.out.println("Enter Amount: ");
+                            String am=sc.nextLine();
+                            double amount=Double.parseDouble(am);
+                            controller.filteringTranscationsDetails(a->a.amount()>=amount);
+                        }
+                    }
+
+                }
+                case "9" ->{
+
+                }
+                case "10" -> System.exit(0);
 
                 default -> System.out.println("Invalid option.");
             }
