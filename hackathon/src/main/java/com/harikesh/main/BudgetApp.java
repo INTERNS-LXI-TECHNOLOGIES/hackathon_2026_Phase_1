@@ -3,9 +3,14 @@ package com.harikesh.main;
 // 6. MAIN APP / RUNNER
 // ============================================================================
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Scanner;
+import com.harikesh.entity.Category;
 
 import com.harikesh.controller.AppController;
+import com.harikesh.repository.CategoryRepository;
+import com.harikesh.service.BudgetService;
 
 public class BudgetApp {
     private static final Scanner sc = new Scanner(System.in);
@@ -14,9 +19,9 @@ public class BudgetApp {
         System.out.println("=== JAVA 21 INTERN HACKATHON: PERSONAL BUDGET TRACKER ===");
 
         // CHALLENGE 5: ARCHITECTURAL WIRING
-        
-       
-        AppController controller = new AppController(); // CHALLENGE: Wire your controller here!
+         
+       BudgetService service = new BudgetService();
+        AppController controller = new AppController(service); // CHALLENGE: Wire your controller here!
 
 //        if (controller == null) {
 //            System.err.println("\n[!] FATAL: Application wiring incomplete.");
@@ -38,20 +43,38 @@ public class BudgetApp {
                     String cat = sc.nextLine();
                     System.out.print("Type: "); 
                     String type= sc.nextLine();
+                    
+                    LocalDate d = LocalDate.now();
+
+System.out.println("Date entered: " + d);
+
                     //System.out.println(" Wire controller");
-                    controller.handleAddTransaction(desc, amt, cat, type);
+                    controller.handleAddTransaction(desc, amt, cat, type, d);
                 }
                 
                 
-                case "2" ->  controller.fetchAllSortedByDate();
-                case "3" -> {System.out.println("amount");}
+                case "2" -> {
+                System.out.println("Date");
+                controller.fetchAllSortedByDate(false);
+            }
+
+                
+                case "3" -> {System.out.println("amount");
+                controller.fetchAllSortedByDate(true);
+            }
                 case "4" -> {
                     //System.out.println("Wire showAdvancedStats()");
                     controller.showAdvancedStats();
+                    
                 }
                 case "5" -> {
-                    System.out.print("Name: "); String n = sc.nextLine();
-                    System.out.print("Limit: "); String l = sc.nextLine();
+                    System.out.print("Name: "); 
+                    String n = sc.nextLine();
+                    System.out.print("Limit: "); 
+                    String limit = sc.nextLine();
+                    double d = Double.parseDouble(limit);
+                    Category c = new Category(n,d);
+                    controller.addCategory(c);
                     
                 }
                 case "6" -> {System.out.println("Wire showDashboard() ");}

@@ -158,7 +158,7 @@ class BudgetService {
 
     public DoubleSummaryStatistics getExpenseStatistics() {
         // CHALLENGE 13: STATISTICAL SUMMARY
-        // TODO: Implement using .stream().filter(expenses).mapToDouble(t -> t.amount()).summaryStatistics()
+        // TODO: Implement using .stream().filter(expenses).mapToDouble(t -> t.amount()).()
         return new DoubleSummaryStatistics();
     }
 
