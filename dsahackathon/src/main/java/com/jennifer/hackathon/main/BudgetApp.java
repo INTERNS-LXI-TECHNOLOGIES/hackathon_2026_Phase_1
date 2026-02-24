@@ -70,6 +70,7 @@ public class BudgetApp {
                     controller.listTransactionsByAmount(transactionsByAmount);
                     /* TODO: List by amount */ }
                 case "4" -> {
+                    controller.showAdvancedStats();
                     // TODO: Wire showAdvancedStats()
                 }
                 case "5" -> {
@@ -81,6 +82,7 @@ public class BudgetApp {
                     // TODO: Wire controller
                 }
                 case "6" -> {
+                    controller.showDashboard();
                     /* TODO: Wire showDashboard() */ }
                 case "7" -> System.exit(0);
                 default -> System.out.println("Invalid option.");

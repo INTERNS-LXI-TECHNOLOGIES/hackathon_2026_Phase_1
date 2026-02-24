@@ -1,10 +1,14 @@
 package com.jennifer.hackathon.controller;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.DoubleSummaryStatistics;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import com.jennifer.hackathon.model.Category;
 import java.util.List.*;
+import java.util.List;
+
 import com.jennifer.hackathon.service.*;
 import com.jennifer.hackathon.enumType.TransactionType;
 import com.jennifer.hackathon.model.Transaction;
@@ -77,13 +81,44 @@ public class AppController {
 
     public void showAdvancedStats() {
         System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
+
+        // #13
+        DoubleSummaryStatistics expenses = budgetService.getExpenseStatistics();
         // TODO: CHALLENGE 13 & 15 & 16 - Call service methods and display results
         System.out.println("------------------------------------");
+        System.out.println("Count Of Expense:" + expenses.getCount());
+        System.out.println("Average Expense:" + expenses.getAverage());
+        System.out.println("Maximum Expense:" + expenses.getMax());
+        System.out.println("Maximum Expense:" + expenses.getMin());
+        System.out.println("Sum:" + expenses.getSum());
+
+        // #15 (*******Highest Expense*******)
+        Optional<Transaction> highestExpense = budgetService.getHighestExpense();
+        highestExpense.ifPresentOrElse(
+                t -> System.out.println("Highest Expense; " + t),
+                () -> System.out.println("No transcations found"));
+
+        // #16 (**********Category Report********)
+        String category = budgetService.getCategoryReport();
+       System.out.println(category);
+
+
     }
 
     public void showDashboard() {
         System.out.println("\n--- BUDGET DASHBOARD ---");
+       
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
+        //#4
+         Map<String,Double> spending=budgetService.getSpendingByCategory();
+        
         System.out.println("-------------------------");
+        System.out.println("***spending*****");
+        System.out.println(spending);
+
+        //#12
+        System.out.println("*****************************");
+        Map<Boolean, List<Transaction>> partitionedTransactions=budgetService.getPartitionedTransactions();
+        System.out.println(partitionedTransactions);
     }
 }

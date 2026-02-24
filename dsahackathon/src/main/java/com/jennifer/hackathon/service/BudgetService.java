@@ -35,16 +35,25 @@ public class BudgetService {
 
     public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
         // CHALLENGE 12: PARTITIONING DATA
+        List<Transaction> transactions = transactionrepo.findAll();
+        Map<Boolean, List<Transaction>> partitioned = transactions.stream()
+                .collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME));
         // TODO: Implement using .stream().collect(Collectors.partitioningBy(t ->
         // t.type() == TransactionType.INCOME))
-        return new HashMap<>();
+        return partitioned;
     }
 
     public DoubleSummaryStatistics getExpenseStatistics() {
         // CHALLENGE 13: STATISTICAL SUMMARY
+        List<Transaction> allTransactions = transactionrepo.findAll();
+        DoubleSummaryStatistics expenses = allTransactions.stream()
+                .filter(e -> e.type() == TransactionType.EXPENSE)
+                .mapToDouble(t -> t.amount())
+                .summaryStatistics();
+
         // TODO: Implement using .stream().filter(expenses).mapToDouble(t ->
         // t.amount()).summaryStatistics()
-        return new DoubleSummaryStatistics();
+        return expenses;
     }
 
     public boolean hasHighValueTransaction(String category, double threshold) {
@@ -55,16 +64,28 @@ public class BudgetService {
 
     public Optional<Transaction> getHighestExpense() {
         // CHALLENGE 15: TOP EXPENSE FINDER
+        List<Transaction> highestExpense = transactionrepo.findAll();
+        Optional<Transaction> expense = highestExpense.stream()
+                .filter(e -> e.type() == TransactionType.EXPENSE)
+                .max(Comparator.comparingDouble(Transaction::amount));
+
         // TODO: Implement using
         // .stream().filter(expenses).max(Comparator.comparingDouble(...))
-        return Optional.empty();
+        return expense; 
     }
 
     public String getCategoryReport() {
         // CHALLENGE 16: DATA JOINING
+        List<Category> categoryReport = categoryrepo.findAll();
+        String reportOfCategory = categoryReport.stream()
+                .map(n -> n.name())
+                .distinct()
+                .sorted()
+                .collect(Collectors.joining(",")); 
+
         // TODO: Implement using
         // .stream().map(...).distinct().sorted().collect(Collectors.joining(", "))
-        return "";
+        return reportOfCategory;
     }
 
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
@@ -135,7 +156,12 @@ public class BudgetService {
     }
 
     public Map<String, Double> getSpendingByCategory() {
+        List<Transaction> transactions = transactionrepo.findAll();
+        Map<String, Double> spendingByCategory = transactions.stream()
+                .filter(e -> e.type() == TransactionType.EXPENSE)
+                .collect(Collectors.groupingBy(Transaction::categoryName,
+                        Collectors.summingDouble(Transaction::amount)));
         // TODO: CHALLENGE 4 - Implement groupingBy
-        return new HashMap<>();
+        return spendingByCategory;
     }
 }
