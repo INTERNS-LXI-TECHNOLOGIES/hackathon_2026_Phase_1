@@ -13,6 +13,7 @@ import java.util.List;
 import com.jennifer.hackathon.service.*;
 import com.jennifer.hackathon.enumType.TransactionType;
 import com.jennifer.hackathon.model.Transaction;
+import com.jennifer.hackathon.model.UserProfile;
 import com.jennifer.hackathon.repositry.TransactionRepository;
 import com.jennifer.hackathon.repositry.CategoryRepository;
 
@@ -117,6 +118,11 @@ public class AppController {
             transactions.forEach(System.out::println);
         }
 
+    }
+
+    public void user(String name, double goal) {
+        UserProfile profiles = budgetService.creatingProfile(name, goal);
+        System.out.println("User Created: "+profiles);
     }
 
     public void showDashboard() {

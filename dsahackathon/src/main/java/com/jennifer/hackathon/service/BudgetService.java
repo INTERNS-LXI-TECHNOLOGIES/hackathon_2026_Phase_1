@@ -14,8 +14,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import com.jennifer.hackathon.model.Category;
 import com.jennifer.hackathon.model.Transaction;
+import com.jennifer.hackathon.model.UserProfile;
 import com.jennifer.hackathon.repositry.CategoryRepository;
 import com.jennifer.hackathon.repositry.TransactionRepository;
+import com.jennifer.hackathon.repositry.UserProfileRepository;
 import com.jennifer.hackathon.enumType.TransactionType;
 import com.jennifer.hackathon.exceptions.DataPersistenceException;
 import com.jennifer.hackathon.exceptions.BudgetException;
@@ -24,11 +26,13 @@ public class BudgetService {
 
     private final TransactionRepository transactionrepo;
     private final CategoryRepository categoryrepo;
+    private final UserProfileRepository userProfilerepo;
     List<Transaction> transactions = new ArrayList<>();
 
-    public BudgetService(TransactionRepository transactionrepo, CategoryRepository categoryrepo) {
+    public BudgetService(TransactionRepository transactionrepo, CategoryRepository categoryrepo,UserProfileRepository userProfilerepo) {
         this.transactionrepo = transactionrepo;
         this.categoryrepo = categoryrepo;
+        this.userProfilerepo=userProfilerepo;
     }
     // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for
     // wiring
@@ -159,7 +163,11 @@ public class BudgetService {
         // TODO: CHALLENGE 7 - Implement sorting
         return s;
     }
-
+public UserProfile creatingProfile(String username,double amount){
+UserProfile user=new UserProfile(username,amount);
+ userProfilerepo.save(user);
+ return user;
+}
     public String getGoalStatus() {
         // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal
         return "Pending...";

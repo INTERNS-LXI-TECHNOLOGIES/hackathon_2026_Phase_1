@@ -6,13 +6,15 @@ import com.jennifer.hackathon.controller.AppController;
 import com.jennifer.hackathon.enumType.TransactionType;
 import com.jennifer.hackathon.repositry.CategoryRepository;
 import com.jennifer.hackathon.repositry.TransactionRepository;
+import com.jennifer.hackathon.repositry.UserProfileRepository;
 import com.jennifer.hackathon.service.*;
 
 public class BudgetApp {
     private static final Scanner sc = new Scanner(System.in);
     private static TransactionRepository transactionrepo = new TransactionRepository();
     private static CategoryRepository categoryrepo = new CategoryRepository();
-    private static BudgetService budgetService = new BudgetService(transactionrepo, categoryrepo);
+    private static UserProfileRepository userProfilerepo = new UserProfileRepository();
+    private static BudgetService budgetService = new BudgetService(transactionrepo, categoryrepo, userProfilerepo);
 
     public static void main(String[] args) {
         System.out.println("=== JAVA 21 INTERN HACKATHON: PERSONAL BUDGET TRACKER ===");
@@ -115,28 +117,33 @@ public class BudgetApp {
                         case "2" -> {
                             System.out.println("Enter Transcation Type:(INCOME/EXPENSE)");
                             String type = sc.nextLine();
-                            controller.filteringTranscationsDetails(t->t.type().name().equalsIgnoreCase(type));
+                            controller.filteringTranscationsDetails(t -> t.type().name().equalsIgnoreCase(type));
 
                         }
 
-                        case "3" ->{
+                        case "3" -> {
                             System.out.println("Enter Category : ");
-                            String category=sc.nextLine();
-                            controller.filteringTranscationsDetails(c->c.categoryName().equals(category));
+                            String category = sc.nextLine();
+                            controller.filteringTranscationsDetails(c -> c.categoryName().equals(category));
 
                         }
 
-                        case "4" ->{
+                        case "4" -> {
                             System.out.println("Enter Amount: ");
-                            String am=sc.nextLine();
-                            double amount=Double.parseDouble(am);
-                            controller.filteringTranscationsDetails(a->a.amount()>=amount);
+                            String am = sc.nextLine();
+                            double amount = Double.parseDouble(am);
+                            controller.filteringTranscationsDetails(a -> a.amount() >= amount);
                         }
                     }
 
                 }
-                case "9" ->{
-
+                case "9" -> {
+                    System.out.println("Enter name: ");
+                    String name = sc.nextLine();
+                    System.out.println("Enter Monthly saving goal: ");
+                    String ss = sc.nextLine();
+                    double monthlySavingAmount = Double.parseDouble(ss);
+                    controller.user(name, monthlySavingAmount);
                 }
                 case "10" -> System.exit(0);
 
