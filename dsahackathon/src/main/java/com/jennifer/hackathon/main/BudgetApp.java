@@ -88,8 +88,9 @@ public class BudgetApp {
                     System.out.println("Enter the Category: ");
                     String category=sc.nextLine();
                     System.out.println("Enter the thereshold Amount: ");
-                    double amount=sc.nextDouble();
-                    controller.showAdvancedStats();
+                    String a=sc.nextLine();
+                    double amount=Double.parseDouble(a);
+                    controller.highValueTranscation(category, amount);
                 }
                 case "8" -> System.exit(0);
 

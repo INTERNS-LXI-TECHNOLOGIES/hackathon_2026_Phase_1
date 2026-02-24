@@ -101,12 +101,11 @@ public class AppController {
         // #16 (**********Category Report********)
         String category = budgetService.getCategoryReport();
         System.out.println(category);
-
     }
 
-    public void highValueTranscation(String category,double thereshold){
-budgetService.hasHighValueTransaction(category, thereshold);
-
+    public void highValueTranscation(String category, double thereshold) {
+        boolean highTranscation = budgetService.hasHighValueTransaction(category, thereshold);
+        System.out.println("High Value Transcation exists: " + highTranscation);
     }
 
     public void showDashboard() {
