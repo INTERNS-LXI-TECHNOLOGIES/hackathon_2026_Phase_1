@@ -160,7 +160,7 @@ transaction2.ifPresent(t -> {
 
     public void showDashboard() {
        
-        // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
+     // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
         System.out.println("-------------------------");
 
 
@@ -176,6 +176,11 @@ transaction2.ifPresent(t -> {
 
     System.out.println("Total Income Count  : " + partition.get(true).size());
     System.out.println("Total Expense Count : " + partition.get(false).size());
+
+   String goalStatus =  budgetService.getGoalStatus();
+    
+   System.out.println(goalStatus);
+
        
     }
 
@@ -184,13 +189,17 @@ transaction2.ifPresent(t -> {
       public UserProfile addUserProfile(String name,String montlySaving){
       
        userProfileService.addProfile(name, montlySaving);
-
-
         return null;
+
       }
      
 
+    public UserProfile findUserProfile(){
 
+     return userProfileService.findUserProfile();
+
+
+    }
 
 
 

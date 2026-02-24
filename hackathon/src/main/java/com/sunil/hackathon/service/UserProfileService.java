@@ -19,11 +19,19 @@ public UserProfile addProfile(String name ,String monthlySavingsGoal){
 
  UserProfile up = new UserProfile(name,converted);
 
-
-return userProfileRepository.save(up);
+ 
+ return userProfileRepository.save(up);
 
 
 
 }
+
+public UserProfile findUserProfile(){
+
+   return  userProfileRepository.load();
+}
+
+
+
 
 }

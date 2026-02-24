@@ -167,15 +167,9 @@ public class BudgetService {
         // TODO: CHALLENGE 5 - Save via transRepo
     }
 
-    public List<Transaction> getTransactionsSortedByAmount() {
+    public List<Transaction> getTransactionsSortedByAmount(){
 
-    
-      
         List<Transaction>  transactionsByAmount =  transactionRepository.amountSort();
-
-       
-
-             
        return  transactionsByAmount.stream()
                                    .sorted((t1,t2) -> Double.compare(t1.amount(), t2.amount()))
                                    .collect(Collectors.toList()); 
@@ -184,7 +178,8 @@ public class BudgetService {
     }
 
 
-    public List<Transaction> fetchAllSortedByDate() {
+    public List<Transaction> fetchAllSortedByDate(){
+
 
         // TODO: CHALLENGE 7 - Implement sorting
 
@@ -201,9 +196,34 @@ public class BudgetService {
     // not finished 
     public String getGoalStatus(){
 
-    return null;
+    List<Transaction> transactions =  transactionRepository.findAll();
+    
+    List<Transaction> expence = transactions.stream()
+                                            .filter(n -> n.type()== TransactionType.EXPENSE)
+                                            .collect(Collectors.toList());
+
+
+    List<Transaction> income = transactions.stream()
+                                           .filter(n ->n.type()==TransactionType.INCOME)
+                                           .collect(Collectors.toList());
+                                           
+                                           
+                    double   calculatedIncome =  income.stream().mapToDouble(n ->n.amount()).sum();
+                    double   calculateExpence = expence.stream().mapToDouble(n ->n.amount()).sum();
+                    
+                    double  calculation = calculatedIncome - calculateExpence;
+
+                      return "Income: " + calculatedIncome +
+           " Expense: " + calculateExpence +
+           " Savings: " + calculation;
+                
+
+ 
 
         // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal
+           
+
+
 
     }
 

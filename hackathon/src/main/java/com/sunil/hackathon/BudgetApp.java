@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.sunil.hackathon.controller.AppController;
 import com.sunil.hackathon.model.Transaction;
+import com.sunil.hackathon.model.UserProfile;
 import com.sunil.hackathon.repository.TransactionRepository;
 import com.sunil.hackathon.repository.UserProfileRepository;
 import com.sunil.hackathon.service.BudgetService;
@@ -122,8 +123,15 @@ public class BudgetApp {
                 System.out.print("Monthly Saving: "); String monthlySavingsGoal = sc.nextLine();
                  
                 controller.addUserProfile(username,monthlySavingsGoal);
+                UserProfile userProfile =  controller.findUserProfile();
+
+                System.out.println("User Profile : " + userProfile.username());
+                System.out.println("Monthly Saving Goal : " + userProfile.monthlySavingsGoal());
 
                 }
+
+
+
 
                 case "8" -> System.exit(0);
                 default -> System.out.println("Invalid option.");
