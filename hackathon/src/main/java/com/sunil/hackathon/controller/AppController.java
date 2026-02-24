@@ -1,7 +1,9 @@
 package com.sunil.hackathon.controller;
 import com.sunil.hackathon.service.BudgetService;
 import com.sunil.hackathon.service.CategoryService;
+import com.sunil.hackathon.service.UserProfileService;
 import com.sunil.hackathon.model.TransactionType;
+import com.sunil.hackathon.model.UserProfile;
 import com.sunil.hackathon.repository.CategoryRepository;
 import com.sunil.hackathon.model.Transaction;
 
@@ -9,6 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,16 +22,18 @@ public class AppController {
     private BudgetService budgetService;
     private CategoryRepository categoryRepository;
     private CategoryService  categoryService;
+    private UserProfileService userProfileService;
 
     public Object addCategory;
 
  
-    public  AppController(BudgetService bService,CategoryRepository categoryRepository,CategoryService categoryService){
+    public  AppController(BudgetService bService,CategoryRepository categoryRepository,
+        CategoryService categoryService, UserProfileService userProfileService){
   
     this.budgetService = bService;
     this.categoryRepository = categoryRepository; 
     this.categoryService = categoryService;
-
+    this.userProfileService = userProfileService;
 
    }
 
@@ -154,12 +159,42 @@ transaction2.ifPresent(t -> {
     }
 
     public void showDashboard() {
-        System.out.println("\n--- BUDGET DASHBOARD ---");
+       
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
         System.out.println("-------------------------");
-        
-        
 
 
+    System.out.println("\n--- BUDGET DASHBOARD ---");
+    System.out.println("-------------------------");
+    //4
+    Map<String,Double> map = budgetService.getSpendingByCategory();
+
+    System.out.println("Spending By Category : " + map);
+      
+    //12
+    Map<Boolean, List<Transaction>> partition = budgetService.getPartitionedTransactions();
+
+    System.out.println("Total Income Count  : " + partition.get(true).size());
+    System.out.println("Total Expense Count : " + partition.get(false).size());
+       
     }
+
+
+      // custome created
+      public UserProfile addUserProfile(String name,String montlySaving){
+      
+       userProfileService.addProfile(name, montlySaving);
+
+
+        return null;
+      }
+     
+
+
+
+
+
+
+
+
 }

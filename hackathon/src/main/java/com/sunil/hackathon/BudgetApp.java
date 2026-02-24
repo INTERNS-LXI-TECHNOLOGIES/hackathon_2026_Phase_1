@@ -6,8 +6,10 @@ import java.util.Scanner;
 import com.sunil.hackathon.controller.AppController;
 import com.sunil.hackathon.model.Transaction;
 import com.sunil.hackathon.repository.TransactionRepository;
+import com.sunil.hackathon.repository.UserProfileRepository;
 import com.sunil.hackathon.service.BudgetService;
 import com.sunil.hackathon.service.CategoryService;
+import com.sunil.hackathon.service.UserProfileService;
 import com.sunil.hackathon.model.Category;
 
 import com.sunil.hackathon.repository.CategoryRepository;
@@ -23,8 +25,10 @@ public class BudgetApp {
 
         // CHALLENGE 5: ARCHITECTURAL WIRING
         // TODO: Wire layers together (Repos -> Service -> Controller)
-
+        UserProfileRepository userProfileRepository = new UserProfileRepository();
         
+       UserProfileService userProfileService = new UserProfileService(userProfileRepository);
+
        CategoryRepository categoryRepository = new CategoryRepository();
 
         CategoryService categoryService = new CategoryService(categoryRepository);
@@ -33,7 +37,7 @@ public class BudgetApp {
 
         BudgetService budgetService = new BudgetService(transactionRepository,categoryRepository);
 
-        AppController controller = new AppController(budgetService,categoryRepository, categoryService ); // CHALLENGE: Wire your controller here!
+        AppController controller = new AppController(budgetService,categoryRepository, categoryService,userProfileService ); // CHALLENGE: Wire your controller here!
          
         if (controller == null){
 
@@ -43,7 +47,7 @@ public class BudgetApp {
         }
 
         while (true) {
-            System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7] Exit");
+            System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7] Create UserProfile | [8] Exit");
             System.out.print("Input: ");
             String choice = sc.nextLine();
 
@@ -62,13 +66,10 @@ public class BudgetApp {
                     // TODO: Wire controller
 
                 }
-
-
+                
                 //now working 
 
                 case "2" -> {
-
-         
                     
                 List<Transaction> transactions =  controller.listOfTransactionsByDate();
 
@@ -97,17 +98,39 @@ public class BudgetApp {
                     System.out.print("Name: "); String n = sc.nextLine();
                     System.out.print("Limit: "); String l = sc.nextLine();
 
-                             controller.addCategory(n,l);
+                    controller.addCategory(n,l);
 
                     // TODO: Wire controller
 
                     
+                
                 }
-                case "6" -> { /* TODO: Wire showDashboard() */ }
 
 
-                case "7" -> System.exit(0);
+                case "6" -> { /* TODO: Wire showDashboard() */
+
+                  controller.showDashboard();
+
+
+                 }
+  
+          
+                // user profile custome created 
+                case"7" ->{
+
+                System.out.print("User Name: "); String username = sc.nextLine();
+                System.out.print("Monthly Saving: "); String monthlySavingsGoal = sc.nextLine();
+                 
+                controller.addUserProfile(username,monthlySavingsGoal);
+
+                }
+
+                case "8" -> System.exit(0);
                 default -> System.out.println("Invalid option.");
+          
+
+       
+
             }
         }
     }

@@ -33,12 +33,16 @@ public class BudgetService {
     // wiring
 
     public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
-        // CHALLENGE 12: PARTITIONING DATA
-        // TODO: Implement using .stream().collect(Collectors.partitioningBy(t ->
-        // t.type() == TransactionType.INCOME))
-        return new HashMap<>();
-    }
 
+        List<Transaction> transactions =  transactionRepository.findAll();
+
+        // CHALLENGE 12: PARTITIONING DATA
+      Map<Boolean,List<Transaction>> value  =  transactions.stream()
+
+        .collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME));
+        return value;
+    }
+  
 
 
 
@@ -57,6 +61,9 @@ public class BudgetService {
                     .summaryStatistics();
         return stats;
     }
+
+
+    // not  finished 
 
     public boolean hasHighValueTransaction(String category, double threshold) {
         // CHALLENGE 14: EXISTENCE & THRESHOLDS
@@ -91,11 +98,15 @@ public class BudgetService {
         return categoryNames;
     }
 
+    // not finished 
+
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
         // TODO: CHALLENGE 9 - Implementation needed
         return new ArrayList<>();
     }
 
+
+     //not finished 
     public Set<String> getUniqueDescriptions() {
 
         // TODO: CHALLENGE 10 - Implementation needed
@@ -167,18 +178,13 @@ public class BudgetService {
              
        return  transactionsByAmount.stream()
                                    .sorted((t1,t2) -> Double.compare(t1.amount(), t2.amount()))
-                                    .collect(Collectors.toList()); 
-
+                                   .collect(Collectors.toList()); 
         // TODO: CHALLENGE 7 - Implement sorting
-
-     
 
     }
 
 
     public List<Transaction> fetchAllSortedByDate() {
-
-            
 
         // TODO: CHALLENGE 7 - Implement sorting
 
@@ -187,24 +193,31 @@ public class BudgetService {
          return  transactionByDate.stream()
                                 .sorted()
                                 .collect(Collectors.toList());
-                           
-         
-    
+
+                                
     }
 
-    // now working
 
+    // not finished 
     public String getGoalStatus(){
 
-   return null;
+    return null;
 
         // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal
 
     }
 
+
+
     public Map<String, Double> getSpendingByCategory() {
         // TODO: CHALLENGE 4 - Implement groupingBy
-        return new HashMap<>();
+
+        List<Transaction> transactions  = transactionRepository.findAll();
+                      
+                         Map<String, Double> result = transactions.stream()
+                                   
+                                      .collect(Collectors.groupingBy(n -> n.categoryName(),Collectors.summingDouble(n -> n.amount())));
+        return result;
     }
 
 }

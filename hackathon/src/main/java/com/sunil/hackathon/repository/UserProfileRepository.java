@@ -6,7 +6,7 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-class UserProfileRepository {
+public class UserProfileRepository {
 
 
     private final Path path = Paths.get("data_user.csv");
@@ -19,8 +19,12 @@ class UserProfileRepository {
     }
 
 
-    public void save(UserProfile u) {
+
+
+    public UserProfile save(UserProfile u) {
+
         try { Files.write(path, u.toCsv().getBytes()); } catch (IOException a) {}
+        return u;
     }
 
 
