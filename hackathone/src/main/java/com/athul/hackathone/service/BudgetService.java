@@ -71,12 +71,17 @@ public class BudgetService {
         // TODO: CHALLENGE 9 - Implementation needed
           var list = transactionRepository.findAll();
         return list.stream().filter(filter)
+
                 .toList();
     }
 
     public Set<String> getUniqueDescriptions() {
         // TODO: CHALLENGE 10 - Implementation needed
-        return new HashSet<>();
+        var list = transactionRepository.findAll();
+         Set<String> unique = list.stream()
+                 .map(n -> n.description())
+                 .collect(Collectors.toSet());
+        return unique;
     }
     public void addTransaction(Transaction t) throws DataPersistenceException {
         if(t.type() == TransactionType.EXPENSE) {
@@ -105,7 +110,7 @@ public class BudgetService {
     public List<Transaction> getTransactionsSortedByAmount() {
         // TODO: CHALLENGE 7 - Implement sorting
         var transAm = transactionRepository.findAll();
-       // System.out.println("Method working");
+       //System.out.println("Method working");
                return   transAm.stream()
                          .sorted(Comparator.comparingDouble( Transaction :: amount))
                          .toList();//return new ArrayList<>();
@@ -132,7 +137,7 @@ public class BudgetService {
                    .sum();
            double savings = income - expense;
            if (savings >goal){
-               return  "Yess ,Goal  Achieved!" + savings;
+               return  "Yess ,Your savings is  " + savings;
            }
              else if (savings == goal ){
                  return     "No savings but income exceed expense ";

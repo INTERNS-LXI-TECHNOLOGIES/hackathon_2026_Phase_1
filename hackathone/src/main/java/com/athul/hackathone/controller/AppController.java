@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class AppController {
    
@@ -64,17 +65,6 @@ public class AppController {
                         """,x.id(),x.date(),x.description(),x.amount(),x.categoryName(),x.type());
             }
 
-              /*  System.out.printf("""
-                        Date   :%tF
-                        Id     :%s
-                        Descr  :%s
-                        Amount :%.2f
-                        Cat Name:%s
-                        Type   :%s \n
-                        ----------------
-                        """,x.date(),x.id(),x.description(),x.amount(),x.categoryName(),x.type());
-            }*/
-           // System.out.println("Method working");
         } else {
           List<Transaction> list = service.fetchAllSortedByDate();
             for (Transaction x : list){
@@ -102,11 +92,14 @@ public class AppController {
        System.out.println("Avg "+ statistics.getAverage());
        System.out.println("Count "+statistics.getCount());
        System.out.println("Sum "+ statistics.getSum());
-           System.out.println("Highest Exp " +service.getHighestExpense());
+       System.out.println("Highest Exp " +service.getHighestExpense());
+        var list = service.getUniqueDescriptions();
+        for (String  i : list){
+            System.out.println("Unique Desc "+i);
+        }
+       System.out.println("Categorys: "+ service.getCategoryReport());
 
-       System.out.println( service.getCategoryReport());
-
-        System.out.println("------------------------------------");
+       System.out.println("------------------------------------");
     }
 
     public void showDashboard() {
@@ -121,5 +114,13 @@ public class AppController {
          System.out.println(service.getGoalStatus());
 
         System.out.println("-------------------------");
+    }
+
+
+
+    public void filterUsingCat(String cat) {
+        Predicate<Transaction> filter = n -> n.categoryName().equals(cat);
+       var list= service.filterTransactions(filter);
+       System.out.println(list);
     }
 }

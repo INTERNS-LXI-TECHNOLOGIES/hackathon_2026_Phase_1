@@ -62,7 +62,13 @@ public class BudgetApp {
                 case "6" -> { /* TODO: Wire showDashboard() */
                 controller.showDashboard();
                 }
-                case "7" -> System.exit(0);
+                case"7" -> {
+                    System.out.println("Enter categeroy ");
+                    String cat = sc.nextLine();
+
+                    controller.filterUsingCat(cat);
+                }
+                case "8" -> System.exit(0);
                 default -> System.out.println("Invalid option.");
             }
         }

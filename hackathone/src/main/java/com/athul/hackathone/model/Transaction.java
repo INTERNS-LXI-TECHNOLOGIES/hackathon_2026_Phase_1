@@ -20,4 +20,5 @@ public record Transaction (
     public int compareTo(Transaction e) {
         return this.date.compareTo(e.date);
     }
+
 }
