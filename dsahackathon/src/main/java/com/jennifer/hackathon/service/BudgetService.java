@@ -109,8 +109,13 @@ public class BudgetService {
     }
 
     public Set<String> getUniqueDescriptions() {
+        List<Transaction> transactions = transactionrepo.findAll();
+        Set<String> description = transactions.stream()
+                .map(Transaction::description)
+                .collect(Collectors.toSet());
+
         // TODO: CHALLENGE 10 - Implementation needed
-        return new HashSet<>();
+        return description;
     }
 
     public void addTransaction(Transaction t) throws DataPersistenceException {

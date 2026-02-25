@@ -144,5 +144,10 @@ public class AppController {
         // #2
         System.out.println("*************SAVINGS GOAL****************");
         System.out.println(budgetService.getGoalStatus());
+
+
+        //#10
+        System.out.println("**********DESCRIPTION**************");
+        System.out.println(budgetService.getUniqueDescriptions());
     }
 }

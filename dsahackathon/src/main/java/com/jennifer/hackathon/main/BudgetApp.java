@@ -33,7 +33,7 @@ public class BudgetApp {
 
         while (true) {
             System.out.println(
-                    "\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7]Check High Transcation | [8]Filter by types |  [9]Create User  | [10]Savings Goal  [11] Exit");
+                    "\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7]Check High Transcation | [8]Filter by types |  [9]Create User  | [10]Savings Goal  [11]Description  |  [12] Exit");
             System.out.print("Input: ");
             String choice = sc.nextLine();
 
@@ -149,7 +149,10 @@ public class BudgetApp {
                 case "10" ->{
                     controller.showDashboard();
                 }
-                case "11" -> System.exit(0);
+                case "11" ->{
+                    controller.showDashboard();
+                }
+                case "12" -> System.exit(0);
 
                 default -> System.out.println("Invalid option.");
             }
