@@ -13,19 +13,30 @@ import java.util.function.*;
 import com.sunil.hackathon.exception.DataPersistenceException;
 import com.sunil.hackathon.model.Transaction;
 import com.sunil.hackathon.model.TransactionType;
+import com.sunil.hackathon.model.UserProfile;
 import com.sunil.hackathon.repository.CategoryRepository;
 import com.sunil.hackathon.repository.TransactionRepository;
+import com.sunil.hackathon.repository.UserProfileRepository;
 import com.sunil.hackathon.model.Category;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class BudgetService {
 
+     private static final Scanner sc = new Scanner(System.in);
+
+
     private TransactionRepository transactionRepository;
     private CategoryRepository categoryRepository;
+    private UserProfileRepository userProfileRepository;
 
-    public BudgetService(TransactionRepository transactionRepository, CategoryRepository categoryRepository) {
+    public BudgetService(TransactionRepository transactionRepository, CategoryRepository categoryRepository,
+        UserProfileRepository userProfileRepository) {
 
         this.transactionRepository = transactionRepository;
         this.categoryRepository = categoryRepository;
+        this.userProfileRepository = userProfileRepository;
 
     }
 
@@ -71,7 +82,7 @@ public class BudgetService {
         return false;
     }
 
-    public Optional<Transaction> getHighestExpense() {
+    public Optional<Transaction> getHighestExpense(){
 
        List<Transaction> transactions =  transactionRepository.findAll();
         // CHALLENGE 15: TOP EXPENSE FINDER
@@ -98,12 +109,104 @@ public class BudgetService {
         return categoryNames;
     }
 
+
+
+
+
     // not finished 
 
-    public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
+
+    public List<Transaction> filterTransactions() {
+
+
+       while(true){
+
+            System.out.println("\nMENU: [1] Filter By Date | [2] Filter By Amount | [3] Filter By Expence | [4] Filter By Incom  [5] Exit");
+            System.out.print("Input: ");
+            String choice = sc.nextLine();
+
+
+        switch (choice) {
+        
+        case "1" -> {
+
+        System.out.print("Filter By Date : ");String input  = sc.nextLine();
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = LocalDate.parse(input, formatter);
+
+
+       
+       List<Transaction> transactions =  transactionRepository.findAll();
+                      return  transactions.stream()
+                                    .filter(n -> n.date().equals(date))
+                                    .collect(Collectors.toList());
+
+                                   
+
+        }
+
+        case "2" -> {
+
+        System.out.print("Filter By Amount : ");String input  = sc.nextLine();    
+
+         double amount = Double.parseDouble(input);
+
+
+       List<Transaction> transactions =  transactionRepository.findAll();
+                            
+                      return  transactions.stream()
+                                      .filter(n -> n.amount()== (amount))
+                                      .collect(Collectors.toList());
+
+        }
+
+        case "3" ->{
+       
+
+                 
+            List<Transaction> transactions = transactionRepository.findAll();
+                             return  transactions.stream()
+                                           .filter(n ->n.type() == TransactionType.EXPENSE)
+                                           .collect(Collectors.toList());   
+        }
+
+            
+       
+               case "4" ->{
+      
+                 
+            List<Transaction> transactions = transactionRepository.findAll();
+                            return  transactions.stream()
+                                           .filter(n ->n.type() == TransactionType.INCOME)
+                                           .collect(Collectors.toList());   
+        }
+
+
+        
+        case "5" -> System.exit(0);
+        default -> System.out.println("Invalid option.");
+        
+        
+       } 
+
+
+
         // TODO: CHALLENGE 9 - Implementation needed
+
         return new ArrayList<>();
+
+
+       }
+
+
+
+        
+
     }
+
+
 
 
      //not finished 
@@ -193,7 +296,7 @@ public class BudgetService {
     }
 
 
-    // not finished 
+
     public String getGoalStatus(){
 
     List<Transaction> transactions =  transactionRepository.findAll();
@@ -211,12 +314,32 @@ public class BudgetService {
                     double   calculatedIncome =  income.stream().mapToDouble(n ->n.amount()).sum();
                     double   calculateExpence = expence.stream().mapToDouble(n ->n.amount()).sum();
                     
-                    double  calculation = calculatedIncome - calculateExpence;
+                    
 
-                      return "Income: " + calculatedIncome +
-           " Expense: " + calculateExpence +
-           " Savings: " + calculation;
+                    double  savings = calculatedIncome - calculateExpence;
+
+       UserProfile userProfile =  userProfileRepository.load();
+       double monthlyGoal =  userProfile.monthlySavingsGoal();
+
+
+           String status;
+
+           if(savings > monthlyGoal){
+
+            
+        status = "Goal Achived";
                 
+
+           }else{
+
+            status = "Goal Not Achived";            
+           }
+      
+               return "Income: " + calculatedIncome +
+           " Expense:  " + calculateExpence +
+           "| Savings: " + savings +
+           "| Goal :  " + monthlyGoal + 
+           "|Status : " + status;
 
  
 
@@ -234,9 +357,8 @@ public class BudgetService {
 
         List<Transaction> transactions  = transactionRepository.findAll();
                       
-                         Map<String, Double> result = transactions.stream()
-                                   
-                                      .collect(Collectors.groupingBy(n -> n.categoryName(),Collectors.summingDouble(n -> n.amount())));
+    Map<String, Double> result = transactions.stream()
+                                .collect(Collectors.groupingBy(n -> n.categoryName(),Collectors.summingDouble(n -> n.amount())));
         return result;
     }
 

@@ -36,7 +36,7 @@ public class BudgetApp {
 
         TransactionRepository transactionRepository = new TransactionRepository();
 
-        BudgetService budgetService = new BudgetService(transactionRepository,categoryRepository);
+        BudgetService budgetService = new BudgetService(transactionRepository,categoryRepository,userProfileRepository);
 
         AppController controller = new AppController(budgetService,categoryRepository, categoryService,userProfileService ); // CHALLENGE: Wire your controller here!
          
@@ -48,8 +48,13 @@ public class BudgetApp {
         }
 
         while (true) {
-            System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7] Create UserProfile | [8] Exit");
-            System.out.print("Input: ");
+            System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats |");
+          
+            System.out.println("----------------------------------------------------------------------------");
+           
+            System.out.println("\nMENU: [5] Add Cat | [6] Summary | [7] Create UserProfile | [8] Exit | [9]Filtering");
+         
+            System.out.print("\nInput: ");
             String choice = sc.nextLine();
 
             switch (choice) {
@@ -130,7 +135,13 @@ public class BudgetApp {
 
                 }
 
+                case "9" ->{
+             
+               List<Transaction> listOfTransactions = budgetService.filterTransactions();    
+           
+               System.out.println(listOfTransactions);
 
+               }
 
 
                 case "8" -> System.exit(0);

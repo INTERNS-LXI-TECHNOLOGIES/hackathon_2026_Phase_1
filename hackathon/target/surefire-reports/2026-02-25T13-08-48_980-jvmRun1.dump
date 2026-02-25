@@ -1,6 +1,6 @@
-# Created at 2026-02-24T16:43:30.639
+# Created at 2026-02-25T13:08:49.468
 System.exit() or native command error interrupted process checker.
-java.lang.IllegalStateException: Cannot use PPID 11200 process information. Going to use NOOP events.
+java.lang.IllegalStateException: Cannot use PPID 6940 process information. Going to use NOOP events.
 	at org.apache.maven.surefire.booter.PpidChecker.checkProcessInfo(PpidChecker.java:155)
 	at org.apache.maven.surefire.booter.PpidChecker.isProcessAlive(PpidChecker.java:116)
 	at org.apache.maven.surefire.booter.ForkedBooter$2.run(ForkedBooter.java:214)

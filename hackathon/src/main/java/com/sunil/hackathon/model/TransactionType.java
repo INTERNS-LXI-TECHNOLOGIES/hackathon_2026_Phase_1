@@ -7,7 +7,12 @@ package com.sunil.hackathon.model;
 public boolean equalsIgnoreCase(String string) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'equalsIgnoreCase'");
-} 
+}
+
+    public static TransactionType parse(String input) {
+
+        return TransactionType.valueOf(input.trim().toUpperCase());
+    }
      
   
 }
