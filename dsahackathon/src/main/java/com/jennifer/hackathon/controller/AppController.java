@@ -122,7 +122,7 @@ public class AppController {
 
     public void user(String name, double goal) {
         UserProfile profiles = budgetService.creatingProfile(name, goal);
-        System.out.println("User Created: "+profiles);
+        System.out.println("User Created: " + profiles);
     }
 
     public void showDashboard() {
@@ -140,5 +140,9 @@ public class AppController {
         System.out.println("*****************************");
         Map<Boolean, List<Transaction>> partitionedTransactions = budgetService.getPartitionedTransactions();
         System.out.println(partitionedTransactions);
+
+        // #2
+        System.out.println("*************SAVINGS GOAL****************");
+        System.out.println(budgetService.getGoalStatus());
     }
 }

@@ -29,10 +29,11 @@ public class BudgetService {
     private final UserProfileRepository userProfilerepo;
     List<Transaction> transactions = new ArrayList<>();
 
-    public BudgetService(TransactionRepository transactionrepo, CategoryRepository categoryrepo,UserProfileRepository userProfilerepo) {
+    public BudgetService(TransactionRepository transactionrepo, CategoryRepository categoryrepo,
+            UserProfileRepository userProfilerepo) {
         this.transactionrepo = transactionrepo;
         this.categoryrepo = categoryrepo;
-        this.userProfilerepo=userProfilerepo;
+        this.userProfilerepo = userProfilerepo;
     }
     // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for
     // wiring
@@ -98,13 +99,13 @@ public class BudgetService {
     }
 
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
-      return transactionrepo.findAll()
-        .stream()
-        .filter(filter)
-        .toList();
-        
+        return transactionrepo.findAll()
+                .stream()
+                .filter(filter)
+                .toList();
+
         // TODO: CHALLENGE 9 - Implementation needed
-       
+
     }
 
     public Set<String> getUniqueDescriptions() {
@@ -163,14 +164,40 @@ public class BudgetService {
         // TODO: CHALLENGE 7 - Implement sorting
         return s;
     }
-public UserProfile creatingProfile(String username,double amount){
-UserProfile user=new UserProfile(username,amount);
- userProfilerepo.save(user);
- return user;
-}
+
+    public UserProfile creatingProfile(String username, double amount) {
+        UserProfile user = new UserProfile(username, amount);
+        userProfilerepo.save(user);
+        return user;
+    }
+
     public String getGoalStatus() {
+        List<Transaction> transactions = transactionrepo.findAll();
+
+        double expense = transactions.stream()
+                .filter(e -> e.type() == TransactionType.EXPENSE)
+                .mapToDouble(a -> a.amount())
+                .sum();
+        System.out.println("total expense: " + expense);
+
+        double income = transactions.stream()
+                .filter(i -> i.type() == TransactionType.INCOME)
+                .mapToDouble(b -> b.amount())
+                .sum();
+        System.out.println("total income: " + income);
+        UserProfile userprofile = userProfilerepo.load();
+        double goal = userprofile.monthlySavingsGoal();
+
+        double netSavings = income - expense;
+        double g = goal - netSavings;
+        if (netSavings >= goal) {
+            return "Goal acheieved,Net savings: " + netSavings;
+        } else {
+            return "Goal not achieved: " + netSavings + " Remaining :" + g;
+        }
+
         // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal
-        return "Pending...";
+
     }
 
     public Map<String, Double> getSpendingByCategory() {
