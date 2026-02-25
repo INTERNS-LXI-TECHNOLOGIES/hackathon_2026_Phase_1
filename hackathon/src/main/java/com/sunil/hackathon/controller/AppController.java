@@ -13,7 +13,9 @@ import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.Locale.Category;
 
 public class AppController {
    
@@ -166,6 +168,7 @@ transaction2.ifPresent(t -> {
 
     System.out.println("\n--- BUDGET DASHBOARD ---");
     System.out.println("-------------------------");
+
     //4
     Map<String,Double> map = budgetService.getSpendingByCategory();
 
@@ -181,20 +184,30 @@ transaction2.ifPresent(t -> {
     
    System.out.println(goalStatus);
 
-       
-    }
+
+   // unique Description 
+
+   Set<String>  uniqueDescriptions = budgetService.getUniqueDescriptions();
+
+   System.out.println(uniqueDescriptions);
+   
+
+   
+   }
 
 
       // custome created
       public UserProfile addUserProfile(String name,String montlySaving){
       
        userProfileService.addProfile(name, montlySaving);
+
+
         return null;
 
       }
      
 
-    public UserProfile findUserProfile(){
+     public UserProfile findUserProfile(){
 
      return userProfileService.findUserProfile();
 
@@ -203,7 +216,14 @@ transaction2.ifPresent(t -> {
 
 
 
+//created method 
+public Boolean hasHighValueTransaction(String category,double threshold){
 
+return budgetService.hasHighValueTransaction(category,threshold);
+
+
+
+}
 
 
 

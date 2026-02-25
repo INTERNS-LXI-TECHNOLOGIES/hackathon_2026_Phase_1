@@ -6,6 +6,17 @@
 
  public String toCsv() { return name + "," + budgetLimit; }
 
+ public static Category valueOf(String upperCase) {
+    
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'valueOf'");
+
+
+}
+
+
+
+
 
 
 }

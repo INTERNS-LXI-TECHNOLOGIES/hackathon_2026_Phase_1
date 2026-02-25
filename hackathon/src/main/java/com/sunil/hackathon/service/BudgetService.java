@@ -74,13 +74,25 @@ public class BudgetService {
     }
 
 
-    // not  finished 
 
-    public boolean hasHighValueTransaction(String category, double threshold) {
-        // CHALLENGE 14: EXISTENCE & THRESHOLDS
-        // TODO: Implement using .stream().anyMatch(...)
-        return false;
+    public Boolean hasHighValueTransaction(String  category, double threshold) {
+    List<Transaction> transactions = transactionRepository.findAll();
+
+    boolean categoryExists = transactions.stream()
+            .anyMatch(t -> category.equalsIgnoreCase(t.categoryName()));
+
+    if (!categoryExists) {
+        return null;  
     }
+
+    return transactions.stream()
+            .filter(t -> category.equalsIgnoreCase(t.categoryName()))
+            .anyMatch(t -> t.amount() > threshold);
+
+    
+    }
+
+
 
     public Optional<Transaction> getHighestExpense(){
 
@@ -113,7 +125,7 @@ public class BudgetService {
 
 
 
-    // not finished 
+
 
 
     public List<Transaction> filterTransactions() {
@@ -209,12 +221,19 @@ public class BudgetService {
 
 
 
-     //not finished 
     public Set<String> getUniqueDescriptions() {
+
+       List<Transaction>  transactions =  transactionRepository.findAll();
+                           
+                     Set<String> unique =   transactions.stream()
+                                                        .map(n -> n.description())
+                                                        .collect(Collectors.toSet());
+
+                         
 
         // TODO: CHALLENGE 10 - Implementation needed
 
-        return new HashSet<>();
+        return unique;
     }
 
     public void addTransaction(Transaction t) throws DataPersistenceException {

@@ -48,11 +48,11 @@ public class BudgetApp {
         }
 
         while (true) {
-            System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats |");
+            System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat |");
           
             System.out.println("----------------------------------------------------------------------------");
            
-            System.out.println("\nMENU: [5] Add Cat | [6] Summary | [7] Create UserProfile | [8] Exit | [9]Filtering");
+            System.out.println("\nMENU:  [6] Summary | [7] Create UserProfile | [8] Exit | [9]Filtering | [10]High Value Transaction ");
          
             System.out.print("\nInput: ");
             String choice = sc.nextLine();
@@ -142,6 +142,28 @@ public class BudgetApp {
                System.out.println(listOfTransactions);
 
                }
+
+
+               case "10" -> {
+
+    System.out.print("Enter category: ");String category = sc.nextLine();
+
+    System.out.print("Enter threshold amount: ");double threshold = Double.parseDouble(sc.nextLine());
+
+    Boolean result = controller.hasHighValueTransaction(category, threshold);
+
+    
+if (result == null) {
+    
+    System.out.println("Category does not exist");
+} 
+
+    else if (result) {
+        System.out.println(" High value transaction exists!");
+    } else {
+        System.out.println("No high value transactions found.");
+    }
+}
 
 
                 case "8" -> System.exit(0);
