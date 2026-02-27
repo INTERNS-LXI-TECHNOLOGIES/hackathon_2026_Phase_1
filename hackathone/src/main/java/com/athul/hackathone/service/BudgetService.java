@@ -24,7 +24,7 @@ public class BudgetService {
     }
     public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
         // CHALLENGE 12: PARTITIONING DATA
-        // TODO: Implement using .stream().collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME))
+        // TODO: Implement using .stream().collect(Collectors.898       `(t -> t.type() == TransactionType.INCOME))
              var trns = transactionRepository.findAll();
 
         return trns.stream().collect(Collectors.partitioningBy( n -> n.type() == TransactionType.INCOME));
@@ -110,7 +110,7 @@ public class BudgetService {
     public List<Transaction> getTransactionsSortedByAmount() {
         // TODO: CHALLENGE 7 - Implement sorting
         var transAm = transactionRepository.findAll();
-       //System.out.println("Method working");
+       //-------System.out.println("Method working");
                return   transAm.stream()
                          .sorted(Comparator.comparingDouble( Transaction :: amount))
                          .toList();//return new ArrayList<>();
@@ -129,15 +129,15 @@ public class BudgetService {
         var goal = v.monthlySavingsGoal();
            double income = transactionRepository.findAll()
                    .stream().filter(t -> t.type() == TransactionType.INCOME)
-                  .mapToDouble(t -> t.amount())
-                  .sum();
+                   .mapToDouble(t -> t.amount())
+                   .sum();
            double expense = transactionRepository.findAll()
                    .stream().filter(t -> t.type() == TransactionType.EXPENSE)
                    .mapToDouble( t -> t.amount())
                    .sum();
            double savings = income - expense;
            if (savings >goal){
-               return  "Yess ,Your savings is  " + savings;
+               return  "Your monthl goal "+goal +"Yes ,Your savings is  " + savings;
            }
              else if (savings == goal ){
                  return     "No savings but income exceed expense ";

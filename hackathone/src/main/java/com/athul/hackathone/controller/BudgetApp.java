@@ -29,7 +29,7 @@ public class BudgetApp {
         }
 
         while (true) {
-            System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7] Exit");
+            System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7] FilterUseing Cat | [9] FilterUsing date [8] Exit");
             System.out.print("Input: ");
             String choice = sc.nextLine();
 
@@ -64,13 +64,19 @@ public class BudgetApp {
                 }
                 case"7" -> {
                     System.out.println("Enter categeroy ");
-                    String cat = sc.nextLine();
+                    String cat = sc.nextLine().trim();
 
                     controller.filterUsingCat(cat);
                 }
-                case "8" -> System.exit(0);
+                case "8" -> {
+                    System.out.println("Enter Date ");
+                    String date = sc.nextLine();
+                    controller.filterUsingDate(date);
+                }
+                case "9" -> System.exit(0);
                 default -> System.out.println("Invalid option.");
             }
         }
     }
+
 }

@@ -119,8 +119,21 @@ public class AppController {
 
 
     public void filterUsingCat(String cat) {
-        Predicate<Transaction> filter = n -> n.categoryName().equals(cat);
-       var list= service.filterTransactions(filter);
-       System.out.println(list);
+        Predicate<Transaction> filter =
+                n -> n.categoryName().equalsIgnoreCase(cat.trim());
+        var list= service.filterTransactions(filter);
+        System.out.println(list);
+
+    }
+    public void filterUsingDate(String date) {
+
+       LocalDate da = LocalDate.parse(date);
+       //LocalDate ne = da.plusDays(1);
+
+        Predicate<Transaction> filter =
+                n -> n.date().equals(date.trim());
+        var list= service.filterTransactions(filter);
+        System.out.println(list);
+
     }
 }
