@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 
 @Entity
 
-public class Transaction{
+public class Transaction implements Comparable<Transaction>{
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
   private   long id;
@@ -106,6 +106,13 @@ public String toString() {
            ", amount=" + amount + 
            ", categoryName=" + categoryName + 
            ", type=" + type + "]";
+}
+
+
+public int compareTo(Transaction t){
+
+    return this.date.compareTo(t.getDate());
+
 }
 
 

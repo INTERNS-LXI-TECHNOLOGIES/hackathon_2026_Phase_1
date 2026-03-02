@@ -4,21 +4,18 @@ import com.sunil.budget_tracker.exception.DataPersistenceException;
 import com.sunil.budget_tracker.model.Transaction;
 import com.sunil.budget_tracker.model.TransactionType;
 
+import java.util.stream.Collectors;
 
 
 import java.util.*;
-import java.util.DoubleSummaryStatistics;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import java.util.function.Predicate;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sunil.budget_tracker.repository.TransactionRepository;
-import java.util.ArrayList;
+
+import java.util.List;
 
 @Service
 public class BudgetService {
@@ -85,13 +82,31 @@ public class BudgetService {
     }
 
     public List<Transaction> getTransactionsSortedByAmount() {
-        // TODO: CHALLENGE 7 - Implement sorting
-        return null;
+               
+             List<Transaction> transactions =   transactionRepository.findAll();
+
+           
+        return  transactions.stream()     
+                         
+                         .sorted(Comparator.comparing(n ->n.getAmount()))
+                         .toList();
+
+
     }
 
+  
+
     public List<Transaction> fetchAllSortedByDate() {
+
+           List<Transaction> transactions =  transactionRepository.findAll();
+                            
+                                      Collections.sort(transactions);
+                                       
+                    
+    return transactions;
+
         // TODO: CHALLENGE 7 - Implement sorting
-        return null;
+        
     }
 
     public String getGoalStatus() {

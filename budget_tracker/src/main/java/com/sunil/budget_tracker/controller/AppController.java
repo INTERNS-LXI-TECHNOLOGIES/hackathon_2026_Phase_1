@@ -1,7 +1,11 @@
 package com.sunil.budget_tracker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,47 +15,121 @@ import com.sunil.budget_tracker.exception.BudgetException;
 import com.sunil.budget_tracker.exception.DataPersistenceException;
 import com.sunil.budget_tracker.model.Transaction;
 import com.sunil.budget_tracker.service.BudgetService;
+import com.sunil.budget_tracker.service.CategoryService;
+import java.util.List;
+import com.sunil.budget_tracker.model.Category;
 
-@RestController
+//logger implimenting 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+@Controller
 @RequestMapping("/controller")
 public class AppController {
+
+private static final Logger logger = LoggerFactory.getLogger(AppController.class);
+
+
+
+
 @Autowired
 private  BudgetService budgetService;   
-   
+
+@Autowired
+private CategoryService categoryService;
+
+
+
+
+@GetMapping("/budgetApp")
+    public String home() {
+        return "budgetApp"; // Matches src/main/resources/templates/budgetApp.html
+    }
+
+    @GetMapping("/findAddTransaction")
+    public String showForm(Model model) {
+        model.addAttribute("transaction" ,new Transaction());
+
+        return "AddTransaction";
+    }
+
+
     // TODO: CHALLENGE 5 (Part A/B) - Define and wire Service & Category Repo
     @PostMapping("/addTransaction")
-    public void handleAddTransaction(@RequestBody Transaction transaction) throws DataPersistenceException {
-
- 
+    public String handleAddTransaction(@ModelAttribute Transaction transaction) throws DataPersistenceException {
 
         try {
                     budgetService.addTransaction(transaction);
 
             // TODO: Parse inputs and call service.addTransaction
-            System.out.println("Transaction recorded.");
+            logger.info("Transaction Recorded");
+          
         } catch (Exception e) {
-            System.err.println("Controller Error: " + e.getMessage());
+           
+            logger.error("Controller Error");
+
         }
 
-
+    return "redirect:/controller/budgetApp";
         
     }
 
+    @GetMapping("/findAddCategory")
+    public String addCategory(Model model) {
+
+      model.addAttribute("category",new Category());  
+    
+      return "AddCategory";
+
+    }
 
 
-
-    public void addCategory(String name, String limitStr) {
+    @PostMapping("/addCategory")
+    public String addCategory(@ModelAttribute Category category){
+    
         try {
+
+            categoryService.addCategory(category); 
+
+
             // TODO: CHALLENGE 5 (Part C) - Wire call to catRepo.save()
             System.out.println("Category added.");
         } catch (Exception e) {
             System.err.println("Category Error: " + e.getMessage());
         }
+
+        return "redirect:/controller/budgetApp";
     }
 
-    public void listTransactions(boolean sortByAmount) {
+    @GetMapping("/sortByAmount")
+    public String  listTransactions(Model model) {
+
+    
+    List<Transaction> sortTransactions =    budgetService. getTransactionsSortedByAmount();
+
+      model.addAttribute("transactions",sortTransactions);
+
+      return "SortByAmountTransaction";
+
         // TODO: CHALLENGE 7 - Wire service calls for sorting
     }
+
+
+    
+@GetMapping("/sortByDate")
+public String sortByDate(Model model){
+
+ List<Transaction>  sortByDate = budgetService.fetchAllSortedByDate();
+
+  model.addAttribute("transactionByDate",sortByDate);  
+
+
+   return "SortByDate"; 
+}
+
+
+
 
     public void showAdvancedStats() {
         System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
@@ -64,4 +142,6 @@ private  BudgetService budgetService;
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
         System.out.println("-------------------------");
     }
+
+
 }

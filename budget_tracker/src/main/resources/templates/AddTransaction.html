@@ -1,0 +1,124 @@
+<html>
+<head>
+
+<style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+
+            /* Background Gradient */
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .glass-container {
+            width: 350px;
+            padding: 30px;
+            border-radius: 20px;
+
+            /* Glass Effect */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-container h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        input::placeholder {
+            color: #eee;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+
+
+
+/* option expence css code   */
+
+select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    outline: none;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+}
+
+option {
+    font-size: 16px;
+}
+
+</style>   
+</head> 
+
+<div class="glass-container">
+    <h2>Add Transaction</h2>
+<form action = "/controller/addTransaction" method = "post">
+<input type = "text" name = "description" placeholder="description" />
+
+<input type = "text"  name = "amount" placeholder="amount" />
+
+<input type = "text" name = "categoryName" placeholder="category name" />
+
+<select name="type">
+     <option value="">-- Select --</option>
+    <option value="INCOME">INCOME</option>
+    <option value="EXPENSE">EXPENSE</option>
+</select>
+
+ 
+<input type = "submit" value="Save"/>
+<input type = "reset" value="Clear"/>
+
+</form>
+
+</div>
+
+<body>
+</body>
+</html>

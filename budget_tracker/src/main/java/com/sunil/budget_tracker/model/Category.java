@@ -14,7 +14,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    private String categoryName;
 
     private double budgetLimit;
 
@@ -23,7 +23,7 @@ public class Category {
     }
 
     public Category(String name, double budgetLimit) {
-        this.name = name;
+        this.categoryName = name;
         this.budgetLimit = budgetLimit;
     }
  
@@ -31,8 +31,8 @@ public class Category {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     public double getBudgetLimit() {
@@ -44,8 +44,8 @@ public class Category {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryName(String name) {
+        this.categoryName = name;
     }
 
     public void setBudgetLimit(double budgetLimit) {
@@ -56,7 +56,7 @@ public class Category {
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + categoryName + '\'' +
                 ", budgetLimit=" + budgetLimit +
                 '}';
 

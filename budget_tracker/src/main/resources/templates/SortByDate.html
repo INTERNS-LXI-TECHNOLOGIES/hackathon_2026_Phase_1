@@ -1,0 +1,33 @@
+<html>
+<head>
+<style>
+
+</style>
+
+</head>
+<body>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Transaction Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="t : ${transactionByDate}">
+            <td th:text="${t.id}"></td>
+            <td th:text="${t.date}"></td>
+            <td th:text="${t.description}"></td>
+            <td th:text="${t.amount}"></td>
+            <td th:text="${t.categoryName}"></td>
+            <td th:text="${t.type}"></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
