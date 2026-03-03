@@ -81,7 +81,19 @@ interface BaseRepository<T> {
     void save(T entity) throws DataPersistenceException;
 }
 
-class TransactionRepository implements BaseRepository<Transaction> {
+class TransactionRepository implements BaseRepository<Transaction> {package com.sunil.hackathon;
+
+import com.sunil.hackathon.model.Category;
+
+public class CategoryRepository {
+
+    public void save(Category c) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
+}
+
     private final Path path = Paths.get("data_transactions.csv");
 
     public TransactionRepository() {
@@ -311,7 +323,7 @@ public class BudgetApp {
         }
     }
 }
-```
+
 
 
 # Maven Configuration
