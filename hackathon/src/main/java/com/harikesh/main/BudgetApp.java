@@ -10,6 +10,7 @@ import com.harikesh.entity.Category;
 
 import com.harikesh.controller.AppController;
 import com.harikesh.repository.CategoryRepository;
+import com.harikesh.repository.TransactionRepository;
 import com.harikesh.service.BudgetService;
 
 public class BudgetApp {
@@ -20,13 +21,15 @@ public class BudgetApp {
 
         // CHALLENGE 5: ARCHITECTURAL WIRING
          
-       BudgetService service = new BudgetService();
-        AppController controller = new AppController(service); // CHALLENGE: Wire your controller here!
+       BudgetService budgetService = new BudgetService();
+       CategoryRepository categoryRepository= new CategoryRepository();
+       TransactionRepository transactionRepository= new TransactionRepository();
+        AppController controller = new AppController(budgetService,categoryRepository, transactionRepository ); // CHALLENGE: Wire your controller here!
 
-//        if (controller == null) {
-//            System.err.println("\n[!] FATAL: Application wiring incomplete.");
-//            System.exit(1);
-//        }
+        // if (controller == null) {
+        //     System.err.println("\n[!] FATAL: Application wiring incomplete.");
+        //  System.exit(1);
+        // }
 
         while (true) {
             System.out.println("\nMENU: [1] Add Trans | [2] List (Date) | [3] List (Amount) | [4] Stats | [5] Add Cat | [6] Summary | [7] Exit");
@@ -77,7 +80,9 @@ System.out.println("Date entered: " + d);
                     controller.addCategory(c);
                     
                 }
-                case "6" -> {System.out.println("Wire showDashboard() ");}
+                case "6" -> {System.out.println("Wire showDashboard() ");
+                    controller.showDashboard();
+                }
                 case "7" -> System.exit(0);
                 default -> System.out.println("Invalid option.");
             }

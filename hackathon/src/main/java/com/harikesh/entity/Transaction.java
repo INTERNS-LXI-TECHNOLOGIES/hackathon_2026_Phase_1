@@ -25,6 +25,8 @@ public record Transaction(
     public String toCsv() {
         return String.join(",", id, date.toString(), description, String.valueOf(amount), categoryName, type.name());
     }
+
+   
    
    
     

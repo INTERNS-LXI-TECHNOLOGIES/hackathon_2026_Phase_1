@@ -1,0 +1,4 @@
+id,date,desc,amt,cat,type
+39b1a5f4-c9ad-42b3-b77c-7b997254a78a,2026-03-03,food,122.0,food,EXPENSE
+e74c7775-82af-4ac8-9835-ae2ec243bacf,2026-03-03,food,123.0,food,EXPENSE
+55da2534-0f51-4f06-9ec7-139d2b5418cb,2026-03-03,ff,123.0,food,EXPENSE

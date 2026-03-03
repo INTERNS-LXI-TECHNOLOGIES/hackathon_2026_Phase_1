@@ -29,19 +29,29 @@ public class BudgetService {
 
 
     private List<Transaction> transaction = new ArrayList<>();
-
-    TransactionRepository tr = new TransactionRepository();
+    private TransactionRepository transactionRepository;
     CategoryRepository cr= new CategoryRepository();
+    private CategoryRepository categoryRepository;
+
+    public BudgetService() {
+        this.transactionRepository = new TransactionRepository();
+        this.categoryRepository = new CategoryRepository();
+    }
+
    
     public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
         // CHALLENGE 12: PARTITIONING DATA
-         
-        return new HashMap<>();
+        // TODO: Implement using .stream().collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME))
+
+        return transactionRepository.findAll().stream()
+        .filter(t -> t.type() == TransactionType.INCOME)
+        .collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME));
+        
     }
 
     public DoubleSummaryStatistics getExpenseStatistics() {
 
-    return tr.findAll().stream()
+    return transactionRepository.findAll().stream()
             .filter(t -> t.type() == TransactionType.EXPENSE)
             .mapToDouble(Transaction::amount)
             .summaryStatistics();
@@ -49,13 +59,21 @@ public class BudgetService {
 }
     public boolean hasHighValueTransaction(String category, double threshold) {
         // CHALLENGE 14: EXISTENCE & THRESHOLDS
+        // TODO: Implement using .stream().anyMatch(...)
+
+
+     return  transactionRepository.findAll().stream()
+     .filter(c -> c.categoryName().equals(category))
+     .anyMatch(c -> c.amount()> threshold);
+
        
-        return false;
+        //return false;
     }
 
     public Optional<Transaction> getHighestExpense() {
-        // CHALLENGE 15: TOP EXPENSE FINDER
-       return tr.findAll().stream()
+       // CHALLENGE 15: TOP EXPENSE FINDER
+        // TODO: Implement using .stream().filter(expenses).max(Comparator.comparingDouble(...))
+       return transactionRepository.findAll().stream()
        .filter(h -> h.type() == TransactionType.EXPENSE)
 .max(Comparator.comparingDouble(v ->v.amount() ));
        
@@ -65,35 +83,45 @@ public class BudgetService {
     public String getCategoryReport() {
 
         // CHALLENGE 16: DATA JOINING
+        return transactionRepository.findAll().stream()
+        .map(Transaction:: categoryName)
+        .distinct()
+        .sorted()
+        .collect(Collectors.joining(", "));
+
+
         
-        return "";
     }
 
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
-        
-        return new ArrayList<>();
+         // TODO: CHALLENGE 9 - Implementation needed
+        return transactionRepository.findAll().stream()
+        .filter(filter)
+        .collect(Collectors.toList());
     }
 
     public Set<String> getUniqueDescriptions() {
-       
-        return new HashSet<>();
+         // TODO: CHALLENGE 10 - Implementation needed
+        return transactionRepository.findAll().stream()
+        .map(Transaction :: description)
+        .collect(Collectors.toSet());
     }
 
     public void addTransaction(Transaction t) throws DataPersistenceException {
         if (t.type() == TransactionType.EXPENSE) {
-            tr.save(t);
+            transactionRepository.save(t);
         }
         
     }
 
     public List<Transaction> getTransactionsSortedByAmount() {
-       return tr.findAll().stream()
+       return transactionRepository.findAll().stream()
        .sorted(Comparator.comparing(Transaction:: amount).reversed())
        .toList();
     }
     
   public List<Transaction> fetchAllSortedByDate() {
-    return tr.findAll().stream()
+    return transactionRepository.findAll().stream()
     .sorted(Comparator.comparing(Transaction:: date).reversed())
     .toList();
     
@@ -102,13 +130,35 @@ public class BudgetService {
 
 
     public String getGoalStatus() { 
-       
-        return "Pending...";
+        // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal
+        double totalIncome = transactionRepository.findAll().stream()
+            .filter(t -> t.type() == TransactionType.INCOME)
+            .mapToDouble(Transaction::amount)
+            .sum();
+
+    double totalExpense = transactionRepository.findAll().stream()
+            .filter(t -> t.type() == TransactionType.EXPENSE)
+            .mapToDouble(Transaction::amount)
+            .sum();
+
+    double net = totalIncome - totalExpense;
+
+    double goalAmount = 50000; // example goal
+
+    if (net >= goalAmount) {
+        return "Goal Achieved ";
+    } else {
+        return "Need ₹" + (goalAmount - net) + " more to reach goal.";
+    }
+
     }
 
     public Map<String, Double> getSpendingByCategory() {
         
-        return new HashMap<>();
+        // TODO: CHALLENGE 4 - Implement groupingBy
+        return transactionRepository.findAll().stream()
+        .filter(g -> g.type() == TransactionType.EXPENSE)
+        .collect(Collectors.groupingBy(Transaction::categoryName, Collectors.summingDouble(Transaction:: amount)));
     }
 
     public void addCategory(Category c ) throws DataPersistenceException {

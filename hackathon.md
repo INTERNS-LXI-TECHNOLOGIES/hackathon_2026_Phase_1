@@ -212,7 +212,7 @@ class BudgetService {
         return "Pending...";
     }
 
-    public Map<String, Double> getSpendingByCategory() {
+    public Map<String, Double>      getSpendingByCategory() {
         // TODO: CHALLENGE 4 - Implement groupingBy
         return new HashMap<>();
     }

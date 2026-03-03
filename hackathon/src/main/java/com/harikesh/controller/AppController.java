@@ -9,15 +9,22 @@ import java.util.List;
 import com.harikesh.entity.Category;
 import com.harikesh.entity.Transaction;
 import com.harikesh.entity.TransactionType;
+import com.harikesh.repository.CategoryRepository;
+import com.harikesh.repository.TransactionRepository;
 import com.harikesh.service.BudgetService;
 
 public class AppController {
    
 
     private BudgetService budgetService;
+    private CategoryRepository categoryRepository;
+    private TransactionRepository transactionRepository;
+    
 
-    public AppController(BudgetService budgetService){
+    public AppController(BudgetService budgetService, CategoryRepository categoryRepository,TransactionRepository transactionRepository){
          this.budgetService= budgetService;
+         this.categoryRepository = categoryRepository;
+         this.transactionRepository = transactionRepository;
         
     }
    
@@ -70,8 +77,11 @@ public class AppController {
 
     public void showDashboard() {
         System.out.println("\n--- BUDGET DASHBOARD ---");
-       
-        System.out.println("-------------------------");
+       // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
+
+
+        System.out.println(budgetService.getSpendingByCategory());
+        System.out.println(budgetService.getPartitionedTransactions());
     }
 
     public void fetchAllSortedByDate(boolean sortByAmount) {
