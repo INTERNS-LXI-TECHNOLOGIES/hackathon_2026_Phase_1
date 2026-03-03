@@ -31,12 +31,25 @@ public class BudgetService {
         // CHALLENGE 12: PARTITIONING DATA
         // TODO: Implement using .stream().collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME))
         return new HashMap<>();
+
     }
 
-    public DoubleSummaryStatistics getExpenseStatistics() {
+    // now working 
+
+    public DoubleSummaryStatistics getExpenseStatistics(){
+   
+        List<Transaction> transactions  = transactionRepository.findAll();
+
+                                        DoubleSummaryStatistics stat = transactions.stream()
+                                                                .filter(n ->n.getType() == TransactionType.EXPENSE)
+                                                                .mapToDouble(n ->n.getAmount())
+                                                                .summaryStatistics();
+
         // CHALLENGE 13: STATISTICAL SUMMARY
         // TODO: Implement using .stream().filter(expenses).mapToDouble(t -> t.amount()).summaryStatistics()
-        return new DoubleSummaryStatistics();
+        
+        return stat;
+
     }
 
     public boolean hasHighValueTransaction(String category, double threshold) {

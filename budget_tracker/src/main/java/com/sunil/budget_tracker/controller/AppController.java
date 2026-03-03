@@ -16,6 +16,9 @@ import com.sunil.budget_tracker.exception.DataPersistenceException;
 import com.sunil.budget_tracker.model.Transaction;
 import com.sunil.budget_tracker.service.BudgetService;
 import com.sunil.budget_tracker.service.CategoryService;
+
+import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import com.sunil.budget_tracker.model.Category;
 
@@ -124,20 +127,34 @@ public String sortByDate(Model model){
 
   model.addAttribute("transactionByDate",sortByDate);  
 
-
    return "SortByDate"; 
 }
 
 
 
 
-    public void showAdvancedStats() {
-        System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
+
+    // now working 
+    @GetMapping("/showAdvancedStats")
+    public String  showAdvancedStats(Model model){
+
+     //13
+     DoubleSummaryStatistics statistics =  budgetService.getExpenseStatistics();
+     model.addAttribute("doubleSummaryCount",statistics.getCount());
+     model.addAttribute("doubleSummarySum",statistics.getSum());
+     model.addAttribute("doubleSummaryAverage",statistics.getAverage());
+     model.addAttribute("doubleSummaryMax",statistics.getMax());
+    model.addAttribute("doubleSummaryMin",statistics.getMin());
+    model.addAttribute("doubleSummaryClass",statistics.getClass());
+     return "SummaryCount";
+    
+       /*  System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
         // TODO: CHALLENGE 13 & 15 & 16 - Call service methods and display results
-        System.out.println("------------------------------------");
+        System.out.println("------------------------------------");  */
+        
     }
 
-    public void showDashboard() {
+    public void showDashboard(){
         System.out.println("\n--- BUDGET DASHBOARD ---");
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
         System.out.println("-------------------------");

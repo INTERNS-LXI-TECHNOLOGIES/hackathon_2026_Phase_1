@@ -14,11 +14,11 @@ private CategoryRepository categoryRepository;
 
 
 public void addCategory(Category c){
-
+    
 categoryRepository.save(c);
 
 
 }
 
 
-}
+}  

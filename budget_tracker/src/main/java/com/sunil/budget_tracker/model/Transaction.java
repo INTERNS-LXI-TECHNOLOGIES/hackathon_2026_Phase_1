@@ -16,9 +16,8 @@ import jakarta.persistence.Id;
 public class Transaction implements Comparable<Transaction>{
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
+
   private   long id;
-
-
   @CreationTimestamp
   private   LocalDate date;
   private   String description;
@@ -40,7 +39,6 @@ this.description = description;
 this.amount = amount;
 this.categoryName = categoryName;
 this.type = type;
-
 
 }
 
@@ -69,8 +67,9 @@ public LocalDate getDate() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description){
         this.description = description;
+
     }
 
     public double getAmount() {
@@ -93,13 +92,15 @@ public LocalDate getDate() {
         return type;
     }
 
-    public void setType(TransactionType type) {
-        this.type = type;
+    public void setType(TransactionType type){
+
+      this.type = type;
+
     }
 
 
 @Override
-public String toString() {
+public String toString(){
     return "Transaction [id=" + id + 
            ", date=" + date + 
            ", description=" + description + 

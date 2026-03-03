@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Summary Count</title>
+
     <style>
-        body {
+body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #1a1a1a; 
             color: white;
@@ -42,32 +44,29 @@
         .amount-cell {
             font-weight: bold;
             color: #4caf50;
-    </style>
+        }
+     </style>   
 </head>
-
 <body>
 
-    <h3 class="fire-text">All Transactions Sort By Amount </h3>
-
-    <table>
+    <table border="1">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Type</th>
+                <th>Count</th>
+                <th>Sum</th>
+                <th>Average</th>
+                <th>Min</th>
+                <th>Max</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="t : ${transactions}">
-                <td th:text="${t.id}"></td>
-                <td th:text="${t.date}"></td>
-                <td th:text="${t.description}"></td>
-                <td class="amount-cell" th:text="${t.amount}"></td>
-                <td th:text="${t.categoryName}"></td>
-                <td th:text="${t.type}"></td>
+
+                <td th:text="${doubleSummaryCount}"></td>
+                <td th:text="${doubleSummaryMin}"></td>
+                <td th:text="${doubleSummaryAverage}"></td>
+                <td th:text="${doubleSummaryMax}"></td>
+                <td th:text="${doubleSummarySum}"></td>
+                
             </tr>
         </tbody>
     </table>
