@@ -1,11 +1,33 @@
-<html>
-    <head>
-        <h1>Transactions Details</h1>
-        <body>
-            <style>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-            </style>
-            
-        </body>
-        </head>
+<head>
+<title>Transactions</title>
+</head>
+
+<body>
+
+<h1>All Transactions</h1>
+
+<table border="1">
+
+<tr>
+<th>ID</th>
+<th>Description</th>
+<th>Amount</th>
+<th>Category</th>
+<th>Type</th>
+</tr>
+
+<tr th:each="t : ${transactions}">
+<td th:text="${t.id}"></td>
+<td th:text="${t.description}"></td>
+<td th:text="${t.amount}"></td>
+<td th:text="${t.categoryName}"></td>
+<td th:text="${t.type}"></td>
+</tr>
+
+</table>
+
+</body>
 </html>

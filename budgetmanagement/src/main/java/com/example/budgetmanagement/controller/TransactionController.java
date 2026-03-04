@@ -17,6 +17,7 @@ import com.example.budgetmanagement.model.*;
 import com.example.budgetmanagement.service.*;
 import com.example.budgetmanagement.repository.*;
 import com.example.budgetmanagement.exception.*;
+import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/api/transaction")
@@ -25,31 +26,34 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-@GetMapping("/homepage")
-public String homePage(){
-return "home";
-}
+    @GetMapping("/homepage")
+    public String homePage() {
+        return "home";
+    }
 
-@GetMapping("/addpage")
-public String addTranscationPage(){
-    return "addtransaction";
-}
+    @GetMapping("/addpage")
+    public String addTranscationPage(Model model) {
+        Transaction t = new Transaction();
 
+        model.addAttribute("transcation", t);
+        return "addtransaction";
+    }
 
-
-
+   
     // TODO: Parse input values, create Transaction object, call service layer
     @PostMapping("/add")
-    public Transaction handleAddTransaction(@RequestBody Transaction transaction) throws DataPersistenceException{
-        
-         return  transactionService.addTransaction(transaction);
+    public String handleAddTransaction(Transaction transaction) throws DataPersistenceException {
+        try {
+            transactionService.addTransaction(transaction);
+        } catch (DataPersistenceException e) {
+            System.out.println("Error:" + e.getMessage());
 
-        
-
+        }
+        return "redirect/transcation/viewtransaction";
     }
 
     @GetMapping("/fetchdata")
-    public List<Transaction> getTransactions(){
+    public List<Transaction> getTransactions() {
         return transactionService.getAllTransactions();
     }
     // TODO: Call service method to fetch transactions sorted by amount
