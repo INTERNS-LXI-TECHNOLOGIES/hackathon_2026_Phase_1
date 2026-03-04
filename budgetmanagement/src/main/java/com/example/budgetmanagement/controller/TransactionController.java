@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,13 +25,18 @@ public class TransactionController {
     private TransactionService transactionService;
 
     // TODO: Parse input values, create Transaction object, call service layer
-    @PostMapping
+    @PostMapping("/add")
     public Transaction handleAddTransaction(@RequestBody Transaction transaction) throws DataPersistenceException{
         
          return  transactionService.addTransaction(transaction);
 
         
 
+    }
+
+    @GetMapping("/fetchdata")
+    public List<Transaction> getTransactions(){
+        return transactionService.getAllTransactions();
     }
     // TODO: Call service method to fetch transactions sorted by amount
     /*

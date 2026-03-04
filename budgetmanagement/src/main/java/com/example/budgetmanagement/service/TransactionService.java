@@ -25,6 +25,9 @@ public class TransactionService {
       return   transactionRepo.save(t);
        
     }
+public List<Transaction> getAllTransactions(){
+    return transactionRepo.findAll();
+}
 
     // TODO: Sorting by amount
     public List<Transaction> getTransactionsSortedByAmount() {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Enter Details</title>
+</head>
+
+<body>
+
+    <h1>Enter Details</h1>
+
+    <form action="/api/transaction/add" method="post">
+
+        Description:
+        <input type="text" name="description"><br><br>
+
+        Amount:
+        <input type="text" name="amount"><br><br>
+
+        Category Name:
+        <input type="text" name="categoryName"><br><br>
+
+        Transaction Type:
+        <select name="type">
+            <option value="INCOME">INCOME</option>
+            <option value="EXPENSE">EXPENSE</option>
+        </select><br><br>
+
+        <button type="submit">Submit</button>
+        <button type="submit">Cancel</button>
+    </form>
+
+</body>
+
+</html>

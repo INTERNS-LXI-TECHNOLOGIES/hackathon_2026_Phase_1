@@ -13,6 +13,8 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.*;
 
 @Data
@@ -20,13 +22,14 @@ import lombok.*;
 @Entity
 @Table(name = "transactions")
 public class Transaction {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private  Long id;
-     private LocalDate date;
-     private String description;
-     private double amount;
-     private String categoryName;
-    @Enumerated(EnumType.STRING)
-     private TransactionType type;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @CreationTimestamp
+  private LocalDate date;
+  private String description;
+  private double amount;
+  private String categoryName;
+  @Enumerated(EnumType.STRING)
+  private TransactionType type;
 }
