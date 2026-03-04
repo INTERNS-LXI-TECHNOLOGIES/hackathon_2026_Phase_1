@@ -5,24 +5,26 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.budgetmanagement.model.Transaction;
 import com.example.budgetmanagement.repository.TransactionRepository;
 import com.example.budgetmanagement.exception.*;
 //import com.example.budgetmanagement.exception.DataPersistenceException;
-
+@Service
 public class TransactionService {
-
-    private final TransactionRepository transactionRepo;
+    @Autowired
+    private TransactionRepository transactionRepo;
 
     // TODO: Constructor Injection
-    public TransactionService(TransactionRepository transactionRepo) {
-        this.transactionRepo = transactionRepo;
-    }
 
     // TODO: Add transaction + budget validation check
-    public void addTransaction(Transaction t) throws DataPersistenceException {
-      List<Transaction> transactions= transactionRepo.findAll();
-    } 
+    public Transaction  addTransaction(Transaction t) throws DataPersistenceException {
+        List<Transaction> transactions= transactionRepo.findAll();
+      return   transactionRepo.save(t);
+       
+    }
 
     // TODO: Sorting by amount
     public List<Transaction> getTransactionsSortedByAmount() {
