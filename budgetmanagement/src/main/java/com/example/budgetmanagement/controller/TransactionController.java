@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +18,25 @@ import com.example.budgetmanagement.service.*;
 import com.example.budgetmanagement.repository.*;
 import com.example.budgetmanagement.exception.*;
 
-@RestController
-@RequestMapping("api/transaction")
+@Controller
+@RequestMapping("/api/transaction")
 
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;
+
+@GetMapping("/homepage")
+public String homePage(){
+return "home";
+}
+
+@GetMapping("/addpage")
+public String addTranscationPage(){
+    return "addtransaction";
+}
+
+
+
 
     // TODO: Parse input values, create Transaction object, call service layer
     @PostMapping("/add")
