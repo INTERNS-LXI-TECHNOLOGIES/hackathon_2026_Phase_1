@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sunil.budget_tracker.exception.BudgetException;
 import com.sunil.budget_tracker.exception.DataPersistenceException;
 import com.sunil.budget_tracker.model.Transaction;
+import com.sunil.budget_tracker.repository.TransactionRepository;
 import com.sunil.budget_tracker.service.BudgetService;
 import com.sunil.budget_tracker.service.CategoryService;
-
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.Optional;
+
 import com.sunil.budget_tracker.model.Category;
 
 //logger implimenting 
@@ -42,12 +45,22 @@ private  BudgetService budgetService;
 @Autowired
 private CategoryService categoryService;
 
+@Autowired
+private TransactionRepository transactionRepository;
 
 
 
 @GetMapping("/budgetApp")
-    public String home() {
+    public String home(Model model) {
+
+
+              List<Transaction> transactions =  transactionRepository.findAll();
+                model.addAttribute("listTransactions", transactions);
+
         return "budgetApp"; // Matches src/main/resources/templates/budgetApp.html
+
+
+
     }
 
     @GetMapping("/findAddTransaction")
@@ -55,16 +68,18 @@ private CategoryService categoryService;
         model.addAttribute("transaction" ,new Transaction());
 
         return "AddTransaction";
+
     }
 
 
     // TODO: CHALLENGE 5 (Part A/B) - Define and wire Service & Category Repo
     @PostMapping("/addTransaction")
-    public String handleAddTransaction(@ModelAttribute Transaction transaction) throws DataPersistenceException {
+    public String handleAddTransaction(Model model, Transaction transaction) throws DataPersistenceException {
 
         try {
-                    budgetService.addTransaction(transaction);
+                budgetService.addTransaction(transaction);
 
+     
             // TODO: Parse inputs and call service.addTransaction
             logger.info("Transaction Recorded");
           
@@ -144,8 +159,20 @@ public String sortByDate(Model model){
      model.addAttribute("doubleSummarySum",statistics.getSum());
      model.addAttribute("doubleSummaryAverage",statistics.getAverage());
      model.addAttribute("doubleSummaryMax",statistics.getMax());
-    model.addAttribute("doubleSummaryMin",statistics.getMin());
-    model.addAttribute("doubleSummaryClass",statistics.getClass());
+     model.addAttribute("doubleSummaryMin",statistics.getMin());
+     model.addAttribute("doubleSummaryClass",statistics.getClass());
+
+     //15
+     Optional<Transaction> transactions =  budgetService.getHighestExpense();
+      
+     model.addAttribute("highValueTransaction", transactions.get().getAmount());
+      
+     //16 
+     String category = budgetService.getCategoryReport();
+     model.addAttribute("category",category);
+
+
+ 
      return "SummaryCount";
     
        /*  System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
@@ -153,11 +180,28 @@ public String sortByDate(Model model){
         System.out.println("------------------------------------");  */
         
     }
+  
 
-    public void showDashboard(){
+    //now working 
+    @GetMapping("/showDashboard")
+    public String showDashboard(Model model){
+
         System.out.println("\n--- BUDGET DASHBOARD ---");
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
         System.out.println("-------------------------");
+
+         Map<Boolean,List<Transaction>>  transaction1 =   budgetService.getPartitionedTransactions();
+        
+         model.addAttribute("partitionedData",transaction1);
+
+       
+     Map<String,Double> transactions2 =  budgetService.getSpendingByCategory();
+     
+     model.addAttribute("spendingByCategory" , transactions2);
+        
+     
+         return "ShowDashBord";
+
     }
 
 

@@ -13,9 +13,12 @@ import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.sunil.budget_tracker.repository.CategoryRepository;
 import com.sunil.budget_tracker.repository.TransactionRepository;
 
 import java.util.List;
+import com.sunil.budget_tracker.model.Category;
 
 @Service
 public class BudgetService {
@@ -23,18 +26,24 @@ public class BudgetService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-
+@Autowired
+private CategoryRepository categoryRepository;
    
     // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for wiring
 
     public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
+        
+
+       List<Transaction> transaction = transactionRepository.findAll();
+                                           Map<Boolean,List<Transaction>> income =  transaction.stream()
+                                                            .collect(Collectors.partitioningBy(t ->t.getType() == TransactionType.INCOME)); 
         // CHALLENGE 12: PARTITIONING DATA
         // TODO: Implement using .stream().collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME))
-        return new HashMap<>();
+        return  income;
 
     }
 
-    // now working 
+
 
     public DoubleSummaryStatistics getExpenseStatistics(){
    
@@ -58,16 +67,32 @@ public class BudgetService {
         return false;
     }
 
-    public Optional<Transaction> getHighestExpense() {
+    public Optional<Transaction> getHighestExpense(){
+     List<Transaction> transactions =   transactionRepository.findAll();
+                
+                     return   transactions.stream()
+                                   .filter(n -> n.getType() == TransactionType.EXPENSE)
+                                   
+                                   .max(Comparator.comparing(n -> n.getAmount()));
+                                   
         // CHALLENGE 15: TOP EXPENSE FINDER
         // TODO: Implement using .stream().filter(expenses).max(Comparator.comparingDouble(...))
-        return Optional.empty();
+        
     }
 
     public String getCategoryReport() {
+       
+    List<Transaction> transactions =   transactionRepository.findAll();
+
+   String category =    transactions.stream()
+                  .map(n -> n.getCategoryName())
+                  .distinct()
+                  .sorted()
+                  .collect(Collectors.joining(", "));  
+
         // CHALLENGE 16: DATA JOINING
         // TODO: Implement using .stream().map(...).distinct().sorted().collect(Collectors.joining(", "))
-        return "";
+        return category;
     }
 
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
@@ -123,12 +148,24 @@ public class BudgetService {
     }
 
     public String getGoalStatus() {
+
+     
+
         // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal
         return "Pending...";
     }
 
     public Map<String, Double> getSpendingByCategory() {
+
+        List<Transaction> transactions = transactionRepository.findAll();
+
+                    Map<String,Double> groupBy =  transactions.stream()
+                                                            
+                             .collect(Collectors.groupingBy(n -> n.getCategoryName(),Collectors.summingDouble(n -> n.getAmount())));
+                             
+                    return groupBy;
+
         // TODO: CHALLENGE 4 - Implement groupingBy
-        return new HashMap<>();
+     
     }
 }
