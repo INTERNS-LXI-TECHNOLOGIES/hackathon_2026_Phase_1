@@ -16,10 +16,7 @@ public class CategoryService {
         this.categoryRepo = categoryRepo;
     }
 
-    // TODO: Add category
-    public void addCategory(Category category) {
-        categoryRepo.findAll();
-    }
+    
 
     // TODO: Group spending by category
     public Map<String, Double> getSpendingByCategory() {
