@@ -19,7 +19,7 @@
 <th>Type</th>
 </tr>
 
-<tr th:each="t : ${transactions}">
+<tr th:each="t : ${transactions}"> <!--loop(for(Transcation t:transcations))-->
 <td th:text="${t.id}"></td>
 <td th:text="${t.description}"></td>
 <td th:text="${t.amount}"></td>

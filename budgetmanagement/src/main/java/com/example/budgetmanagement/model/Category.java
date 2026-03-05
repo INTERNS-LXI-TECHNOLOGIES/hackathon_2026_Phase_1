@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name="category")
 
 @Entity
