@@ -35,11 +35,10 @@ public class TransactionController {
     public String addTranscationPage(Model model) {
         Transaction t = new Transaction();
 
-        model.addAttribute("transcation", t);
+        model.addAttribute("transaction", t);
         return "addtransaction";
     }
 
-   
     // TODO: Parse input values, create Transaction object, call service layer
     @PostMapping("/add")
     public String handleAddTransaction(Transaction transaction) throws DataPersistenceException {
@@ -49,13 +48,19 @@ public class TransactionController {
             System.out.println("Error:" + e.getMessage());
 
         }
-        return "redirect/transcation/viewtransaction";
+        return "redirect:/api/transaction/viewaddtransaction";
     }
 
-    @GetMapping("/fetchdata")
-    public List<Transaction> getTransactions() {
-        return transactionService.getAllTransactions();
+    @GetMapping("/viewaddtransaction")
+    public String viewTransactions(Model model) {
+
+        List<Transaction> transactions = transactionService.getAllTransactions();
+
+        model.addAttribute("transactions", transactions);
+
+        return "viewaddtransaction";
     }
+
     // TODO: Call service method to fetch transactions sorted by amount
     /*
      * public void listTransactionsByAmount(boolean sortByAmount) {
