@@ -3,6 +3,7 @@ package com.sunil.budget_tracker.service;
 import com.sunil.budget_tracker.exception.DataPersistenceException;
 import com.sunil.budget_tracker.model.Transaction;
 import com.sunil.budget_tracker.model.TransactionType;
+import com.sunil.budget_tracker.model.UserProfile;
 
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.sunil.budget_tracker.repository.CategoryRepository;
 import com.sunil.budget_tracker.repository.TransactionRepository;
+import com.sunil.budget_tracker.repository.UserProfileRepository;
 
 import java.util.List;
 import com.sunil.budget_tracker.model.Category;
@@ -29,6 +31,10 @@ public class BudgetService {
 @Autowired
 private CategoryRepository categoryRepository;
    
+
+@Autowired
+private UserProfileRepository userProfileRepository;
+
     // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for wiring
 
     public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
@@ -149,10 +155,49 @@ private CategoryRepository categoryRepository;
 
     public String getGoalStatus() {
 
-     
+        List<Transaction> transactions = transactionRepository.findAll();
+
+        List<UserProfile>  user = userProfileRepository.findAll();
+
+                       double monthlySaving =  user.stream()
+                                 .mapToDouble(n ->n.getMonthlySavingsGoal())
+                                 .sum();
+
+                      double  expense =  transactions.stream()
+
+                                      .filter(n ->n.getType()== TransactionType.EXPENSE)
+                                      .collect(Collectors.summingDouble(n -> n.getAmount()));
+
+
+
+                        double income =  transactions.stream()
+
+                                      .filter(n ->n.getType() == TransactionType.INCOME)
+                                    
+                                      .collect(Collectors.summingDouble(n -> n.getAmount()));
+
+
+                        
+
+                                double  saving =  income - expense ; 
+
+                         
+
+                               if(saving >= monthlySaving){
+                    
+
+                                return "Goal Achieved";
+
+                               }else{
+
+                              return "Not Achieved Goal";
+
+                               }
+
+
 
         // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal
-        return "Pending...";
+
     }
 
     public Map<String, Double> getSpendingByCategory() {

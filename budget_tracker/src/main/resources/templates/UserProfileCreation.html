@@ -1,0 +1,83 @@
+<html>
+<head>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background: linear-gradient(135deg,#7829e0,#f8cdda);
+}
+
+/* Glass Form Card */
+form{
+    background: rgba(200, 197, 240, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 8px 32px rgba(0,0,0,0.3);
+
+    padding:40px;
+    border-radius:15px;
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    width:300px;
+}
+
+/* Inputs */
+input{
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    outline:none;
+
+    background:rgba(255,255,255,0.2);
+    color:white;
+}
+
+/* Placeholder */
+input::placeholder{
+    color:#eee;
+}
+
+/* Buttons */
+input[type="submit"],
+input[type="reset"]{
+    background:rgba(255,255,255,0.25);
+    cursor:pointer;
+    transition:0.3s;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover{
+    background:rgba(255,255,255,0.45);
+}
+    
+</style>    
+</head>    
+
+<body>
+<form action = "saveUserProfile"  method ="post">
+
+<h3>User Profile</h3>
+
+<input type = text name = "username" placeholder="user name">
+<input type = number name ="monthlySavingsGoal" placeholder="monthly Goal Amount ">
+
+<input type =submit value ="save">
+<input type = reset value = "clear">
+
+</form>
+</body>
+</html>

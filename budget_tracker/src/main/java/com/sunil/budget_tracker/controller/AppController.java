@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sunil.budget_tracker.exception.BudgetException;
 import com.sunil.budget_tracker.exception.DataPersistenceException;
 import com.sunil.budget_tracker.model.Transaction;
+import com.sunil.budget_tracker.model.UserProfile;
 import com.sunil.budget_tracker.repository.TransactionRepository;
 import com.sunil.budget_tracker.service.BudgetService;
 import com.sunil.budget_tracker.service.CategoryService;
+import com.sunil.budget_tracker.service.UserProfileService;
+
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
@@ -37,8 +40,6 @@ public class AppController {
 private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 
 
-
-
 @Autowired
 private  BudgetService budgetService;   
 
@@ -48,6 +49,8 @@ private CategoryService categoryService;
 @Autowired
 private TransactionRepository transactionRepository;
 
+@Autowired
+private UserProfileService userProfileService;
 
 
 @GetMapping("/budgetApp")
@@ -182,7 +185,7 @@ public String sortByDate(Model model){
     }
   
 
-    //now working 
+ 
     @GetMapping("/showDashboard")
     public String showDashboard(Model model){
 
@@ -203,6 +206,44 @@ public String sortByDate(Model model){
          return "ShowDashBord";
 
     }
+ 
+
+    // now working user profile creation 
+    @GetMapping("/createUserProfile")
+    public String createUserProfile(Model model){
+
+     UserProfile userProfile = new UserProfile();
+ 
+     model.addAttribute("userProfile", userProfile);
+
+     return "UserProfileCreation"; 
+     
+    }
+
+    @PostMapping("/saveUserProfile")
+    public  String createUserForm(Model model,UserProfile userProfile){
+
+    userProfileService.saveUserProfile(userProfile);
+
+     return "redirect:/controller/budgetApp";
+
+    }
+
+// now working 
+
+@GetMapping("/displayAchivedGoalStatus")
+public String  displayAchivedGoalStatus(Model model){
+
+String status  =    budgetService.getGoalStatus();
+
+model.addAttribute("goalMessage",status);
+
+
+return "GoalStatus";
+
+}
+
+
 
 
 }

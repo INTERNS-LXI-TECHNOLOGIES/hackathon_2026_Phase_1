@@ -3,22 +3,12 @@ package com.sunil.budget_tracker.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.sunil.budget_tracker.model.UserProfile;
 
-class UserProfileRepository implements BaseRepository<UserProfile> {
+public interface UserProfileRepository extends JpaRepository<UserProfile,Long> {
 
-    @Override
-    public List<UserProfile>  findAll(){
-
-        return null;
-    }
-
-
-    @Override
-    public void save(UserProfile profile){
-
-
-    }
 
 
 
