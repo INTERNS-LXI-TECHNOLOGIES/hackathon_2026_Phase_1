@@ -41,14 +41,15 @@ public class TransactionController {
 
     // TODO: Parse input values, create Transaction object, call service layer
     @PostMapping("/add")
-    public String handleAddTransaction(Transaction transaction) throws DataPersistenceException {
+    public String handleAddTransaction(Transaction transaction, Model model) throws DataPersistenceException {
         try {
             transactionService.addTransaction(transaction);
-        } catch (DataPersistenceException e) {
-            System.out.println("Error:" + e.getMessage());
-
+            return "redirect:/api/transaction/viewaddtransaction";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "addtransaction";
         }
-        return "redirect:/api/transaction/viewaddtransaction";
+
     }
 
     @GetMapping("/viewaddtransaction")
