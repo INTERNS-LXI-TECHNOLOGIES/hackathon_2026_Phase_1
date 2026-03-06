@@ -10,6 +10,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 
@@ -22,7 +24,9 @@ public class Transaction implements Comparable<Transaction>{
   private   LocalDate date;
   private   String description;
   private   double amount;
-  private   String categoryName;
+  @ManyToOne
+  @JoinColumn(name = "category_id")
+  private   Category category;
   @Enumerated(EnumType.STRING)
   private   TransactionType type;
 
@@ -31,13 +35,13 @@ public class Transaction implements Comparable<Transaction>{
 }
 
 
-public  Transaction(long id,LocalDate date,String description,double amount,String categoryName,TransactionType type) {
+public  Transaction(long id,LocalDate date,String description,double amount,Category categoryName,TransactionType type) {
 
 this.id = id;
 this.date = date;
 this.description = description;
 this.amount = amount;
-this.categoryName = categoryName;
+this.category = categoryName;
 this.type = type;
 
 }
@@ -80,12 +84,12 @@ public LocalDate getDate() {
         this.amount = amount;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setCategory(Category categoryName) {
+        this.category = categoryName;
     }
 
     public TransactionType getType() {
@@ -105,7 +109,7 @@ public String toString(){
            ", date=" + date + 
            ", description=" + description + 
            ", amount=" + amount + 
-           ", categoryName=" + categoryName + 
+           ", categoryName=" + category + 
            ", type=" + type + "]";
 }
 

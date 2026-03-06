@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sunil.budget_tracker.exception.BudgetException;
@@ -77,10 +78,22 @@ private UserProfileService userProfileService;
 
     // TODO: CHALLENGE 5 (Part A/B) - Define and wire Service & Category Repo
     @PostMapping("/addTransaction")
-    public String handleAddTransaction(Model model, Transaction transaction) throws DataPersistenceException {
+    public String handleAddTransaction(Model model, Transaction transaction,@RequestParam int categoryId) throws DataPersistenceException {
+
+
 
         try {
-                budgetService.addTransaction(transaction);
+              
+          Optional<Category> category =  categoryService.findById(categoryId);
+
+     if(category.isPresent()){
+
+    transaction.setCategory(category.get());
+
+    }
+                  
+             
+       budgetService.addTransaction(transaction);
 
      
             // TODO: Parse inputs and call service.addTransaction
@@ -171,7 +184,8 @@ public String sortByDate(Model model){
      model.addAttribute("highValueTransaction", transactions.get().getAmount());
       
      //16 
-     String category = budgetService.getCategoryReport();
+     List<String> category = budgetService.getCategoryReport();
+
      model.addAttribute("category",category);
 
 
@@ -208,7 +222,7 @@ public String sortByDate(Model model){
     }
  
 
-    // now working user profile creation 
+
     @GetMapping("/createUserProfile")
     public String createUserProfile(Model model){
 
@@ -229,7 +243,7 @@ public String sortByDate(Model model){
 
     }
 
-// now working 
+
 
 @GetMapping("/displayAchivedGoalStatus")
 public String  displayAchivedGoalStatus(Model model){

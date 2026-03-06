@@ -86,19 +86,21 @@ private UserProfileRepository userProfileRepository;
         
     }
 
-    public String getCategoryReport() {
+    public List<String>   getCategoryReport(){
        
-    List<Transaction> transactions =   transactionRepository.findAll();
+       List<Category> category =  categoryRepository.findAll();
 
-   String category =    transactions.stream()
-                  .map(n -> n.getCategoryName())
-                  .distinct()
-                  .sorted()
-                  .collect(Collectors.joining(", "));  
+                          return  category.stream()
+                                          .distinct()
+                                          .map(n -> n.getCategoryName())
+                                          .toList();
 
-        // CHALLENGE 16: DATA JOINING
+                                           
+
+         // displaying category     
+        // CHALLENGE 16: DATA JOINING  i changed the task 
         // TODO: Implement using .stream().map(...).distinct().sorted().collect(Collectors.joining(", "))
-        return category;
+      
     }
 
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
@@ -200,14 +202,17 @@ private UserProfileRepository userProfileRepository;
 
     }
 
+
+    // now working refactoring 
     public Map<String, Double> getSpendingByCategory() {
 
         List<Transaction> transactions = transactionRepository.findAll();
 
+         
+        
+
                     Map<String,Double> groupBy =  transactions.stream()
-                                                            
-                             .collect(Collectors.groupingBy(n -> n.getCategoryName(),Collectors.summingDouble(n -> n.getAmount())));
-                             
+                                                              .collect(Collectors.groupingBy(n -> n.getCategory().getCategoryName(),Collectors.summingDouble(n -> n.getAmount())));
                     return groupBy;
 
         // TODO: CHALLENGE 4 - Implement groupingBy

@@ -103,8 +103,16 @@ option {
 
 <input type = "text"  name = "amount" placeholder="amount" />
 
-<input type = "text" name = "categoryName" placeholder="category name" />
+ <label>Category:</label>
+    <select name="categoryId">
+        <option value="1">Swiggy</option>
+        <option value="2">Flipkart</option>
+        <option value="3">Salary</option>
+        <option value="4">Stationary Purchase</option>
+        <option value="5">Gas</option>
+    </select>
 
+<label>Transaction Type:</label>    
 <select name="type">
      <option value="">-- Select --</option>
     <option value="INCOME">INCOME</option>
