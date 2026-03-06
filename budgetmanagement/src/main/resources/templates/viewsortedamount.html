@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Transaction</title>
+</head>
+
+<body>
+
+    <h1>Sorted By Amount</h1>
+
+    <table border="1">
+
+        <tr>
+           
+<th>ID</th>
+<th>Description</th>
+<th>Amount</th>
+<th>Category</th>
+<th>Type</th>
+</tr>
+
+<tr th:each="t : ${t}"> <!--loop-->
+<td th:text="${t.id}"></td>
+<td th:text="${t.description}"></td>
+<td th:text="${t.amount}"></td>
+<td th:text="${t.categoryName}"></td>
+<td th:text="${t.type}"></td>
+</tr>
+
+    </table>
+    <br>
+
+    <a href="/api/transaction/homepage">Back to Home</a>
+
+</body>
+
+</html>

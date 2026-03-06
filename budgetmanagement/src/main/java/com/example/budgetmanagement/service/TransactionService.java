@@ -57,7 +57,11 @@ public class TransactionService {
 
     // TODO: Sorting by amount
     public List<Transaction> getTransactionsSortedByAmount() {
-        return List.of();
+        List<Transaction> transactions = transactionRepo.findAll();
+        return transactions.stream()
+                .sorted((a1, a2) -> Double.compare(a1.getAmount(), a2.getAmount()))
+                .toList();
+
     }
 
     // TODO: Sorting by date

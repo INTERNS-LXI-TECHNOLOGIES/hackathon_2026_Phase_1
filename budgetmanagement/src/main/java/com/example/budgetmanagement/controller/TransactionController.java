@@ -2,7 +2,6 @@ package com.example.budgetmanagement.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,13 +61,14 @@ public class TransactionController {
         return "viewaddtransaction";
     }
 
+    
     // TODO: Call service method to fetch transactions sorted by amount
-    /*
-     * public void listTransactionsByAmount(boolean sortByAmount) {
-     * List<Transaction> transactions =
-     * transactionService.getTransactionsSortedByAmount(sortByAmount);
-     * }
-     */
+    @GetMapping("/sortedbyamount")
+    public String listTransactionsByAmount(Model model) {
+        List<Transaction> sortedAmount = transactionService.getTransactionsSortedByAmount();
+        model.addAttribute("t", sortedAmount);
+        return "viewsortedamount";
+    }
 
     // TODO: Call service method to fetch transactions sorted by date
     /*
