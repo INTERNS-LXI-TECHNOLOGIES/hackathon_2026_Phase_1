@@ -7,7 +7,7 @@
 
 <body>
 
-    <h1>Sorted By Amount</h1>
+    <h1>Sorted By Date</h1>
 
     <table border="1">
 
@@ -17,15 +17,18 @@
 <th>Description</th>
 <th>Amount</th>
 <th>Category</th>
+<th>Date</th>
 <th>Type</th>
 </tr>
 
-<tr th:each="t : ${t}"> <!--loop-->
+<tr th:each="t : ${a}"> <!--loop-->
 <td th:text="${t.id}"></td>
 <td th:text="${t.description}"></td>
 <td th:text="${t.amount}"></td>
 <td th:text="${t.categoryName}"></td>
+<td th:text="${t.date}"></td>
 <td th:text="${t.type}"></td>
+
 </tr>
 
     </table>

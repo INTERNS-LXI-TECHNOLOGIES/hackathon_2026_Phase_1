@@ -71,12 +71,14 @@ public class TransactionController {
     }
 
     // TODO: Call service method to fetch transactions sorted by date
-    /*
-     * public void listTransactionsByDate(boolean sortByDate) {
-     * List<Transaction> transactions =
-     * transactionService.fetchAllSortedByDate(sortByDate);
-     * }
-     */
+    @GetMapping("/sortedbydate")
+      public String listTransactionsByDate(Model model) {
+      List<Transaction> sortByDate = transactionService.fetchAllSortedByDate();
+      model.addAttribute("a", sortByDate);
+      return"viewsorteddate";
+
+      }
+     
 
     // TODO: Call advanced analytics methods from service and display results
     public void showAdvancedStats() {

@@ -1,5 +1,6 @@
 package com.example.budgetmanagement.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -66,7 +67,10 @@ public class TransactionService {
 
     // TODO: Sorting by date
     public List<Transaction> fetchAllSortedByDate() {
-        return List.of();
+       List<Transaction> transactions= transactionRepo.findAll();
+      return transactions.stream()
+       .sorted((d1,d2)->(d1.getDate().compareTo(d2.getDate())))
+        .toList();
     }
 
     // TODO: Filter transactions
