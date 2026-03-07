@@ -4,35 +4,61 @@
 <head>
 <style>
 
-/* Transaction top horizontal dive */
+/* Transaction top horizontal div 1 */
+
 .transaction-menu {
-    display: flex; /* Aligns items in a horizontal line */
-    align-items: center; /* Centers items vertically */
-    gap: 20px; /* Adds space between the links */
+    display: flex;
+    align-items: center;
+    gap: 20px;
     background-color: #ffffff;
     padding: 15px 25px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     font-family: Arial, sans-serif;
 }
 
 .transaction-menu h2 {
-    margin: 0; /* Removes default spacing to keep it level with links */
+    margin: 0;
     font-size: 1.2rem;
     color: #333;
     margin-right: 10px;
 }
 
+/* Cartoon Vintage Buttons */
 .transaction-menu a {
     text-decoration: none;
-    color: #555;
-    font-weight: 500;
-    transition: color 0.3s;
+    padding: 10px 18px;
+    background: linear-gradient(145deg, #ff9f1c, #ff6a00);
+    color: white;
+    font-weight: bold;
+    border-radius: 12px;
+
+    border: 3px solid #222;
+    box-shadow: 
+        4px 4px 0px #222,     /* cartoon shadow */
+        inset 2px 2px 0px rgba(255,255,255,0.4);
+
+    transition: all 0.2s ease;
 }
 
+/* Hover effect */
 .transaction-menu a:hover {
-    color: #007bff; /* Turns blue when you point at it */
+    transform: translateY(-3px);
+    box-shadow: 
+        6px 6px 0px #222,
+        inset 2px 2px 0px rgba(255,255,255,0.4);
 }
+
+/* Click effect */
+.transaction-menu a:active {
+    transform: translateY(2px);
+    box-shadow: 
+        2px 2px 0px #222,
+        inset 2px 2px 0px rgba(255,255,255,0.4);
+}
+
+
+
 
 /* css for second div   */
 
@@ -79,7 +105,106 @@
             color: #4caf50;
         }
 
+ 
+    /* Pagination Container */
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Button Style */
+.pagination a {
+    text-decoration: none;
+    padding: 8px 18px;
+    background-color: #ff4500;
+    color: white;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.pagination a:hover {
+    background-color: #ff6a33;
+    transform: translateY(-2px);
+}
+
+/* Page Text */
+.pagination span {
+    font-weight: 500;
+    color: #ddd;
+}    
+
+
+
+
+
+
+/*  div 3 css search bar */
+
+.search{
+    width:420px;
+    margin-top:20px;
+    padding:25px;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,0.2);
+
+    box-shadow:0 8px 32px rgba(0,0,0,0.35);
+}
+
+/* form layout */
+.search form{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+/* first row inputs */
+.search input[type="text"],
+.search input[type="number"]{
+    flex:1;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.2);
+
+    background: rgba(255,255,255,0.1);
+    color:white;
+}
+
+/* buttons next line */
+.search input[type="submit"],
+.search input[type="reset"]{
+    width:48%;
+    padding:10px;
+
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+
+    font-weight:bold;
+
+    background:linear-gradient(145deg,#ff8c00,#ff5500);
+    color:white;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* hover effect */
+.search input[type="submit"]:hover,
+.search input[type="reset"]:hover{
+    transform:scale(1.05);
+}
 </style>
+
+
+
 </head>
 
 <body>
@@ -89,8 +214,12 @@
 
 <h2>MENU</h2>
 
+<a href="/controller/findAddTransaction"> Make a Transaction </a>
 
-<a href = "/controller/findAddTransaction"> Make a Transaction </a>
+
+
+
+
 <a href = "/controller/findAddCategory"> Add Custom Category </a>
 <a href = "/controller/createUserProfile">User Profile Create</a>
 <a href = "/controller/sortByAmount"> Sort By Amount  </a>
@@ -117,7 +246,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr th:each="t : ${listTransactions}">
+        <tr th:each="t : ${transactionPage.content}">
             <td th:text="${t.id}"></td>
             <td th:text="${t.date}"></td>
             <td th:text="${t.description}"></td>
@@ -126,9 +255,51 @@
             <td th:text="${t.type}"></td>
         </tr>
     </tbody>
+
+
+    
 </table>
+
+
+<div class="pagination">
+
+<a th:if="${transactionPage.hasPrevious()}"
+   th:href="@{/controller/budgetApp(page=${transactionPage.number - 1})}">
+   ⬅ Previous
+</a>
+
+<span>
+    Page <span th:text="${transactionPage.number + 1}"></span>
+    of <span th:text="${transactionPage.totalPages}"></span>
+</span>
+
+<a th:if="${transactionPage.hasNext()}"
+   th:href="@{/controller/budgetApp(page=${transactionPage.number + 1})}">
+   Next ➡
+</a>
+
+</div>
+
  </div>   
  
+ <div class = "search">
+
+<form action="" method ="post">
+
+<h3> Find Transactions ThreshHold</h3>
+
+<input type = "text" name = "category" placeholder="category search" />
+<input type = "number" name = "threshHold" placeholder="amount" />
+
+<input type ="submit" value = "Search Start" />
+<input type = "reset" value = "clear" />
+
+
+
+</form>    
+
+
+  </div>  
 
 
 </body>

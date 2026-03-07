@@ -93,6 +93,36 @@ option {
     font-size: 16px;
 }
 
+
+
+/* div 2 back button */
+
+.back-btn {
+    margin-top: 20px;
+}
+
+.back-btn a {
+    text-decoration: none;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 500;
+    border-radius: 10px;
+
+    /* Orange glass effect */
+    background: rgba(255, 102, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 165, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(255, 102, 0, 0.4);
+
+    transition: all 0.3s ease;
+}
+
+.back-btn a:hover {
+    background: rgba(255, 102, 0, 0.6);
+    transform: scale(1.05);
+}
 </style>   
 </head> 
 
@@ -123,9 +153,18 @@ option {
 <input type = "submit" value="Save"/>
 <input type = "reset" value="Clear"/>
 
+
+<div class="back-btn">
+<a href = "/controller/budgetApp"> Back to Main Menu </a>
+</div>
+
 </form>
 
+
+
 </div>
+
+
 
 <body>
 </body>

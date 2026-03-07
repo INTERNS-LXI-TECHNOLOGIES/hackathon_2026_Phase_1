@@ -2,17 +2,17 @@ package com.sunil.budget_tracker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.sunil.budget_tracker.exception.BudgetException;
+
+
 import com.sunil.budget_tracker.exception.DataPersistenceException;
 import com.sunil.budget_tracker.model.Transaction;
 import com.sunil.budget_tracker.model.UserProfile;
@@ -22,12 +22,18 @@ import com.sunil.budget_tracker.service.CategoryService;
 import com.sunil.budget_tracker.service.UserProfileService;
 
 import java.util.Map;
-import java.util.ArrayList;
+
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
 
 import com.sunil.budget_tracker.model.Category;
+
+
+//pagenation imports 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 
 //logger implimenting 
 import org.slf4j.Logger;
@@ -36,6 +42,7 @@ import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/controller")
+       //@RequiredArgsConsucturvṭño0r
 public class AppController {
 
 private static final Logger logger = LoggerFactory.getLogger(AppController.class);
@@ -55,15 +62,13 @@ private UserProfileService userProfileService;
 
 
 @GetMapping("/budgetApp")
-    public String home(Model model) {
 
+    public String home(@RequestParam(defaultValue = "0") int page,Model model){
 
-              List<Transaction> transactions =  transactionRepository.findAll();
-                model.addAttribute("listTransactions", transactions);
-
+              Page<Transaction> transactionPage =  transactionRepository.findAll(PageRequest.of(page,7));
+              model.addAttribute("transactionPage", transactionPage);
+             
         return "budgetApp"; // Matches src/main/resources/templates/budgetApp.html
-
-
 
     }
 
@@ -94,8 +99,8 @@ private UserProfileService userProfileService;
                   
              
        budgetService.addTransaction(transaction);
-
-     
+            
+             
             // TODO: Parse inputs and call service.addTransaction
             logger.info("Transaction Recorded");
           
@@ -252,12 +257,18 @@ String status  =    budgetService.getGoalStatus();
 
 model.addAttribute("goalMessage",status);
 
-
 return "GoalStatus";
 
 }
 
 
+// now woring 
+
+
 
 
 }
+
+
+
+

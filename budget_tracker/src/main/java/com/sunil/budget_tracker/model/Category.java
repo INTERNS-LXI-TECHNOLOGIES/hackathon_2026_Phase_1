@@ -8,13 +8,15 @@ import jakarta.persistence.Id;
 
 
 @Entity
+//@Builder
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String categoryName;
+
+        private String categoryName;
 
     private double budgetLimit;
 

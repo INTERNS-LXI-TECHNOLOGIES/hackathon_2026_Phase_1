@@ -5,6 +5,7 @@ import com.sunil.budget_tracker.model.Transaction;
 import com.sunil.budget_tracker.model.TransactionType;
 import com.sunil.budget_tracker.model.UserProfile;
 
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -25,8 +26,8 @@ import com.sunil.budget_tracker.model.Category;
 @Service
 public class BudgetService {
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+@Autowired
+private TransactionRepository transactionRepository;
 
 @Autowired
 private CategoryRepository categoryRepository;
@@ -67,12 +68,26 @@ private UserProfileRepository userProfileRepository;
 
     }
 
-    public boolean hasHighValueTransaction(String category, double threshold) {
+
+
+
+
+    // now working 
+
+    public boolean hasHighValueTransaction(Category category, double threshold) {
+
+
+
         // CHALLENGE 14: EXISTENCE & THRESHOLDS
         // TODO: Implement using .stream().anyMatch(...)
         return false;
     }
 
+
+
+
+
+    
     public Optional<Transaction> getHighestExpense(){
      List<Transaction> transactions =   transactionRepository.findAll();
                 
@@ -103,14 +118,38 @@ private UserProfileRepository userProfileRepository;
       
     }
 
+
+
     public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
         // TODO: CHALLENGE 9 - Implementation needed
-        return null;
+
+          List<Transaction>   transactions =  transactionRepository.findAll();
+                              
+        return    transactions.stream()
+                                         .filter(n -> n.getAmount()> 1000)
+                                         .toList();
+
+       
     }
 
+
+    // now working 
+
     public Set<String> getUniqueDescriptions() {
+
+
+     
+      List<Transaction> transactions =   transactionRepository.findAll();
+                        
+                       Set<String> descriptions =  transactions.stream()
+                                   
+                                    .map(n ->n.getDescription())
+                                    .collect(Collectors.toSet());
+
+         
+
         // TODO: CHALLENGE 10 - Implementation needed
-        return new HashSet<>();
+        return descriptions;
     }
 
     public void addTransaction(Transaction t) {
@@ -203,14 +242,12 @@ private UserProfileRepository userProfileRepository;
     }
 
 
-    // now working refactoring 
+    //  refactoring 
     public Map<String, Double> getSpendingByCategory() {
 
         List<Transaction> transactions = transactionRepository.findAll();
 
          
-        
-
                     Map<String,Double> groupBy =  transactions.stream()
                                                               .collect(Collectors.groupingBy(n -> n.getCategory().getCategoryName(),Collectors.summingDouble(n -> n.getAmount())));
                     return groupBy;

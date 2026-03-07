@@ -45,11 +45,92 @@ body {
             font-weight: bold;
             color: #4caf50;
         }
+
+
+
+        /* div table css  */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #1a1a1a;
+    padding: 40px;
+    color: white;
+}
+
+.transaction-table{
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #2c2c2c;
+}
+
+/* Table border */
+.transaction-table,
+.transaction-table th,
+.transaction-table td{
+    border: 2px solid white;
+}
+
+/* Header */
+.transaction-table thead{
+    background-color: #4CAF50;
+}
+
+.transaction-table th{
+    padding: 12px;
+    text-align: left;
+}
+
+/* Body */
+.transaction-table td{
+    padding: 12px;
+}
+
+/* Hover effect */
+.transaction-table tbody tr:hover{
+    background-color: #3a3a3a;
+}
+
+
+
+
+
+
+/* div 2 back button */
+
+.back-btn {
+    margin-top: 20px;
+}
+
+.back-btn a {
+    text-decoration: none;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 500;
+    border-radius: 10px;
+
+    /* Orange glass effect */
+    background: rgba(255, 102, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 165, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(255, 102, 0, 0.4);
+
+    transition: all 0.3s ease;
+}
+
+.back-btn a:hover {
+    background: rgba(255, 102, 0, 0.6);
+    transform: scale(1.05);
+}
+
      </style>   
 </head>
 <body>
 
     <table border="1">
+
+      <h2>Expense Report</h2>   
         <thead>
             <tr>
                 <th>Count</th>
@@ -57,8 +138,7 @@ body {
                 <th>Average</th>
                 <th>Min</th>
                 <th>Max</th>
-                <th>High Value Transaction</th>
-                <th>Category</th>
+              
             </tr>
         </thead>
         <tbody>
@@ -68,11 +148,35 @@ body {
                 <td th:text="${doubleSummaryAverage}"></td>
                 <td th:text="${doubleSummaryMax}"></td>
                 <td th:text="${doubleSummarySum}"></td>
-                 <td th:text="${highValueTransaction}"></td>
-                   <td th:text="${category}"></td>
+                 
             </tr>
         </tbody>
     </table>
 
+<div>
+ <table class="transaction-table">
+
+   <h2>High Value Transaction  Report  & List Out All Categorys</h2>   
+
+   <thead>
+  <tr>  
+  <th>High Value Transaction</th>
+  <th>Category</th>
+  </tr>
+    </thead>
+
+<tbody>
+<tr>    
+<td th:text="${highValueTransaction}"></td>
+<td th:text="${category}"></td>
+</tr>
+ </tbody>   
+
+ </table>   
+</div> 
+
+<div class="back-btn">
+<a href = "/controller/budgetApp"> Back to Main Menu </a>
+<div>
 </body>
 </html>
