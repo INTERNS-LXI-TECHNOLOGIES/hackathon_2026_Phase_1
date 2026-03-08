@@ -74,13 +74,35 @@ private UserProfileRepository userProfileRepository;
 
     // now working 
 
-    public boolean hasHighValueTransaction(Category category, double threshold) {
+    public String  hasHighValueTransaction(String  categoryName, double threshold) {
 
+    List<Transaction> transactions =  transactionRepository.findAll();
+    
+    boolean exists = transactions.stream()
+                             .anyMatch(n -> n.getCategory().getCategoryName().equalsIgnoreCase(categoryName));
+                          
+           
+                if(!exists){
 
+                 return "No Category Available";   
+
+                } 
+                
+
+                        boolean highValue =    transactions.stream()
+                                       .filter(n ->n.getCategory().getCategoryName().equalsIgnoreCase(categoryName))
+                                       .anyMatch(n ->n.getAmount() > threshold);
+
+                     if(highValue){
+
+                        return "High value transaction detected";
+                     }
+
+         return " All transactions within threshold";
 
         // CHALLENGE 14: EXISTENCE & THRESHOLDS
         // TODO: Implement using .stream().anyMatch(...)
-        return false;
+       
     }
 
 
@@ -133,7 +155,6 @@ private UserProfileRepository userProfileRepository;
     }
 
 
-    // now working 
 
     public Set<String> getUniqueDescriptions() {
 

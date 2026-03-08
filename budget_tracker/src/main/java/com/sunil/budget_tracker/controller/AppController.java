@@ -65,9 +65,21 @@ private UserProfileService userProfileService;
 
     public String home(@RequestParam(defaultValue = "0") int page,Model model){
 
+               //# 1
+              String status  =    budgetService.getGoalStatus();
+              model.addAttribute("goalMessage",status);
+
+              //# 2
+                  Optional<Transaction> transactions =  budgetService.getHighestExpense();
+                  model.addAttribute("highValueTransaction", transactions.get().getAmount());  
+
+             // # 3
               Page<Transaction> transactionPage =  transactionRepository.findAll(PageRequest.of(page,7));
               model.addAttribute("transactionPage", transactionPage);
-             
+    
+               
+  
+
         return "budgetApp"; // Matches src/main/resources/templates/budgetApp.html
 
     }
@@ -263,12 +275,19 @@ return "GoalStatus";
 
 
 // now woring 
+@GetMapping("/findHasHighValueTransaction")
+public String findHasHighValueTransaction(@RequestParam("category") String categoryName,@RequestParam("threshHold") double threshold,Model model){
 
 
+ String result =  budgetService.hasHighValueTransaction(categoryName, threshold);    
+
+ model.addAttribute("status",result);
+
+ return "ThresholdStatus";
 
 
 }
 
 
 
-
+}

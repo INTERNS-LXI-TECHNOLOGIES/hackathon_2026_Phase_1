@@ -201,6 +201,33 @@
 .search input[type="reset"]:hover{
     transform:scale(1.05);
 }
+
+
+/*  goal status */
+
+/* Bottom container for search and goal status */
+
+.bottom-container{
+    display:flex;
+    gap:40px;
+    margin-top:30px;
+}
+
+/* Goal status box */
+
+.goal-status{
+    width:420px;
+    padding:25px;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,0.2);
+
+    box-shadow:0 8px 32px rgba(0,0,0,0.35);
+}
+
 </style>
 
 
@@ -282,25 +309,68 @@
 
  </div>   
  
- <div class = "search">
+<div class="bottom-container">
 
-<form action="" method ="post">
+    <div class="search">
 
-<h3> Find Transactions ThreshHold</h3>
+        <form action="findHasHighValueTransaction" method="get">
 
-<input type = "text" name = "category" placeholder="category search" />
-<input type = "number" name = "threshHold" placeholder="amount" />
+        <h3>Find Transactions ThreshHold</h3>
 
-<input type ="submit" value = "Search Start" />
-<input type = "reset" value = "clear" />
+        <input type="text" name="category" placeholder="category search" />
+        <input type="number" name="threshHold" placeholder="amount" />
+
+        <input type="submit" value="Search Start" />
+        <input type="reset" value="clear" />
+
+        </form>
+
+    </div>
 
 
+    <div class="goal-status">
 
-</form>    
+     <table border = "1">
+
+ <thead>   
+<th>Goal Status<th>
+</thead>
+
+<tbody>
+
+<td th:text="${goalMessage}" > </td>   
+
+</tbody>
+
+ 
+</table> 
+
+        <!-- You can place your goal table here -->
+
+    </div>
 
 
-  </div>  
+        <div class="goal-status">
 
+
+           <table border = "1">
+
+ <thead>   
+<th>High Value Transaction<th>
+</thead>
+
+<tbody>
+
+<td th:text="${highValueTransaction}" > </td>   
+
+</tbody>
+
+ 
+</table> 
+
+    </div>
+
+</div>
 
 </body>
 </html>

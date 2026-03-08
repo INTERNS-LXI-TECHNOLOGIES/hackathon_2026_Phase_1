@@ -1,0 +1,72 @@
+<html>
+<head>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ff4b4b,#b30000);
+    height: 100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Glass Table */
+table{
+    width: 420px;
+    border-collapse: collapse;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Header */
+th{
+    padding: 15px;
+    font-size: 20px;
+    color: white;
+    background: rgba(255,0,0,0.4);
+    letter-spacing: 1px;
+}
+
+/* Result Cell */
+td{
+    text-align: center;
+    padding: 25px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Hover Effect */
+table:hover{
+    transform: scale(1.02);
+    transition: 0.3s;
+}
+
+</style>
+
+</head>
+<body>
+<table border="1">
+
+<thead>
+<tr>
+ <th>Threshold Result</th>   
+ </tr>
+</thead>    
+
+<tbody>
+<tr>    
+<td th:text="${status}"> </td>  
+</tr>
+</tbody>    
+
+
+</table>
+</body>
+</html>
