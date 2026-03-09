@@ -239,21 +239,20 @@
 
 <div class="transaction-menu">
 
-<h2>MENU</h2>
 
-<a href="/controller/findAddTransaction"> Make a Transaction </a>
-
+<h2 th:text="#{menu}"></h2>
 
 
 
 
-<a href = "/controller/findAddCategory"> Add Custom Category </a>
-<a href = "/controller/createUserProfile">User Profile Create</a>
-<a href = "/controller/sortByAmount"> Sort By Amount  </a>
-<a href = "/controller/sortByDate"> Sort By Date</a>
-<a href = "/controller/showAdvancedStats"> ShowAdvancedStats </a>
-<a href = "/controller/showDashboard"> Show Dash Bord</a>
-<a href = "/controller/displayAchivedGoalStatus">Goal Status</a>
+<a href = "/controller/findAddCategory" th:text="#{menu.transaction}">  </a>
+<a href = "/controller/createUserProfile" th:text="#{menu.profile}"></a>
+<a href = "/controller/sortByAmount" th:text="#{menu.sort.amount}"></a>
+<a href = "/controller/sortByDate"  th:text="#{menu.sort.date}"></a>
+<a href = "/controller/showAdvancedStats"  th:text="#{menu.stats}"></a>
+<a href = "/controller/showDashboard"  th:text="#{menu.dashboard}"></a>
+<a href = "/controller/displayAchivedGoalStatus"  th:text="#{menu.goal}"></a>
+<a href ="/controller/languageSwitcher"  th:text="#{menu.settings}"></a>
 
  
 
@@ -263,14 +262,16 @@
 <div>
 <table border="1">
     <thead>
-        <tr>
-            <th>Id</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>Transaction Type</th>
-        </tr>
+       
+<tr>
+        <th th:text="#{label.table.id}"></th>
+        <th th:text="#{label.table.date}"></th>
+        <th th:text="#{label.table.description}"></th>
+        <th th:text="#{label.table.amount}"></th>
+        <th th:text="#{label.table.category}"></th>
+        <th th:text="#{label.table.type}"></th>
+    </tr>
+   
     </thead>
     <tbody>
         <tr th:each="t : ${transactionPage.content}">
@@ -365,10 +366,9 @@
 
 </tbody>
 
- 
 </table> 
 
-    </div>
+</div>
 
 </div>
 

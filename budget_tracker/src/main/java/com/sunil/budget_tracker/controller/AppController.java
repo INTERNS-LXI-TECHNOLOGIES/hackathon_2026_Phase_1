@@ -274,7 +274,7 @@ return "GoalStatus";
 }
 
 
-// now woring 
+
 @GetMapping("/findHasHighValueTransaction")
 public String findHasHighValueTransaction(@RequestParam("category") String categoryName,@RequestParam("threshHold") double threshold,Model model){
 
@@ -288,6 +288,18 @@ public String findHasHighValueTransaction(@RequestParam("category") String categ
 
 }
 
+
+// now woring
+@GetMapping("/languageSwitcher") 
+public String languageSwitcher(){
+
+
+
+
+    return "LanguageSwitcher";
+
+
+}
 
 
 }

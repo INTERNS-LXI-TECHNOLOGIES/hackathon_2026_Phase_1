@@ -1,0 +1,122 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+
+/* Page background */
+body {
+    font-family: Arial, sans-serif;
+     background-image: url("https://wallpaperaccess.com/full/4525110.png");
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form container */
+div {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    min-width: 300px;
+}
+
+/* Label */
+label {
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* Dropdown */
+select {
+    width: 220px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+select:hover {
+    border-color: #2575fc;
+    box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+}
+
+/* Buttons */
+input[type="submit"],
+input[type="reset"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 5px;
+    transition: all 0.2s ease;
+}
+
+/* Submit button */
+input[type="submit"] {
+    background: #2575fc;
+    color: white;
+}
+
+input[type="submit"]:hover {
+    background: #1b5edb;
+}
+
+/* Reset button */
+input[type="reset"] {
+    background: #e74c3c;
+    color: white;
+}
+
+input[type="reset"]:hover {
+    background: #c0392b;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 400px) {
+    div {
+        padding: 20px;
+        min-width: 250px;
+    }
+
+    select {
+        width: 100%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div>
+
+<form th:action="@{/controller/budgetApp}" method="get">
+
+<label th:text="#{label.switch.title}"></label>
+
+<select name="lang">
+<option value="ml">മലയാളം</option>
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+</select>
+
+<br>
+
+<input type="submit" th:value="#{label.button.switch}">
+<input type="reset" th:value="#{label.button.clear}">
+
+</form>
+
+</div>
+
+</body>
+</html>
