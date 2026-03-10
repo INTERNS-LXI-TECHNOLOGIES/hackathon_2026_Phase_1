@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Advanced Financial Insights</title>
+</head>
+
+<body>
+
+<h1>Advanced Financial Insights</h1>
+
+<hr>
+
+<h2>Expense Statistics</h2>
+
+<p>Total Expenses: <span th:text="${total}"></span></p>
+<p>Average Expense: <span th:text="${average}"></span></p>
+<p>Max Expense: <span th:text="${max}"></span></p>
+<p>Min Expense: <span th:text="${min}"></span></p>
+<p>Transaction Count: <span th:text="${count}"></span></p>
+
+<hr>
+
+<h2>Highest Expense</h2>
+
+<div th:if="${highExpense != null}">
+    <p>Amount: <span th:text="${highExpense.amount}"></span></p>
+    <p>Category: <span th:text="${highExpense.categoryName}"></span></p>
+    <p>Type: <span th:text="${highExpense.type}"></span></p>
+</div>
+
+<div th:if="${highExpense == null}">
+    <p>No expense transactions found</p>
+</div>
+
+<hr>
+
+<h2>Category Report</h2>
+
+<pre th:text="${categoryReport}"></pre>
+<a href="/api/transaction/homepage">Back to Home</a>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.budgetmanagement.service;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -78,9 +79,13 @@ public class TransactionService {
         return List.of();
     }
 
-    // TODO: Highest expense
+    // TODO: #15 Highest expense
     public Optional<Transaction> getHighestExpense() {
-        return Optional.empty();
+        List<Transaction> transactions=transactionRepo.findAll();
+       return transactions.stream()
+        .filter(e->e.getType()==TransactionType.EXPENSE)
+        .max(Comparator.comparingDouble(Transaction::getAmount));
+        
     }
 
     // TODO: High value check

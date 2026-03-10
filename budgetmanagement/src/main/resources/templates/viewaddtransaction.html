@@ -2,37 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Transactions</title>
+    <title>Transactions</title>
 </head>
 
 <body>
 
-<h1>All Transactions</h1>
+<!-- Language selector -->
+<form method="get" action="/api/transaction/viewaddtransaction">
+<select name="lang" onchange="this.form.submit()">
+<option value="en" th:selected="${#locale.language == 'en'}">English</option>
+<option value="ml" th:selected="${#locale.language == 'ml'}">Malayalam</option>
+<option value="hi" th:selected="${#locale.language == 'hi'}">Hindi</option>
+</select>
+</form>
+
+<h1 th:text="#{page.transactions.title}"></h1>
 
 <table border="1">
 
 <tr>
-<th>ID</th>
-<th>Description</th>
-<th>Amount</th>
-<th>Category</th>
-<th>Date</th>
-<th>Type</th>
+<th th:text="#{table.id}"></th>
+<th th:text="#{table.description}"></th>
+<th th:text="#{table.amount}"></th>
+<th th:text="#{table.category}"></th>
+<th th:text="#{table.date}"></th>
+<th th:text="#{table.type}"></th>
 </tr>
 
-<tr th:each="t : ${transactions}"> <!--loop(for(Transcation t:transcations))-->
+<tr th:each="t : ${transactions}">
+
 <td th:text="${t.id}"></td>
-<td th:text="${t.description}"></td>
+
+<!-- description translation -->
+<td th:text="#{${#strings.replace(t.description,' ','_')}}"></td>
+
 <td th:text="${t.amount}"></td>
-<td th:text="${t.categoryName}"></td>
+
+<!-- category translation -->
+<td th:text="#{${t.categoryName}}"></td>
+
 <td th:text="${t.date}"></td>
-<td th:text="${t.type}"></td>
+
+<!-- type translation -->
+<td th:text="#{${t.type}}"></td>
+
 </tr>
 
 </table>
+
 <br>
 
-<a href="/api/transaction/homepage">Back to Home</a>
+<a href="/api/transaction/homepage" th:text="#{button.back_home}"></a>
 
 </body>
 </html>
