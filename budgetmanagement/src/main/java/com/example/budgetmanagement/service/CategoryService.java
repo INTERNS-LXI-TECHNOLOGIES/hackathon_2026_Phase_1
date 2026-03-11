@@ -18,21 +18,7 @@ public class CategoryService {
     @Autowired
     private TransactionRepository transactionRepo;
 
-    public String getCategoryReport() {
-        // CHALLENGE 16: DATA JOINING
-        List<Transaction> transactions = transactionRepo.findAll();
-        return transactions.stream()
-                .map(Transaction::getCategoryName)
-                .distinct()
-                .sorted().collect(Collectors.joining(","));
-
-        // TODO: Implement using
-        // .stream().map(...).distinct().sorted().collect(Collectors.joining(", "))
-
-    }
-
-    // TODO: Group spending by category
-    public Map<String, Double> getSpendingByCategory() {
-        return Map.of();
-    }
+    public void add(){}
+   
+   
 }

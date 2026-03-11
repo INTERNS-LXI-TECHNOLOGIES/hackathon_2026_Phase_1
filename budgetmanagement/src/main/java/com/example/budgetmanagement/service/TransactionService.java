@@ -80,21 +80,5 @@ public class TransactionService {
     }
 
     // TODO: #15 Highest expense
-    public Optional<Transaction> getHighestExpense() {
-        List<Transaction> transactions=transactionRepo.findAll();
-       return transactions.stream()
-        .filter(e->e.getType()==TransactionType.EXPENSE)
-        .max(Comparator.comparingDouble(Transaction::getAmount));
-        
-    }
-
-    // TODO: High value check
-    public boolean hasHighValueTransaction(String category, double threshold) {
-        return false;
-    }
-
-    // TODO: Unique descriptions
-    public Set<String> getUniqueDescriptions() {
-        return Set.of();
-    }
+    
 }

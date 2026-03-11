@@ -51,6 +51,5 @@ public class CategoryController {
         model.addAttribute("categories", c);
         return "viewaddcategory";
     }
-//#16
-    //public String getCategoryReport() {}
+
 }

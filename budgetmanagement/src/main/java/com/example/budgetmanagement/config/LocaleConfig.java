@@ -23,7 +23,7 @@ public class LocaleConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 
-        messageSource.setBasename("messages");
+        messageSource.setBasename("i18n/messages");
         messageSource.setDefaultEncoding("UTF-8");
 
         return messageSource;
@@ -45,7 +45,7 @@ public LocaleResolver localeResolver() {
         interceptor.setParamName("lang");
         return interceptor;
     }
-
+ 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.budgetmanagement.enumtype.TransactionType;
 import com.example.budgetmanagement.model.*;
@@ -28,7 +27,7 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @Autowired
-    private BudgetService budgetService;
+    private AnalyticsService analyticsService;
 
     @Autowired
     private CategoryService categoryService;
@@ -86,34 +85,9 @@ public class TransactionController {
 
     }
 
-    @GetMapping("/advancedstatus")
-    // TODO: Call advanced analytics methods from service and display results
-    public String showAdvancedStats(Model model) {
-        System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
-        System.out.println("---------------------------");
-        System.out.println("\n--- SummaryStatistics ---");
-        // #13
-        DoubleSummaryStatistics summary = budgetService.getExpenseStatistics();
-
-        System.out.println("\n--- High Expense ---");
-        // #15
-        Optional<Transaction> highExpense = transactionService.getHighestExpense();
-        // TODO: CHALLENGE 13 & 15 & 16 - Call service methods and display results
-        System.out.println("-----Category Report-----------");
-        // #16
-        String categoryReport = categoryService.getCategoryReport();
-
-        model.addAttribute("total", summary.getSum());
-        model.addAttribute("average", summary.getAverage());
-        model.addAttribute("max", summary.getMax());
-
-        model.addAttribute("min", summary.getMin());
-
-        model.addAttribute("count", summary.getCount());
-
-        model.addAttribute("highExpense", highExpense.orElse(null));
-        model.addAttribute("categoryReport", categoryReport);
-        return "viewsummarystatistics";
+    public void filtert(){
+        
     }
+    
 
 }

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Budget Dashboard</title>
+</head>
+
+<body>
+
+<h1>Budget Dashboard</h1>
+
+<hr>
+
+<h2>Spending By Category</h2>
+
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Total Spending</th>
+    </tr>
+
+    <tr th:each="entry : ${scategory}">
+        <td th:text="${entry.key}"></td>
+        <td th:text="${entry.value}"></td>
+    </tr>
+
+</table>
+
+<hr>
+
+<h2>Partitioned Transactions</h2>
+
+<h3>Income Transactions</h3>
+
+<table border="1">
+<tr>
+    <th>Description</th>
+    <th>Amount</th>
+</tr>
+
+<tr th:each="t : ${partition[true]}">
+    <td th:text="${t.description}"></td>
+    <td th:text="${t.amount}"></td>
+</tr>
+
+</table>
+
+<br>
+
+<h3>Expense Transactions</h3>
+
+<table border="1">
+
+<tr>
+    <th>Description</th>
+    <th>Amount</th>
+</tr>
+
+<tr th:each="t : ${partition[false]}">
+    <td th:text="${t.description}"></td>
+    <td th:text="${t.amount}"></td>
+</tr>
+
+</table>
+
+<br>
+
+<a href="/api/dashboard/dashboardpage">Back to Menu</a>
+
+</body>
+</html>
