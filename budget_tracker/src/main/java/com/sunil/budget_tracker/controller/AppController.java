@@ -20,6 +20,7 @@ import com.sunil.budget_tracker.repository.TransactionRepository;
 import com.sunil.budget_tracker.service.BudgetService;
 import com.sunil.budget_tracker.service.CategoryService;
 import com.sunil.budget_tracker.service.UserProfileService;
+import com.sunil.budget_tracker.service.UserService;
 
 import java.util.Map;
 
@@ -59,6 +60,11 @@ private TransactionRepository transactionRepository;
 
 @Autowired
 private UserProfileService userProfileService;
+
+
+@Autowired
+private UserService userService;
+
 
 
 @GetMapping("/budgetApp")

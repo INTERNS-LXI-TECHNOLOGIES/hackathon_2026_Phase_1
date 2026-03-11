@@ -33,15 +33,15 @@ public class LocaleConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(InterceptorRegistry registry){
 
         registry.addInterceptor(localeChangeInterceptor());
     }
 
   
      
-     @Bean
-public ResourceBundleMessageSource messageSource() {
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
     ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
     messageSource.setBasename("i18n/messages");
     messageSource.setDefaultEncoding("UTF-8");
