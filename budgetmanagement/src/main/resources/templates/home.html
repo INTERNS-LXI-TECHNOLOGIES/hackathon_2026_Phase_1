@@ -1,32 +1,176 @@
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-<head>
-    <title>Menu Page</title>
+<title>Menu Page</title>
+
+<style>
+
+/* Page Background */
+body{
+    margin:0;
+    min-height:100vh;
+    background:#000;
+    font-family:Arial, Helvetica, sans-serif;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Title */
+h1{
+    color:white;
+    margin-bottom:10px;
+}
+
+/* Quote */
+.quote{
+    color:#ccc;
+    font-size:18px;
+    font-style:italic;
+    text-align:center;
+    max-width:700px;
+    margin-bottom:40px;
+}
+
+/* Button container */
+.menu-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+    margin-bottom:50px;
+}
+
+/* ===== YOUR BUTTON STYLE (UNCHANGED) ===== */
+
+a{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    width:200px;
+    height:50px;
+
+    text-decoration:none;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+
+    border-radius:35px;
+    border:2px solid transparent;
+
+    background:
+        linear-gradient(#000,#000) padding-box,
+        linear-gradient(45deg,#00f2ff,#ff00ff) border-box;
+
+    box-shadow:
+        0 0 6px #00f2ff,
+        0 0 12px #ff00ff;
+
+    transition:0.3s;
+}
+
+a:hover{
+    transform:scale(1.08);
+    box-shadow:
+        0 0 15px #00f2ff,
+        0 0 30px #ff00ff;
+}
+
+/* Different colors */
+a:nth-of-type(1){
+    background:linear-gradient(#000,#000) padding-box,
+    linear-gradient(45deg,#00eaff,#007bff) border-box;
+}
+
+a:nth-of-type(2){
+    background:linear-gradient(#000,#000) padding-box,
+    linear-gradient(45deg,#ff00cc,#ff6a00) border-box;
+}
+
+a:nth-of-type(3){
+    background:linear-gradient(#000,#000) padding-box,
+    linear-gradient(45deg,#00ff88,#00bcd4) border-box;
+}
+
+a:nth-of-type(4){
+    background:linear-gradient(#000,#000) padding-box,
+    linear-gradient(45deg,#ff9800,#ff3d00) border-box;
+}
+
+a:nth-of-type(5){
+    background:linear-gradient(#000,#000) padding-box,
+    linear-gradient(45deg,#9c27b0,#ff00ff) border-box;
+}
+
+a:nth-of-type(6){
+    background:linear-gradient(#000,#000) padding-box,
+    linear-gradient(45deg,#00f2ff,#8e2de2) border-box;
+}
+
+/* Description */
+.description{
+    max-width:700px;
+    text-align:center;
+    color:#ddd;
+    line-height:1.6;
+}
+
+.description h2{
+    color:white;
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <h1>Menu Page</h1>
+<h1>Menu Page</h1>
 
+<div class="quote">
+"A budget is telling your money where to go instead of wondering where it went."
+</div>
 
-    <a href="/api/transaction/addpage">Add Transaction</a>
-    <a href="/api/category/addcategorys">Add Category</a>
-    <a href="/api/transaction/sortedbyamount">Sorted By Amount</a>
-    <a href="/api/transaction/sortedbydate">Sorted By Date</a>
-    <div sec:authorize="hasRole('ADMIN')">
-    <a href="/api/analytics/advancedstatus">Show Advanced Status</a>
-    </div>
-    <a href="/api/dashboard/board">Show DashBoard</a>
+<div class="menu-buttons">
 
+<a href="/api/transaction/addpage">Add Transaction</a>
 
+<a href="/api/category/addcategorys">Add Category</a>
 
+<a href="/api/transaction/sortedbyamount">Sorted By Amount</a>
 
+<a href="/api/transaction/sortedbydate">Sorted By Date</a>
 
+<div sec:authorize="hasRole('ADMIN')">
+<a href="/api/analytics/advancedstatus">Show Advanced Status</a>
+</div>
 
-    </form>
+<a href="/api/dashboard/board">Show DashBoard</a>
+
+</div>
+
+<div class="description">
+
+<h2>About Budget Tracker</h2>
+
+<p>
+A Budget Tracker helps individuals monitor and manage their financial
+activities effectively. By recording income and expenses, users can
+analyze their spending habits and maintain better financial discipline.
+</p>
+
+<p>
+This application allows you to add transactions, organize them by
+categories, view sorted financial data, and analyze your budget through
+interactive dashboards. Maintaining a budget helps you plan savings,
+avoid unnecessary expenses, and achieve long-term financial stability.
+</p>
+
+</div>
 
 </body>
-
 </html>

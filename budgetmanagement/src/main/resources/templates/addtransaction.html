@@ -4,7 +4,107 @@
 <head>
     <title>Add Transaction</title>
 </head>
+<style>
 
+/* Background */
+body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg,#1f2937,#111827);
+    margin:0;
+    padding:50px;
+    color:white;
+}
+
+/* Page title */
+h1{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:36px;
+    letter-spacing:1px;
+}
+
+/* Form card */
+form{
+    width:450px;
+    margin:auto;
+    padding:30px;
+    border-radius:12px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    box-shadow:0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* Form spacing */
+div{
+    margin-bottom:18px;
+}
+
+/* Labels */
+label{
+    font-weight:600;
+    display:block;
+    margin-bottom:6px;
+}
+
+/* Inputs */
+input,select{
+    width:100%;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.08);
+    color:white;
+    font-size:14px;
+}
+
+/* Placeholder color */
+input::placeholder{
+    color:#ccc;
+}
+
+/* Focus glow */
+input:focus,select:focus{
+    outline:none;
+    border-color:#38bdf8;
+    box-shadow:0 0 8px #38bdf8;
+}
+
+/* Button */
+button{
+    background: linear-gradient(45deg,#3b82f6,#06b6d4);
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    transition:0.3s;
+}
+
+/* Button hover */
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px #3b82f6;
+}
+
+/* Links */
+a{
+    color:#38bdf8;
+    text-decoration:none;
+    margin-right:15px;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+/* Error message */
+p{
+    color:#ff6b6b;
+    text-align:center;
+}
+
+</style>
 <body>
 
     <h1>Add Transaction</h1>
@@ -59,7 +159,7 @@
     <a th:href="@{/api/transaction/viewaddtransaction}">
         View Transactions
     </a>
-<a href="/api/transaction/homepage">Back to Home</a>
+    <a href="/api/transaction/homepage">Back to Home</a>
 </body>
 
 </html>

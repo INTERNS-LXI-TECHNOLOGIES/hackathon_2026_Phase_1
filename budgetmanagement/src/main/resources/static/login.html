@@ -1,47 +1,104 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <title>Login - Budget Management</title>
 
 <style>
+
+/* Background */
 body{
-    font-family: Arial, sans-serif;
-    background:#f2f2f2;
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin:0;
+    height:100vh;
+
+    background:linear-gradient(135deg,#0f172a,#020617);
+
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
 }
 
+/* Login Card */
 .login-box{
-    background:white;
-    padding:30px;
-    border-radius:8px;
-    width:300px;
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    padding:35px;
+    border-radius:12px;
+    width:320px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.6);
+    color:white;
 }
 
+/* Title */
 h2{
     text-align:center;
+    margin-bottom:25px;
+    letter-spacing:1px;
 }
 
+/* Labels */
+label{
+    font-size:14px;
+}
+
+/* Inputs */
 input{
     width:100%;
-    padding:8px;
-    margin:8px 0;
+    padding:10px;
+    margin:8px 0 15px 0;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.1);
+    color:white;
 }
 
+/* Input focus */
+input:focus{
+    outline:none;
+    border-color:#38bdf8;
+    box-shadow:0 0 8px #38bdf8;
+}
+
+/* Login Button */
 button{
     width:100%;
     padding:10px;
-    background:#4CAF50;
-    color:white;
     border:none;
+    border-radius:6px;
+    background:linear-gradient(45deg,#3b82f6,#06b6d4);
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-.register-btn{
-    background:#2196F3;
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px #3b82f6;
 }
+
+/* Register Button */
+.register-btn{
+    margin-top:10px;
+    background:linear-gradient(45deg,#22c55e,#4ade80);
+}
+
+.register-btn:hover{
+    box-shadow:0 0 15px #22c55e;
+}
+
+/* Text */
+p{
+    text-align:center;
+    font-size:14px;
+    margin-top:15px;
+}
+
+a{
+    text-decoration:none;
+}
+
 </style>
 
 </head>
@@ -64,11 +121,9 @@ button{
 
 </form>
 
-<p style="text-align:center;">
-Don't have an account?
-</p>
+<p>Don't have an account?</p>
 
-<a href="/register">
+<a href="/api/registercontroller/registerpage">
 <button class="register-btn">Register</button>
 </a>
 

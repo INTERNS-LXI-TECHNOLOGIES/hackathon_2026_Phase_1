@@ -1,7 +1,99 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Budget Dashboard</title>
+<title>Budget Dashboard</title>
+
+<style>
+
+/* Page background */
+body{
+    font-family:"Segoe UI", Arial;
+    margin:0;
+    padding:40px;
+    background:linear-gradient(135deg,#020617,#0f172a);
+    color:white;
+}
+
+/* Title neon */
+h1{
+    text-align:center;
+    font-size:40px;
+    color:#00f2ff;
+    text-shadow:0 0 10px #00f2ff,0 0 20px #00f2ff;
+}
+
+/* Section titles */
+h2{
+    color:#38bdf8;
+    text-shadow:0 0 8px #38bdf8;
+}
+
+h3{
+    color:#22c55e;
+    text-shadow:0 0 6px #22c55e;
+}
+
+/* Tables */
+table{
+    margin-top:15px;
+    margin-bottom:30px;
+    width:60%;
+    border-collapse:collapse;
+    backdrop-filter:blur(8px);
+    box-shadow:0 0 15px rgba(0,255,255,0.3);
+}
+
+/* Header */
+th{
+    padding:12px;
+    background:#020617;
+    border:1px solid #00f2ff;
+    color:#00f2ff;
+    text-shadow:0 0 6px #00f2ff;
+}
+
+/* Table cells */
+td{
+    padding:10px;
+    border:1px solid #334155;
+    background:rgba(0,0,0,0.5);
+}
+
+/* Hover effect */
+tr:hover td{
+    background:#020617;
+    box-shadow:0 0 10px #00f2ff inset;
+}
+
+/* Back button */
+a{
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 20px;
+    border-radius:25px;
+    border:2px solid #00f2ff;
+    color:#00f2ff;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 10px #00f2ff;
+    transition:0.3s;
+}
+
+a:hover{
+    background:#00f2ff;
+    color:black;
+    box-shadow:0 0 20px #00f2ff;
+}
+
+/* Divider */
+hr{
+    border:1px solid #1e293b;
+    margin:30px 0;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -13,15 +105,15 @@
 <h2>Spending By Category</h2>
 
 <table border="1">
-    <tr>
-        <th>Category</th>
-        <th>Total Spending</th>
-    </tr>
+<tr>
+<th>Category</th>
+<th>Total Spending</th>
+</tr>
 
-    <tr th:each="entry : ${scategory}">
-        <td th:text="${entry.key}"></td>
-        <td th:text="${entry.value}"></td>
-    </tr>
+<tr th:each="entry : ${scategory}">
+<td th:text="${entry.key}"></td>
+<td th:text="${entry.value}"></td>
+</tr>
 
 </table>
 
@@ -33,15 +125,14 @@
 
 <table border="1">
 <tr>
-    <th>Description</th>
-    <th>Amount</th>
+<th>Description</th>
+<th>Amount</th>
 </tr>
 
 <tr th:each="t : ${partition[true]}">
-    <td th:text="${t.description}"></td>
-    <td th:text="${t.amount}"></td>
+<td th:text="${t.description}"></td>
+<td th:text="${t.amount}"></td>
 </tr>
-
 </table>
 
 <br>
@@ -51,13 +142,13 @@
 <table border="1">
 
 <tr>
-    <th>Description</th>
-    <th>Amount</th>
+<th>Description</th>
+<th>Amount</th>
 </tr>
 
 <tr th:each="t : ${partition[false]}">
-    <td th:text="${t.description}"></td>
-    <td th:text="${t.amount}"></td>
+<td th:text="${t.description}"></td>
+<td th:text="${t.amount}"></td>
 </tr>
 
 </table>

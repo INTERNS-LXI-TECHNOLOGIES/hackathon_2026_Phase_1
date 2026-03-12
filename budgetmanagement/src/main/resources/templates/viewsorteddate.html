@@ -2,17 +2,104 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Transaction</title>
+<title>Transaction</title>
+
+<style>
+
+/* Background */
+body{
+    font-family:"Segoe UI",Arial;
+    margin:0;
+    padding:40px;
+    background-image:
+    linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),
+    url("https://images.unsplash.com/photo-1621264448270-4d1b1caa37d9");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* Neon title animation */
+@keyframes glow{
+0%{text-shadow:0 0 5px #ff0000;}
+50%{text-shadow:0 0 20px #ff0000,0 0 40px #ff0000;}
+100%{text-shadow:0 0 5px #ff0000;}
+}
+
+h1{
+    text-align:center;
+    font-size:36px;
+    margin-bottom:40px;
+    color:#ff4d4d;
+    animation:glow 2s infinite;
+}
+
+/* Table */
+table{
+    margin:auto;
+    border-collapse:collapse;
+    width:75%;
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 25px rgba(255,0,0,0.5);
+}
+
+/* Neon header */
+th{
+    padding:14px;
+    text-align:center;
+    background:#111;
+    border:1px solid #ff0000;
+    color:#ff4d4d;
+    text-shadow:0 0 10px #ff0000;
+}
+
+/* Table cells */
+td{
+    padding:12px;
+    text-align:center;
+    border:1px solid #444;
+    background:rgba(0,0,0,0.6);
+}
+
+/* Hover neon */
+tr:hover td{
+    background:#1a0000;
+    box-shadow:0 0 15px #ff0000 inset;
+}
+
+/* Neon back button */
+a{
+    display:block;
+    width:180px;
+    margin:40px auto;
+    text-align:center;
+    padding:10px;
+    border-radius:30px;
+    border:2px solid #ff0000;
+    color:#ff4d4d;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 10px #ff0000;
+    transition:0.3s;
+}
+
+a:hover{
+    background:#ff0000;
+    color:white;
+    box-shadow:0 0 20px #ff0000,0 0 40px #ff0000;
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <h1>Sorted By Date</h1>
+<h1>Sorted By Date</h1>
 
-    <table border="1">
+<table border="1">
 
-        <tr>
-           
+<tr>
 <th>ID</th>
 <th>Description</th>
 <th>Amount</th>
@@ -21,21 +108,18 @@
 <th>Type</th>
 </tr>
 
-<tr th:each="t : ${a}"> <!--loop-->
+<tr th:each="t : ${a}">
 <td th:text="${t.id}"></td>
 <td th:text="${t.description}"></td>
 <td th:text="${t.amount}"></td>
 <td th:text="${t.categoryName}"></td>
 <td th:text="${t.date}"></td>
 <td th:text="${t.type}"></td>
-
 </tr>
 
-    </table>
-    <br>
+</table>
 
-    <a href="/api/transaction/homepage">Back to Home</a>
+<a href="/api/transaction/homepage">Back to Home</a>
 
 </body>
-a
 </html>

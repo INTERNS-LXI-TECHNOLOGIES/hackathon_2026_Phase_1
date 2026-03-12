@@ -2,17 +2,92 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Transaction</title>
+<title>Transaction</title>
+
+<style>
+
+/* Background with falling money */
+body{
+    font-family: "Segoe UI", Arial;
+    margin:0;
+    padding:40px;
+    background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),
+    url("https://images.unsplash.com/photo-1621264448270-4d1b1caa37d9");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* Page Title */
+h1{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:36px;
+    letter-spacing:1px;
+}
+
+/* Table */
+table{
+    margin:auto;
+    border-collapse:collapse;
+    width:70%;
+    backdrop-filter: blur(8px);
+}
+
+/* Header Neon */
+th{
+    padding:14px;
+    text-align:center;
+    background:#111;
+    border:1px solid #00f2ff;
+    color:#00f2ff;
+    text-shadow:0 0 10px #00f2ff;
+}
+
+/* Table rows */
+td{
+    padding:12px;
+    text-align:center;
+    border:1px solid #444;
+    background:rgba(0,0,0,0.6);
+}
+
+/* Row hover */
+tr:hover td{
+    background:#0f172a;
+    box-shadow:0 0 10px #00f2ff inset;
+}
+
+/* Neon table glow */
+table{
+    box-shadow:0 0 25px rgba(0,255,255,0.4);
+}
+
+/* Back link */
+a{
+    display:block;
+    text-align:center;
+    margin-top:30px;
+    color:#00f2ff;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+a:hover{
+    text-shadow:0 0 10px #00f2ff;
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <h1>Sorted By Amount</h1>
+<h1>Sorted By Amount</h1>
 
-    <table border="1">
+<table>
 
-        <tr>
-           
+<tr>
 <th>ID</th>
 <th>Description</th>
 <th>Amount</th>
@@ -20,7 +95,7 @@
 <th>Type</th>
 </tr>
 
-<tr th:each="t : ${t}"> <!--loop-->
+<tr th:each="t : ${t}">
 <td th:text="${t.id}"></td>
 <td th:text="${t.description}"></td>
 <td th:text="${t.amount}"></td>
@@ -28,11 +103,10 @@
 <td th:text="${t.type}"></td>
 </tr>
 
-    </table>
-    <br>
+</table>
 
-    <a href="/api/transaction/homepage">Back to Home</a>
+<a href="/api/transaction/homepage">Back to Home</a>
 
 </body>
-a
+
 </html>

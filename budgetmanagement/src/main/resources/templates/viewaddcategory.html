@@ -2,33 +2,108 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Category</title>
+<title>Category</title>
+
+<style>
+
+/* Page background */
+body{
+    font-family:"Segoe UI", Arial;
+    margin:0;
+    padding:40px;
+    background:linear-gradient(135deg,#020617,#0f172a);
+    color:white;
+}
+
+/* Title */
+h1{
+    text-align:center;
+    font-size:34px;
+    margin-bottom:30px;
+    color:#38bdf8;
+    text-shadow:0 0 8px #38bdf8;
+}
+
+/* Table styling */
+table{
+    width:70%;
+    margin:auto;
+    border-collapse:collapse;
+    backdrop-filter:blur(8px);
+    box-shadow:0 0 15px rgba(0,255,255,0.3);
+}
+
+/* Table headers */
+th{
+    padding:12px;
+    background:#020617;
+    border:1px solid #38bdf8;
+    color:#38bdf8;
+    text-shadow:0 0 6px #38bdf8;
+}
+
+/* Table cells */
+td{
+    padding:10px;
+    border:1px solid #334155;
+    background:rgba(0,0,0,0.5);
+}
+
+/* Hover row effect */
+tr:hover td{
+    background:#020617;
+    box-shadow:0 0 10px #38bdf8 inset;
+}
+
+/* Back button */
+a{
+    display:block;
+    width:180px;
+    margin:30px auto;
+    text-align:center;
+    padding:10px;
+    border-radius:25px;
+    border:2px solid #38bdf8;
+    color:#38bdf8;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 8px #38bdf8;
+    transition:0.3s;
+}
+
+a:hover{
+    background:#38bdf8;
+    color:black;
+    box-shadow:0 0 18px #38bdf8;
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <h1>All Categories</h1>
+<h1>All Categories</h1>
 
-    <table border="1">
+<table border="1">
 
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Budget Limit</th>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Budget Limit</th>
+</tr>
 
-        </tr>
+<tr th:each="c : ${categories}">
+<td th:text="${c.id}"></td>
+<td th:text="${c.name}"></td>
+<td th:text="${c.budgetLimit}"></td>
+</tr>
 
-        <tr th:each="c : ${categories}">
-            <td th:text="${c.id}"></td>
-            <td th:text="${c.name}"></td>
-            <td th:text="${c.budgetLimit}"></td>
+</table>
 
-        </tr>
+<br>
 
-    </table>
-    <br>
-
-    <a href="/api/transaction/homepage">Back to Home</a>
+<a href="/api/transaction/homepage">Back to Home</a>
 
 </body>
 
