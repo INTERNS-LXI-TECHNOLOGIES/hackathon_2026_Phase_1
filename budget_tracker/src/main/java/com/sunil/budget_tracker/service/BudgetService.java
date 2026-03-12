@@ -60,7 +60,7 @@ private UserProfileRepository userProfileRepository;
                                                                 .filter(n ->n.getType() == TransactionType.EXPENSE)
                                                                 .mapToDouble(n ->n.getAmount())
                                                                 .summaryStatistics();
-
+                                                                
         // CHALLENGE 13: STATISTICAL SUMMARY
         // TODO: Implement using .stream().filter(expenses).mapToDouble(t -> t.amount()).summaryStatistics()
         
@@ -191,7 +191,6 @@ private UserProfileRepository userProfileRepository;
                
              List<Transaction> transactions =   transactionRepository.findAll();
 
-           
         return  transactions.stream()     
                          
                          .sorted(Comparator.comparing(n ->n.getAmount()))

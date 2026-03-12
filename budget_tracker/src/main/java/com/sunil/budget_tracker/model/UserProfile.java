@@ -16,15 +16,17 @@ public class UserProfile {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String username;
+    private String profilePicture;
     private double monthlySavingsGoal;
 
     public UserProfile() {
     }
 
  
-    public UserProfile(long id,String username, double monthlySavingsGoal) {
+    public UserProfile(long id,String username,String profilePicture, double monthlySavingsGoal) {
         this.id = id;
         this.username = username;
+        this.profilePicture = profilePicture;
         this.monthlySavingsGoal = monthlySavingsGoal;
     }
 
@@ -45,19 +47,25 @@ public class UserProfile {
         this.monthlySavingsGoal = monthlySavingsGoal;
     }
 
- 
-    public String toCsv() {
-        return username + "," + monthlySavingsGoal;
-    }
+public String getProfilePicture() {
+    return profilePicture;
+}
+
+public void setProfilePicture(String profilePicture) {
+    this.profilePicture = profilePicture;
+}
+     
 
 
-    @Override
-    public String toString() {
-        return "UserProfile{" +
-                "username='" + username + '\'' +
-                ", monthlySavingsGoal=" + monthlySavingsGoal +
-                '}';
-    }
+
+@Override
+public String toString() {
+    return "UserProfile{" +
+            "username='" + username + '\'' +
+            ", profilePicture='" + profilePicture + '\'' +
+            ", monthlySavingsGoal=" + monthlySavingsGoal +
+            '}';
+}
 
 
 }

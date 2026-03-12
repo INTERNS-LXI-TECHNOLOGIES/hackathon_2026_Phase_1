@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sunil.budget_tracker.exception.DataPersistenceException;
 import com.sunil.budget_tracker.model.Transaction;
@@ -22,8 +21,12 @@ import com.sunil.budget_tracker.service.CategoryService;
 import com.sunil.budget_tracker.service.UserProfileService;
 import com.sunil.budget_tracker.service.UserService;
 
-import java.util.Map;
 
+
+import java.util.Map;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +43,13 @@ import org.springframework.data.domain.PageRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+
+//image imports 
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 @Controller
 @RequestMapping("/controller")
@@ -258,7 +268,18 @@ public String sortByDate(Model model){
     }
 
     @PostMapping("/saveUserProfile")
-    public  String createUserForm(Model model,UserProfile userProfile){
+    public  String createUserForm(@ModelAttribute("userProfile")UserProfile userProfile,
+     @RequestParam("imageFile")MultipartFile file) throws IOException{
+
+        if(!file.isEmpty()){
+  
+            String fileName =file.getOriginalFilename();
+            Path path = Paths.get("uploads/" + fileName);
+            Files.write(path,file.getBytes());
+
+     userProfile.setProfilePicture("/upload/"+fileName);
+
+        }
 
     userProfileService.saveUserProfile(userProfile);
 
@@ -305,6 +326,18 @@ public String languageSwitcher(){
     return "LanguageSwitcher";
 
 
+}
+
+
+@GetMapping("/accessDenied")
+public String accessDenied() {
+    return "accessDenied";
+}
+
+
+@GetMapping("admin/adminPage")
+public String adminPage() {
+    return "adminPage";
 }
 
 

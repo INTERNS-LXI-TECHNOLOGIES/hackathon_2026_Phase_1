@@ -99,11 +99,12 @@ input[type="reset"]:hover{
 </head>    
 
 <body>
-<form action = "saveUserProfile"  method ="post">
+<form action = "saveUserProfile"  method = "post" enctype="multipart/form-data">
 
 <h3>User Profile</h3>
 
 <input type = text name = "username" placeholder="user name">
+<input type = file name = "imageFile">
 <input type = number name ="monthlySavingsGoal" placeholder="monthly Goal Amount ">
 
 <input type =submit value ="save">

@@ -17,12 +17,9 @@ public String saveUserProfile(UserProfile user){
 
 userProfileRepository.save(user);
 
-   return null; 
+return null; 
+
 }    
 
 
-
-
-
-    
 }

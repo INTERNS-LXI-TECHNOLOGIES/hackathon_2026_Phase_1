@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Access Denied</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#111;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    text-align:center;
+}
+
+.warning{
+    font-size:80px;
+    color:#ff4c4c;
+    animation: shake 0.8s infinite;
+}
+
+h2{
+    color:#ff4c4c;
+    font-size:40px;
+    margin-top:10px;
+}
+
+p{
+    font-size:18px;
+    color:#ddd;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 25px;
+    background:#ff4c4c;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:6px;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#ff1a1a;
+    transform:scale(1.05);
+}
+
+@keyframes shake{
+    0%{ transform:translateX(0); }
+    25%{ transform:translateX(-5px); }
+    50%{ transform:translateX(5px); }
+    75%{ transform:translateX(-5px); }
+    100%{ transform:translateX(0); }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="warning">⚠</div>
+
+<h2>Access Denied</h2>
+
+<p>You do not have permission to view this page.</p>
+
+<a class="btn" href="/controller/budgetApp">Go Back</a>
+
+</div>
+
+</body>
+</html>

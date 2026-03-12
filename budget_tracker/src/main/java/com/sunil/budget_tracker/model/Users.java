@@ -16,17 +16,19 @@ private String password;
 
 @ManyToMany(fetch = FetchType.EAGER)
 @JoinTable(
+
         name = "user_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
 )
+
 private Set<Roles> roles;
 
-public int getUserId() {
+public int getUserId(){
     return userId;
 }
 
-public void setUserId(int userId) {
+public void setUserId(int userId){
     this.userId = userId;
 }
 
