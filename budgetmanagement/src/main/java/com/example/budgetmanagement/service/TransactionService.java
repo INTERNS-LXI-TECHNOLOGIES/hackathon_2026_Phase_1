@@ -74,11 +74,7 @@ public class TransactionService {
         .toList();
     }
 
-    // TODO: Filter transactions
-    public List<Transaction> filterTransactions(Predicate<Transaction> filter) {
-        return List.of();
-    }
-
-    // TODO: #15 Highest expense
+   
+    
     
 }

@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.DoubleSummaryStatistics;
 import java.util.Optional;
 
@@ -12,6 +12,7 @@ import com.example.budgetmanagement.model.Transaction;
 import com.example.budgetmanagement.service.AnalyticsService;
 import com.example.budgetmanagement.service.TransactionService;
 import com.example.budgetmanagement.service.CategoryService;
+@PreAuthorize("hasRole('ADMIN')")
 @Controller
 @RequestMapping("/api/analytics")
  public class AnalyticsController{
@@ -55,6 +56,12 @@ import com.example.budgetmanagement.service.CategoryService;
 
         model.addAttribute("highExpense", highExpense.orElse(null));
         model.addAttribute("categoryReport", categoryReport);
+        return "viewsummarystatistics";
+    }
+
+    @GetMapping("/admin")
+    public String viewsummary(){
+
         return "viewsummarystatistics";
     }
 }

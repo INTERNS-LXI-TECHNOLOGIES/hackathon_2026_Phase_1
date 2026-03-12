@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>User Registration</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background-color:#f4f4f4;
+        }
+
+        .container{
+            width:350px;
+            margin:auto;
+            margin-top:100px;
+            padding:30px;
+            background:white;
+            border-radius:8px;
+            box-shadow:0px 0px 10px #ccc;
+        }
+
+        input,select{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+        }
+
+        button{
+            width:100%;
+            padding:10px;
+            margin-top:15px;
+            background:#007bff;
+            color:white;
+            border:none;
+        }
+
+        a{
+            text-decoration:none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Create User</h2>
+
+<form th:action="@{/register}" method="post">
+
+<label>Username</label>
+<input type="text" name="username" required>
+
+<label>Password</label>
+<input type="password" name="password" required>
+
+<label>Email</label>
+<input type="email" name="email" required>
+
+<label>Role</label>
+<select name="role">
+    <option value="USER">USER</option>
+    <option value="ADMIN">ADMIN</option>
+</select>
+
+<button type="submit">Create User</button>
+
+</form>
+
+<br>
+
+<a th:href="@{/login.html}">Back to Login</a>
+
+</div>
+
+</body>
+</html>

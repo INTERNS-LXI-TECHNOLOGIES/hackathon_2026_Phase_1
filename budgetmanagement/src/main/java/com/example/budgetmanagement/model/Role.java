@@ -1,19 +1,19 @@
 package com.example.budgetmanagement.model;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.*;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import lombok.*;
-import jakarta.persistence.Id;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Table(name="userprofile")
-@Entity
-public class  UserProfile{
-     @Id
+public class Role {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private  Long id;
-   private String username;
-   private double monthlySavingsGoal;
+
+    private Long id;
+
+    private String roleName;
 }
