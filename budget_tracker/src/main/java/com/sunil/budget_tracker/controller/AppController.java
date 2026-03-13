@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -222,7 +223,6 @@ public String sortByDate(Model model){
      model.addAttribute("category",category);
 
 
- 
      return "SummaryCount";
     
        /*  System.out.println("\n--- ADVANCED FINANCIAL INSIGHTS ---");
@@ -269,24 +269,65 @@ public String sortByDate(Model model){
 
     @PostMapping("/saveUserProfile")
     public  String createUserForm(@ModelAttribute("userProfile")UserProfile userProfile,
-     @RequestParam("imageFile")MultipartFile file) throws IOException{
+     @RequestParam("imageFile")MultipartFile file, Model model) throws IOException{
+
 
         if(!file.isEmpty()){
   
-            String fileName =file.getOriginalFilename();
-            Path path = Paths.get("uploads/" + fileName);
+         String uploadDir = "upload/";
+         String fileName = file.getOriginalFilename();
+
+
+         Path uploadPath = Paths.get(uploadDir);
+  
+
+            if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+       
+            Path path = Paths.get("upload/" + fileName);
             Files.write(path,file.getBytes());
 
      userProfile.setProfilePicture("/upload/"+fileName);
 
-        }
+    }
 
+    
     userProfileService.saveUserProfile(userProfile);
+  
+    long id = userProfile.getId();
 
-     return "redirect:/controller/budgetApp";
+
+
+        return "redirect:/controller/userProfile/" + id;
+
+        
 
     }
 
+
+    @GetMapping("/userProfile/{id}")
+public String userProfile(@PathVariable long id,Model model) {
+
+     Optional<UserProfile> profile = userProfileService.findProfile(id);
+
+     model.addAttribute("createdUserProfile",profile.get());
+
+    return "UserProfileView";
+}
+
+
+@GetMapping("/viewAllUserProfile")
+public String viewAllUserProfile(Model model){
+
+
+List<UserProfile> uProfiles = userProfileService.findAll();
+
+model.addAttribute("allUserProfile",uProfiles);
+
+return "allUserProfile";
+
+}
 
 
 @GetMapping("/displayAchivedGoalStatus")
@@ -339,6 +380,8 @@ public String accessDenied() {
 public String adminPage() {
     return "adminPage";
 }
+
+
 
 
 }

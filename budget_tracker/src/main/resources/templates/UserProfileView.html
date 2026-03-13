@@ -1,0 +1,131 @@
+<html>
+<head>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background: linear-gradient(135deg,#7829e0,#f8cdda);
+}
+
+/* Container */
+div{
+    margin:20px;
+}
+
+/* Glass card table */
+table{
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,0.3);
+    box-shadow:0 8px 32px rgba(0,0,0,0.3);
+
+    padding:20px;
+    border-collapse: collapse;
+}
+
+/* Header */
+th{
+    padding:12px 20px;
+    color:white;
+    font-size:16px;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+}
+
+/* Table cells */
+td{
+    padding:15px 20px;
+    text-align:center;
+    color:white;
+}
+
+/* Profile image */
+img{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    border:3px solid white;
+}
+
+/* Back button */
+a{
+    text-decoration:none;
+    padding:10px 20px;
+    color:white;
+    font-weight:bold;
+    border-radius:10px;
+
+    background: rgba(255, 102, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border:1px solid rgba(255, 165, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(255, 102, 0, 0.4);
+
+    transition: all 0.3s ease;
+}
+
+/* Hover effect */
+a:hover{
+    background: rgba(255, 102, 0, 0.6);
+    transform: scale(1.05);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div>
+
+<table border="1">
+
+<thead>
+<tr>
+<th>Profile</th>
+<th>Profile Picture</th>
+<th>Monthly Saving Goal</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+
+<td th:text="${createdUserProfile.username}"></td>
+
+<td><img th:src="${createdUserProfile.profilePicture}" 
+     alt="Profile Picture" 
+     style="width:200px;height:200px;border-radius:50%;" /></td>
+
+<td th:text="${createdUserProfile.monthlySavingsGoal}"></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="back-btn">
+<a href="/controller/budgetApp">Back to Main Menu</a>
+</div>
+
+</body>
+</html>
