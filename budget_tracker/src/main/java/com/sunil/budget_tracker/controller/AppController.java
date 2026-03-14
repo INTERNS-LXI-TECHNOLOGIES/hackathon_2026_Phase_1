@@ -22,7 +22,7 @@ import com.sunil.budget_tracker.service.CategoryService;
 import com.sunil.budget_tracker.service.UserProfileService;
 import com.sunil.budget_tracker.service.UserService;
 
-
+import jakarta.servlet.http.HttpSession;
 
 import java.util.Map;
 import java.io.IOException;
@@ -38,8 +38,8 @@ import com.sunil.budget_tracker.model.Category;
 //pagenation imports 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
-
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 //logger implimenting 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -379,6 +379,24 @@ public String accessDenied() {
 @GetMapping("admin/adminPage")
 public String adminPage() {
     return "adminPage";
+}
+
+
+@GetMapping("/myProfile")
+public String myProfile(@AuthenticationPrincipal UserDetails userDetails,Model model){
+    
+String userName = userDetails.getUsername(); 
+
+
+
+Optional<UserProfile> userProfile = userProfileService.findByUserName(userName);
+
+
+
+model.addAttribute("userProfile",userProfile.get());
+
+return "myProfile";
+
 }
 
 

@@ -43,4 +43,15 @@ public List<UserProfile> findAll(){
 }
 
 
+public Optional<UserProfile> findByUserName(String userName) {
+   
+   return userProfileRepository.findByUserUserName(userName);
+}
+
+// controller2
+
+
+
+
+
 }

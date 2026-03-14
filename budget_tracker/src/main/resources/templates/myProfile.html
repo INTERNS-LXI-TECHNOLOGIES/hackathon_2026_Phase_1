@@ -1,0 +1,129 @@
+<html>
+<head>
+<style>
+body {
+    background-color: #0f172a; /* Deep dark blue/black */
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #f8fafc;
+}
+
+table {
+    background: rgba(255, 255, 255, 0.05); /* Transparent white */
+    backdrop-filter: blur(12px); /* The "Glass" blur effect */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+th {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    text-align: left;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #38bdf8; /* Cyan accent color */
+}
+
+td {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: middle;
+}
+
+/* Styling the Profile Picture */
+img {
+    border: 3px solid rgba(56, 189, 248, 0.3);
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+    border-color: #38bdf8;
+}
+
+/* Savings Goal highlight */
+td:last-child {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #4ade80; /* Light green for money */
+    font-size: 1.2rem;
+}
+
+
+
+
+
+
+
+.back-btn {
+    margin: 20px; /* spacing around the button */
+}
+
+.back-btn a {
+    display: inline-block;
+    padding: 10px 20px;       /* size of the button */
+    background-color: #4CAF50; /* button color */
+    color: white;             /* text color */
+    text-decoration: none;    /* remove underline */
+    border-radius: 5px;       /* rounded corners */
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-btn a:hover {
+    background-color: #45a049; /* darker on hover */
+    transform: scale(1.05);    /* slight zoom effect */
+}
+
+.back-btn a:active {
+    transform: scale(0.98);    /* button press effect */
+}
+</style>
+</head>    
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Profile Picture</th>
+            <th>Monthly Savings Goal</th>
+        
+        </tr>
+    </thead>   
+    <tbody> 
+        <tr>
+            <td th:text="${userProfile.username}"></td>
+            <td>
+                <img th:src="${userProfile.profilePicture}" 
+                     alt="Profile Picture" 
+                     style="width:200px;height:200px;border-radius:50%;" />
+            </td>
+            <td th:text="${userProfile.monthlySavingsGoal}"></td>
+            
+        </tr>
+    </tbody>    
+</table>  
+
+<div class="back-btn">
+<a href = "/controller/createUserProfile"> Back to Create UserProfile </a>
+<div>
+
+<div class="back-btn">
+<a href = "/controller2/edit"> Edit Profile</a>
+<div>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<html>
+<head>
+<style>
+/* Body background & font */
+body {
+    background-color: #0f172a; /* Deep dark blue/black */
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #f8fafc;
+}
+
+/* Form container styling */
+form {
+    background: rgba(255, 255, 255, 0.05); /* glass effect */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Input fields */
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.1);
+    color: #f8fafc;
+}
+
+/* Placeholder color */
+input::placeholder {
+    color: #cbd5e1; /* light gray placeholder */
+}
+
+/* Buttons (Submit and Reset) */
+input[type="submit"],
+input[type="reset"] {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    margin-bottom: 10px;
+}
+
+/* Submit button */
+input[type="submit"] {
+    background-color: #38bdf8; /* cyan */
+    color: white;
+}
+
+input[type="submit"]:hover {
+    background-color: #0ea5e9;
+    transform: scale(1.05);
+}
+
+input[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* Reset button */
+input[type="reset"] {
+    background-color: #f87171; /* red */
+    color: white;
+}
+
+input[type="reset"]:hover {
+    background-color: #ef4444;
+    transform: scale(1.05);
+}
+
+input[type="reset"]:active {
+    transform: scale(0.98);
+}
+
+/* Labels styling */
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #38bdf8; /* cyan label color */
+}
+
+/* Optional: add spacing between label and input */
+input + input,
+label + input {
+    margin-top: 5px;
+}
+
+</style>
+
+</head>   
+
+<body>
+
+<div>
+
+<form action ="/controller2/editProfile" method ="post" enctype="multipart/form-data">
+
+<input type ="text" name = "name" placeholder="name">
+<input type ="file" name ="image" placeholder="image">
+<input type ="number" name ="saveGoal" placeholder="goal amount">
+
+<input type ="submit" value ="update" >
+
+<input type="reset" value=clear>
+
+
+</form>    
+
+</div>    
+
+
+</body>
+</html>

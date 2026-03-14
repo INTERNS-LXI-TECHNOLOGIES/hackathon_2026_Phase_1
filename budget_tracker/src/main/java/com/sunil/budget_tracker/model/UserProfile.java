@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 
 @Entity
@@ -19,18 +21,32 @@ public class UserProfile {
     private String profilePicture;
     private double monthlySavingsGoal;
 
+
+@OneToOne
+@JoinColumn (name = "user_id")
+private Users user;
+
+
     public UserProfile() {
+
+
+
+
     }
 
+
  
-    public UserProfile(long id,String username,String profilePicture, double monthlySavingsGoal) {
+    public UserProfile(long id,String username,String profilePicture, double monthlySavingsGoal,Users user) {
         this.id = id;
         this.username = username;
         this.profilePicture = profilePicture;
         this.monthlySavingsGoal = monthlySavingsGoal;
+
+        this.user =user;
     }
 
   
+    
     public String getUsername() {
         return username;
     }
@@ -64,7 +80,13 @@ public void setId(long id) {
     this.id = id;
 }
 
+public Users getUser() {
+    return user;
+}
 
+public void setUser(Users user) {
+    this.user = user;
+}
 
 
 @Override

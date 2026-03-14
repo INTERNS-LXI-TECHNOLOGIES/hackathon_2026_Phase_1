@@ -1,7 +1,8 @@
 
 package com.sunil.budget_tracker.repository;
 
-import java.util.List;
+
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,7 +11,7 @@ import com.sunil.budget_tracker.model.UserProfile;
 public interface UserProfileRepository extends JpaRepository<UserProfile,Long> {
 
 
-
+ Optional<UserProfile> findByUserUserName(String userName);
 
 
    /*
