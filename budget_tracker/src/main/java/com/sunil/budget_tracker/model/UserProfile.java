@@ -2,12 +2,15 @@
 
 package com.sunil.budget_tracker.model;
 
+import java.util.*;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 
@@ -25,6 +28,10 @@ public class UserProfile {
 @OneToOne
 @JoinColumn (name = "user_id")
 private Users user;
+
+@OneToMany(mappedBy = "userProfileId")
+
+private List<Transaction> transaction;
 
 
     public UserProfile() {
@@ -87,6 +94,18 @@ public Users getUser() {
 public void setUser(Users user) {
     this.user = user;
 }
+
+
+
+public List<Transaction> getTransaction() {
+    return transaction;
+}
+
+
+public void setTransaction(List<Transaction> transaction) {
+    this.transaction = transaction;
+}
+
 
 
 @Override

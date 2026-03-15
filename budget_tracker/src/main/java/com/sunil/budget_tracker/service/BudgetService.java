@@ -38,11 +38,11 @@ private UserProfileRepository userProfileRepository;
 
     // TODO: CHALLENGE 5 (Part D/E) - Define repos and implement constructor for wiring
 
-    public Map<Boolean, List<Transaction>> getPartitionedTransactions() {
+    public Map<Boolean, List<Transaction>> getPartitionedTransactions(List<Transaction> transactions) {
         
 
-       List<Transaction> transaction = transactionRepository.findAll();
-                                           Map<Boolean,List<Transaction>> income =  transaction.stream()
+       //List<Transaction> transaction = transactionRepository.findAll();
+                                           Map<Boolean,List<Transaction>> income =  transactions.stream()
                                                             .collect(Collectors.partitioningBy(t ->t.getType() == TransactionType.INCOME)); 
         // CHALLENGE 12: PARTITIONING DATA
         // TODO: Implement using .stream().collect(Collectors.partitioningBy(t -> t.type() == TransactionType.INCOME))
@@ -52,9 +52,9 @@ private UserProfileRepository userProfileRepository;
 
 
 
-    public DoubleSummaryStatistics getExpenseStatistics(){
+    public DoubleSummaryStatistics getExpenseStatistics(List<Transaction> transactions){
    
-        List<Transaction> transactions  = transactionRepository.findAll();
+        //List<Transaction> transactions  = transactionRepository.findAll();
 
                                         DoubleSummaryStatistics stat = transactions.stream()
                                                                 .filter(n ->n.getType() == TransactionType.EXPENSE)
@@ -74,9 +74,9 @@ private UserProfileRepository userProfileRepository;
 
     // now working 
 
-    public String  hasHighValueTransaction(String  categoryName, double threshold) {
+    public String  hasHighValueTransaction(List<Transaction> transactions,String  categoryName, double threshold) {
 
-    List<Transaction> transactions =  transactionRepository.findAll();
+    //List<Transaction> transactions =  transactionRepository.findAll();
     
     boolean exists = transactions.stream()
                              .anyMatch(n -> n.getCategory().getCategoryName().equalsIgnoreCase(categoryName));
@@ -110,8 +110,8 @@ private UserProfileRepository userProfileRepository;
 
 
     
-    public Optional<Transaction> getHighestExpense(){
-     List<Transaction> transactions =   transactionRepository.findAll();
+    public Optional<Transaction> getHighestExpense(List<Transaction> transactions){
+    // List<Transaction> transactions =   transactionRepository.findAll();
                 
                      return   transactions.stream()
                                    .filter(n -> n.getType() == TransactionType.EXPENSE)
@@ -187,42 +187,51 @@ private UserProfileRepository userProfileRepository;
         // TODO: CHALLENGE 5 - Save via transRepo
     }
 
-    public List<Transaction> getTransactionsSortedByAmount() {
-               
-             List<Transaction> transactions =   transactionRepository.findAll();
 
-        return  transactions.stream()     
-                         
-                         .sorted(Comparator.comparing(n ->n.getAmount()))
-                         .toList();
+
+
+    public List<Transaction> getTransactionsSortedByAmount(List<Transaction> transactions) {
+               
+            // List<Transaction> transaction = transactionRepository.findAll();
+
+
+            return  transactions.stream()                     
+                                .sorted(Comparator.comparing(n ->n.getAmount()))
+                                .toList();
 
 
     }
 
   
 
-    public List<Transaction> fetchAllSortedByDate() {
 
-           List<Transaction> transactions =  transactionRepository.findAll();
+    public List<Transaction> fetchAllSortedByDate(List<Transaction> transactions) {
+
+           //List<Transaction> transactions =  transactionRepository.findAll();
                             
-                                      Collections.sort(transactions);
+                                     Collections.sort(transactions);
                                        
                     
-    return transactions;
+          return transactions;
 
         // TODO: CHALLENGE 7 - Implement sorting
         
     }
 
-    public String getGoalStatus() {
+    public String getGoalStatus(UserProfile userProfile,List<Transaction> transactions){
 
-        List<Transaction> transactions = transactionRepository.findAll();
+       // List<Transaction> transactions = transactionRepository.findAll();
 
-        List<UserProfile>  user = userProfileRepository.findAll();
+       // List<UserProfile>  user = userProfileRepository.findAll();
 
-                       double monthlySaving =  user.stream()
+    
+double getMonthlySavingsGoal = userProfile.getMonthlySavingsGoal();
+
+
+
+                      /*double monthlySaving =  userProfile.stream()
                                  .mapToDouble(n ->n.getMonthlySavingsGoal())
-                                 .sum();
+                                 .sum(); */ 
 
                       double  expense =  transactions.stream()
 
@@ -244,7 +253,7 @@ private UserProfileRepository userProfileRepository;
 
                          
 
-                               if(saving >= monthlySaving){
+                               if(saving >= getMonthlySavingsGoal){
                     
 
                                 return "Goal Achieved";
@@ -263,9 +272,9 @@ private UserProfileRepository userProfileRepository;
 
 
     //  refactoring 
-    public Map<String, Double> getSpendingByCategory() {
+    public Map<String, Double> getSpendingByCategory(List<Transaction> transactions) {
 
-        List<Transaction> transactions = transactionRepository.findAll();
+       // List<Transaction> transactions = transactionRepository.findAll();
 
          
                     Map<String,Double> groupBy =  transactions.stream()

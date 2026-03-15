@@ -1,6 +1,7 @@
 package com.sunil.budget_tracker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -22,7 +23,7 @@ import com.sunil.budget_tracker.service.CategoryService;
 import com.sunil.budget_tracker.service.UserProfileService;
 import com.sunil.budget_tracker.service.UserService;
 
-import jakarta.servlet.http.HttpSession;
+
 
 import java.util.Map;
 import java.io.IOException;
@@ -38,6 +39,8 @@ import com.sunil.budget_tracker.model.Category;
 //pagenation imports 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 //logger implimenting 
@@ -80,19 +83,54 @@ private UserService userService;
 
 @GetMapping("/budgetApp")
 
-    public String home(@RequestParam(defaultValue = "0") int page,Model model){
+    public String home(@AuthenticationPrincipal UserDetails userDetails,Model model){
 
+
+                              String name = userDetails.getUsername();   
+
+    Optional<UserProfile> optional = userProfileService.findByUserName(name);
+
+    UserProfile  profile =  optional.get();
+     
+    List<Transaction> transaction = profile.getTransaction();
+ 
+
+        
                //# 1
-              String status  =    budgetService.getGoalStatus();
+              String status  =    budgetService.getGoalStatus(profile,transaction);
               model.addAttribute("goalMessage",status);
 
               //# 2
-                  Optional<Transaction> transactions =  budgetService.getHighestExpense();
+
+
+
+
+                  Optional<Transaction> transactions =  budgetService.getHighestExpense(transaction);
                   model.addAttribute("highValueTransaction", transactions.get().getAmount());  
 
-             // # 3
-              Page<Transaction> transactionPage =  transactionRepository.findAll(PageRequest.of(page,7));
-              model.addAttribute("transactionPage", transactionPage);
+               
+                 String name1 =  userDetails.getUsername();
+
+                Optional<UserProfile> optionalUser = userProfileService.findByUserName(name1);
+
+
+                if(optionalUser.isPresent()){
+
+              UserProfile userProfile1 = optionalUser.get();
+
+               List<Transaction> transactions3 = userProfile1.getTransaction();
+
+
+
+               model.addAttribute("transactionPage", transactions3);
+
+                }
+  
+                // # 3 old code 
+               
+            /*         Page<Transaction> transactionPage =  transactionRepository.findAll(PageRequest.of(page,7));
+              model.addAttribute("transactionPage", transactionPage);   */
+       
     
                
   
@@ -111,8 +149,11 @@ private UserService userService;
 
 
     // TODO: CHALLENGE 5 (Part A/B) - Define and wire Service & Category Repo
+
+    // Object Binding (Best for forms) Transaction transaction  
+
     @PostMapping("/addTransaction")
-    public String handleAddTransaction(Model model, Transaction transaction,@RequestParam int categoryId) throws DataPersistenceException {
+    public String handleAddTransaction(@AuthenticationPrincipal UserDetails userDetails,Model model, Transaction transaction,@RequestParam int categoryId) throws DataPersistenceException {
 
 
 
@@ -120,9 +161,14 @@ private UserService userService;
               
           Optional<Category> category =  categoryService.findById(categoryId);
 
-     if(category.isPresent()){
+          String name = userDetails.getUsername();
+
+          Optional<UserProfile> userProfile = userProfileService.findByUserName(name);
+
+     if(category.isPresent()&&userProfile.isPresent()){
 
     transaction.setCategory(category.get());
+    transaction.setUserProfileId(userProfile.get());
 
     }
                   
@@ -170,25 +216,51 @@ private UserService userService;
         return "redirect:/controller/budgetApp";
     }
 
-    @GetMapping("/sortByAmount")
-    public String  listTransactions(Model model) {
 
+
+
+
+
+    @GetMapping("/sortByAmount")
+    public String  listTransactions(@AuthenticationPrincipal UserDetails userDetails,Model model) {
+
+
+     String name = userDetails.getUsername();   
+
+    Optional<UserProfile> optional = userProfileService.findByUserName(name);
+
+    UserProfile  profile =  optional.get();
+     
+    List<Transaction> transaction = profile.getTransaction();
     
-    List<Transaction> sortTransactions =    budgetService. getTransactionsSortedByAmount();
+    List<Transaction> sortTransactions =    budgetService. getTransactionsSortedByAmount(transaction);
+
+       
+
 
       model.addAttribute("transactions",sortTransactions);
 
       return "SortByAmountTransaction";
 
         // TODO: CHALLENGE 7 - Wire service calls for sorting
+
+
     }
 
 
-    
 @GetMapping("/sortByDate")
-public String sortByDate(Model model){
+public String sortByDate(@AuthenticationPrincipal UserDetails userDetails,Model model){
 
- List<Transaction>  sortByDate = budgetService.fetchAllSortedByDate();
+    String name = userDetails.getUsername();
+
+ Optional<UserProfile> optional = userProfileService.findByUserName(name);
+
+ UserProfile  userProfile = optional.get();
+
+ List<Transaction> transactions = userProfile.getTransaction();
+
+
+ List<Transaction>  sortByDate = budgetService.fetchAllSortedByDate(transactions);
 
   model.addAttribute("transactionByDate",sortByDate);  
 
@@ -199,12 +271,21 @@ public String sortByDate(Model model){
 
 
 
-    // now working 
+ 
     @GetMapping("/showAdvancedStats")
-    public String  showAdvancedStats(Model model){
+    public String  showAdvancedStats(@AuthenticationPrincipal UserDetails userDetails,Model model){
+
+    
+      String name =   userDetails.getUsername();
+
+     Optional<UserProfile> optional =  userProfileService.findByUserName(name);
+   
+     UserProfile userProfile = optional.get();
+      
+         List<Transaction> transactions = userProfile.getTransaction();
 
      //13
-     DoubleSummaryStatistics statistics =  budgetService.getExpenseStatistics();
+     DoubleSummaryStatistics statistics =  budgetService.getExpenseStatistics(transactions);
      model.addAttribute("doubleSummaryCount",statistics.getCount());
      model.addAttribute("doubleSummarySum",statistics.getSum());
      model.addAttribute("doubleSummaryAverage",statistics.getAverage());
@@ -212,10 +293,14 @@ public String sortByDate(Model model){
      model.addAttribute("doubleSummaryMin",statistics.getMin());
      model.addAttribute("doubleSummaryClass",statistics.getClass());
 
+
      //15
-     Optional<Transaction> transactions =  budgetService.getHighestExpense();
+
+
+
+     Optional<Transaction> transaction =  budgetService.getHighestExpense(transactions);
       
-     model.addAttribute("highValueTransaction", transactions.get().getAmount());
+     model.addAttribute("highValueTransaction", transaction.get().getAmount());
       
      //16 
      List<String> category = budgetService.getCategoryReport();
@@ -232,20 +317,30 @@ public String sortByDate(Model model){
     }
   
 
- 
+ // now working 
+
     @GetMapping("/showDashboard")
-    public String showDashboard(Model model){
+    public String showDashboard(@AuthenticationPrincipal UserDetails userDetails,Model model){
 
-        System.out.println("\n--- BUDGET DASHBOARD ---");
+       
         // TODO: CHALLENGE 4 & 12 - Integrate summary and partitioning count
-        System.out.println("-------------------------");
+      
 
-         Map<Boolean,List<Transaction>>  transaction1 =   budgetService.getPartitionedTransactions();
+                              String name = userDetails.getUsername();   
+
+    Optional<UserProfile> optional = userProfileService.findByUserName(name);
+
+    UserProfile  profile =  optional.get();
+     
+    List<Transaction> transaction = profile.getTransaction();
+
+
+         Map<Boolean,List<Transaction>>  transaction1 =   budgetService.getPartitionedTransactions(transaction);
         
          model.addAttribute("partitionedData",transaction1);
 
        
-     Map<String,Double> transactions2 =  budgetService.getSpendingByCategory();
+     Map<String,Double> transactions2 =  budgetService.getSpendingByCategory(transaction);
      
      model.addAttribute("spendingByCategory" , transactions2);
         
@@ -331,9 +426,19 @@ return "allUserProfile";
 
 
 @GetMapping("/displayAchivedGoalStatus")
-public String  displayAchivedGoalStatus(Model model){
+public String  displayAchivedGoalStatus(@AuthenticationPrincipal UserDetails userDetails,Model model){
 
-String status  =    budgetService.getGoalStatus();
+                      String name = userDetails.getUsername();   
+
+    Optional<UserProfile> optional = userProfileService.findByUserName(name);
+
+    UserProfile  profile =  optional.get();
+     
+    List<Transaction> transaction = profile.getTransaction();
+
+
+
+String status  =    budgetService.getGoalStatus(profile,transaction);
 
 model.addAttribute("goalMessage",status);
 
@@ -344,10 +449,18 @@ return "GoalStatus";
 
 
 @GetMapping("/findHasHighValueTransaction")
-public String findHasHighValueTransaction(@RequestParam("category") String categoryName,@RequestParam("threshHold") double threshold,Model model){
+public String findHasHighValueTransaction(@AuthenticationPrincipal UserDetails userDetails,@RequestParam("category") String categoryName,@RequestParam("threshHold") double threshold,Model model){
+
+                      String name = userDetails.getUsername();   
+
+    Optional<UserProfile> optional = userProfileService.findByUserName(name);
+
+    UserProfile  profile =  optional.get();
+     
+    List<Transaction> transaction = profile.getTransaction();
 
 
- String result =  budgetService.hasHighValueTransaction(categoryName, threshold);    
+ String result =  budgetService.hasHighValueTransaction(transaction,categoryName, threshold);    
 
  model.addAttribute("status",result);
 
@@ -357,7 +470,7 @@ public String findHasHighValueTransaction(@RequestParam("category") String categ
 }
 
 
-// now woring
+
 @GetMapping("/languageSwitcher") 
 public String languageSwitcher(){
 

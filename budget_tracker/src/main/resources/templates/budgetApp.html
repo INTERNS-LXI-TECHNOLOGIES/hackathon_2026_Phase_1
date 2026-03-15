@@ -274,7 +274,7 @@
    
     </thead>
     <tbody>
-        <tr th:each="t : ${transactionPage.content}">
+        <tr th:each="t : ${transactionPage}">
             <td th:text="${t.id}"></td>
             <td th:text="${t.date}"></td>
             <td th:text="${t.description}"></td>
@@ -289,24 +289,7 @@
 </table>
 
 
-<div class="pagination">
 
-<a th:if="${transactionPage.hasPrevious()}"
-   th:href="@{/controller/budgetApp(page=${transactionPage.number - 1})}">
-   ⬅ Previous
-</a>
-
-<span>
-    Page <span th:text="${transactionPage.number + 1}"></span>
-    of <span th:text="${transactionPage.totalPages}"></span>
-</span>
-
-<a th:if="${transactionPage.hasNext()}"
-   th:href="@{/controller/budgetApp(page=${transactionPage.number + 1})}">
-   Next ➡
-</a>
-
-</div>
 
  </div>   
  
@@ -318,8 +301,8 @@
 
         <h3>Find Transactions ThreshHold</h3>
 
-        <input type="text" name="category" placeholder="category search" />
-        <input type="number" name="threshHold" placeholder="amount" />
+        <input type="text" name="category" placeholder="category search"  required/>
+        <input type="number" name="threshHold" placeholder="amount" required/>
 
         <input type="submit" value="Search Start" />
         <input type="reset" value="clear" />
@@ -346,7 +329,7 @@
  
 </table> 
 
-        <!-- You can place your goal table here -->
+
 
     </div>
 

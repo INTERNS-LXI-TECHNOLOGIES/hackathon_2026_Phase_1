@@ -129,12 +129,12 @@ option {
 <div class="glass-container">
     <h2>Add Transaction</h2>
 <form action = "/controller/addTransaction" method = "post">
-<input type = "text" name = "description" placeholder="description" />
+<input type = "text" name = "description" placeholder="description" required  />
 
-<input type = "text"  name = "amount" placeholder="amount" />
+<input type = "text"  name = "amount" placeholder="amount" required  />
 
  <label>Category:</label>
-    <select name="categoryId">
+    <select name="categoryId" required >
         <option value="1">Swiggy</option>
         <option value="2">Flipkart</option>
         <option value="3">Salary</option>
@@ -143,7 +143,7 @@ option {
     </select>
 
 <label>Transaction Type:</label>    
-<select name="type">
+<select name="type" required >
      <option value="">-- Select --</option>
     <option value="INCOME">INCOME</option>
     <option value="EXPENSE">EXPENSE</option>

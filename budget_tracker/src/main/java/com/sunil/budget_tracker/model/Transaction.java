@@ -19,6 +19,7 @@ public class Transaction implements Comparable<Transaction>{
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+  
   private   long id;
   @CreationTimestamp
   private   LocalDate date;
@@ -30,12 +31,16 @@ public class Transaction implements Comparable<Transaction>{
   @Enumerated(EnumType.STRING)
   private   TransactionType type;
 
+  @ManyToOne
+  @JoinColumn(name ="user_profile_id")
+  private UserProfile userProfileId;
+
 
   public Transaction() {
 }
 
 
-public  Transaction(long id,LocalDate date,String description,double amount,Category categoryName,TransactionType type) {
+public  Transaction(long id,LocalDate date,String description,double amount,Category categoryName,TransactionType type,UserProfile userProfile) {
 
 this.id = id;
 this.date = date;
@@ -43,6 +48,7 @@ this.description = description;
 this.amount = amount;
 this.category = categoryName;
 this.type = type;
+this.userProfileId = userProfile;
 
 }
 
@@ -101,6 +107,15 @@ public LocalDate getDate() {
       this.type = type;
 
     }
+
+
+    public UserProfile getUserProfileId() {
+    return userProfileId;
+}
+
+public void setUserProfileId(UserProfile userProfileId) {
+    this.userProfileId = userProfileId;
+}
 
 
 @Override
