@@ -1,129 +1,158 @@
+<!DOCTYPE html>
 <html>
 <head>
+<title>Layout</title>
+
 <style>
-*{
+body{
     margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-body{
+/* layout */
+.container{
+    display:flex;
     height:100vh;
+}
+
+/* LEFT SIDE (ORANGE) */
+.left{
+    width:22%;
+    padding:30px;
+    color:white;
+
+    background: linear-gradient(180deg,#ff7a18,#ff512f);
+}
+
+/* menu links */
+.left a{
+    display:block;
+    padding:12px;
+    margin:15px 0;
+    border-radius:8px;
+    color:white;
+    text-decoration:none;
+}
+
+.left a:hover{
+    background: rgba(255,255,255,0.2);
+}
+
+/* RIGHT SIDE (PURPLE/BLUE GRADIENT) */
+.right{
+    width:78%;
     display:flex;
     justify-content:center;
     align-items:center;
 
-    background: linear-gradient(135deg,#7829e0,#f8cdda);
+    background: linear-gradient(120deg,#667eea,#764ba2);
 }
 
-/* Glass Form Card */
+/* GLASS CARD */
 form{
-    background: rgba(200, 197, 240, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    border:1px solid rgba(255,255,255,0.2);
-    box-shadow:0 8px 32px rgba(0,0,0,0.3);
-
+    width:360px;
     padding:40px;
-    border-radius:15px;
+    border-radius:18px;
 
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-    width:300px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+
+    border:1px solid rgba(255,255,255,0.25);
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
 }
 
-/* Inputs */
-input{
+/* title */
+form h3{
+    color:white;
+    text-align:center;
+}
+
+/* inputs */
+input, select{
+    width:100%;
     padding:12px;
+    margin:12px 0;
     border:none;
     border-radius:8px;
-    outline:none;
+}
 
-    background:rgba(255,255,255,0.2);
+/* buttons */
+input[type="submit"]{
+    background:#ff7a18;
     color:white;
-}
-
-/* Placeholder */
-input::placeholder{
-    color:#eee;
-}
-
-/* Buttons */
-input[type="submit"],
-input[type="reset"]{
-    background:rgba(255,255,255,0.25);
+    font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
 }
 
-input[type="submit"]:hover,
-input[type="reset"]:hover{
-    background:rgba(255,255,255,0.45);
+input[type="reset"]{
+    background:#ddd;
+    cursor:pointer;
 }
-    
+</style>
 
-
-
-/* div 2 back button */
-.back-btn {
-    margin-top: 20px;
-}
-
-.back-btn a {
-    text-decoration: none;
-    padding: 10px 20px;
-    color: white;
-    font-weight: 500;
-    border-radius: 10px;
-
-    /* Orange glass effect */
-    background: rgba(255, 102, 0, 0.35);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    border: 1px solid rgba(255, 165, 0, 0.5);
-    box-shadow: 0 8px 32px rgba(255, 102, 0, 0.4);
-
-    transition: all 0.3s ease;
-}
-
-.back-btn a:hover {
-    background: rgba(255, 102, 0, 0.6);
-    transform: scale(1.05);
-}
-
-</style>    
-</head>    
+</head>
 
 <body>
-<form action = "saveUserProfile"  method = "post" enctype="multipart/form-data">
 
-<h3>User Profile</h3>
+<div class="container">
 
-<input type = text name = "username" placeholder="user name" required>
-<input type = file name = "imageFile" required>
-<input type = number name ="monthlySavingsGoal" placeholder="monthly Goal Amount " required>
+    <!-- LEFT SIDE -->
+    <div class="left">
 
-<input type =submit value ="save">
-<input type = reset value = "clear">
+        <h3>Menu</h3>
 
 
-
-<div class="back-btn">
-<a href = "/controller/budgetApp"> Back to Main Menu </a>
-<div>
-
-
-<div class="back-btn">
-<a href = "/controller/myProfile"> View User Profile </a>
-<div>
-
-</form>
+        <div class="back-btn">
+            <a href="/controller/myProfile">View User Profile</a>
+        </div>
 
 
+        <div class="back-btn">
+            <a href="/controller/budgetApp">Back to Main Menu</a>
+        </div>
+
+        
+        <div class="back-btn">
+            <a href="/controller2/password">Set password</a>
+        </div>
+
+        <div class="back-btn">
+            <a href="/controller2/role">Set Role</a>
+        </div>
+
+       <a href="/logout">Logout</a>
+
+
+    </div>
+
+
+
+
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+
+  
+
+        <form action="saveUserProfile" method="post" enctype="multipart/form-data">
+
+            <h3>User Profile</h3>
+
+            <input type="text" name="username" placeholder="user name" required><br><br>
+
+            <input type="file" name="imageFile" required><br><br>
+
+            <input type="number" name="monthlySavingsGoal" placeholder="monthly Goal Amount" required><br><br>
+
+            <input type="submit" value="save">
+            <input type="reset" value="clear">
+
+        </form>
+
+    </div>
+
+</div>
 
 </body>
 </html>

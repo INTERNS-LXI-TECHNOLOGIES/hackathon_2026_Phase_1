@@ -39,11 +39,12 @@ public class SecurityConfig {
                 .usernameParameter("username")
                 // 4. Your existing controller path
                 .defaultSuccessUrl("/controller/budgetApp", true) 
-                .permitAll()
-            )
+                .permitAll())
+                
             .logout(logout -> logout.permitAll());
 
-        return http.build();
+            return http.build();
+
     }
 
     @Bean

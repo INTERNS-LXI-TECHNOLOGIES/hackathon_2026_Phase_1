@@ -14,6 +14,8 @@ public interface UserProfileRepository extends JpaRepository<UserProfile,Long> {
  Optional<UserProfile> findByUserUserName(String userName);
 
 
+  Optional<UserProfile> findByUsername(String username);
+
    /*
 
     private final Path path = Paths.get("data_user.csv");

@@ -37,6 +37,9 @@ public class UserService implements UserDetailsService {
                         .collect(Collectors.toList()));
         }
 
+          public void save(Users user){
 
+            userRepository.save(user);
+          }
 
 }

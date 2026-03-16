@@ -11,6 +11,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
 @Configuration
 public class LocaleConfig implements WebMvcConfigurer {
 
@@ -46,8 +47,8 @@ public class LocaleConfig implements WebMvcConfigurer {
     messageSource.setBasename("i18n/messages");
     messageSource.setDefaultEncoding("UTF-8");
     return messageSource;
-}
 
+}
 
 
 }

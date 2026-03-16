@@ -51,7 +51,15 @@ public Optional<UserProfile> findByUserName(String userName) {
 // controller2
 
 
+public void save(UserProfile profile){
+userProfileRepository.save(profile);
 
+}
+
+
+public Optional<UserProfile> findByUserNamePass(String userName) {
+   return userProfileRepository.findByUsername(userName);
+}
 
 
 }
