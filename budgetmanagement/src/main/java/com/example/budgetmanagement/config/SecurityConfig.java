@@ -43,7 +43,15 @@ public class SecurityConfig {
                         // 4. Your existing controller path
                         .defaultSuccessUrl("/menucontroller/budgetApp", true)
                         .permitAll())
-                .logout(logout -> logout.permitAll());
+
+                        //Logout process
+                .logout(logout->logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login.html?logout")
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .deleteCookies("JESSIONID")
+                );
 
         return http.build();
     }
