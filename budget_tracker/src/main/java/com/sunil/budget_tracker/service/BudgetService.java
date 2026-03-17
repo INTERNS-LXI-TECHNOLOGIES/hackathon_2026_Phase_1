@@ -218,6 +218,11 @@ private UserProfileRepository userProfileRepository;
         
     }
 
+
+
+
+
+    
     public String getGoalStatus(UserProfile userProfile,List<Transaction> transactions){
 
        // List<Transaction> transactions = transactionRepository.findAll();
@@ -269,6 +274,12 @@ double getMonthlySavingsGoal = userProfile.getMonthlySavingsGoal();
         // TODO: CHALLENGE 2 - Implement calculation (Income - Expense) vs Goal
 
     }
+
+
+
+
+
+
 
 
     //  refactoring 

@@ -20,6 +20,7 @@ import com.sunil.budget_tracker.model.UserProfile;
 import com.sunil.budget_tracker.repository.TransactionRepository;
 import com.sunil.budget_tracker.service.BudgetService;
 import com.sunil.budget_tracker.service.CategoryService;
+import com.sunil.budget_tracker.service.EmailService;
 import com.sunil.budget_tracker.service.UserProfileService;
 import com.sunil.budget_tracker.service.UserService;
 
@@ -69,16 +70,16 @@ private  BudgetService budgetService;
 @Autowired
 private CategoryService categoryService;
 
-@Autowired
-private TransactionRepository transactionRepository;
+
 
 @Autowired
 private UserProfileService userProfileService;
 
 
-@Autowired
-private UserService userService;
 
+
+
+@Autowired EmailService emailService;
 
 
 @GetMapping("/budgetApp")
@@ -86,7 +87,9 @@ private UserService userService;
     public String home(@AuthenticationPrincipal UserDetails userDetails,Model model){
 
 
-                              String name = userDetails.getUsername();   
+    String name = userDetails.getUsername();   
+
+    emailService.createEmail(name);
 
     Optional<UserProfile> optional = userProfileService.findByUserName(name);
 
