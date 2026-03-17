@@ -4,14 +4,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
 
@@ -20,7 +20,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // 1. MUST use .html here because it is a static file
-                        .requestMatchers("/login.html", "/register", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/login.html", "/api/registercontroller/**").permitAll()
                         // ADMIN only
                         .requestMatchers("/api/analytics/**").hasAnyRole("ADMIN")
 
@@ -50,7 +50,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // Allows plain text '1234' from MySQL to work
-        return NoOpPasswordEncoder.getInstance();
+        // Uses BCrypt hashing for secure password storage
+        return new BCryptPasswordEncoder();
     }
 }
