@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{menu.title}">Budget Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        h1 {
+            color: #4ade80;
+            text-align: center;
+            border-bottom: 2px solid #22c55e;
+            padding-bottom: 10px;
+        }
+        .menu {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border: 1px solid #404040;
+        }
+        .menu a {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            background-color: #22c55e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s;
+            border: 1px solid #16a34a;
+        }
+        .menu a:hover {
+            background-color: #16a34a;
+            border-color: #15803d;
+        }
+        .language-selector {
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px;
+            background: #2d2d2d;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border: 1px solid #404040;
+        }
+        .language-selector label {
+            color: #e0e0e0;
+        }
+        select {
+            padding: 8px 15px;
+            font-size: 14px;
+            background-color: #404040;
+            color: #e0e0e0;
+            border: 2px solid #22c55e;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        select:focus {
+            outline: none;
+            border-color: #4ade80;
+        }
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 th:text="#{menu.title}">Budget Tracker</h1>
+    
+    <div class="menu">
+        <a href="/addTransaction" th:text="#{add.transaction}">Add Transaction</a>
+        <a href="/AddCategory" th:text="#{add.category}">Add Category</a>
+        <a href="/listDate" th:text="#{list.date}">List by Date</a>
+        <a href="/listAmount" th:text="#{list.amount}">List by Amount</a>
+        <a href="/stats" th:text="#{stats}">Statistics</a>
+        <a href="/summary" th:text="#{summary}">Summary</a>
+        <a href="/exit" th:text="#{exit}">Exit</a>
+    </div>
+
+    <div class="language-selector">
+        <label>🌐 <span th:text="#{language}">Language</span>:</label>
+        <select onchange="changeLanguage(this.value)">
+            <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+            <option value="ml" th:selected="${#locale.language == 'ml'}">മലയാളം</option>
+        </select>
+    </div>
+
+    <script>
+    function changeLanguage(lang){
+        const url = new URL(window.location);
+        url.searchParams.set('lang', lang);
+        window.location.href = url.toString();
+    }
+    </script>
+</body>
+</html>

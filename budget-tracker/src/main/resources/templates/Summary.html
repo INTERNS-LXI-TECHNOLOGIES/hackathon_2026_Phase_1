@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title th:text="#{summary}">Summary</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+    }
+    h2 {
+        color: #4ade80;
+        text-align: center;
+        border-bottom: 2px solid #22c55e;
+        padding-bottom: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #2d2d2d;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        border: 1px solid #404040;
+    }
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #404040;
+    }
+    th {
+        background-color: #22c55e;
+        color: white;
+        font-weight: bold;
+        width: 40%;
+    }
+    td {
+        color: #e0e0e0;
+    }
+    tr:nth-child(even) {
+        background-color: #333;
+    }
+    tr:hover {
+        background-color: #404040;
+    }
+    .income-row th {
+        background-color: #16a34a;
+    }
+    .expense-row th {
+        background-color: #dc2626;
+    }
+    .balance-row th {
+        background-color: #22c55e;
+    }
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #22c55e;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        border: 1px solid #16a34a;
+    }
+    a:hover {
+        background-color: #16a34a;
+    }
+</style>
+</head>
+
+<body>
+
+<h2 th:text="#{summary}">Financial Summary</h2>
+
+<table>
+
+<tr class="income-row">
+<th>Total Income</th>
+<td th:text="${income}"></td>
+</tr>
+
+<tr class="expense-row">
+<th>Total Expense</th>
+<td th:text="${expense}"></td>
+</tr>
+
+<tr class="balance-row">
+<th>Balance</th>
+<td th:text="${balance}"></td>
+</tr>
+
+</table>
+
+<br>
+<a href="/" th:text="#{back.to.menu}">Back to Menu</a>
+
+</body>
+
+</body>
+
+</html>

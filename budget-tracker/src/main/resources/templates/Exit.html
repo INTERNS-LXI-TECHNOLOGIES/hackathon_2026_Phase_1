@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{exit}">Exit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            text-align: center;
+        }
+        h2 {
+            color: #4ade80;
+            border-bottom: 2px solid #22c55e;
+            padding-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+            margin: 20px 0;
+            color: #e0e0e0;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #16a34a;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #16a34a;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 th:text="#{exit.message}">Thank You for Using Budget Tracker</h2>
+    <p th:text="#{exit.description}">You have exited the application.</p>
+
+    <a href="/">
+        <button th:text="#{go.to.home}">Go to Home</button>
+    </a>
+</body>
+</html>
