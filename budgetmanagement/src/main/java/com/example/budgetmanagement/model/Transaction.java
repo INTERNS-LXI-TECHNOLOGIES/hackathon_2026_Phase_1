@@ -9,6 +9,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
@@ -32,4 +35,14 @@ public class Transaction {
   private String categoryName;
   @Enumerated(EnumType.STRING)
   private TransactionType type;
+  // Many → One (FK here)
+  @ManyToOne
+  @JoinColumn(name = "userprofile_id")
+  private UserProfile userProfile;
+
+  // Many → One (FK here)
+  @ManyToOne
+  @JoinColumn(name = "category_id")
+  private Category category;
+
 }

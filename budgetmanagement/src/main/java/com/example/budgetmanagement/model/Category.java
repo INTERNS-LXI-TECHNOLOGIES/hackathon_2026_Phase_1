@@ -6,19 +6,24 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import lombok.*;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="category")
+@Table(name = "category")
 
 @Entity
 public class Category {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private  Long id;
+    private Long id;
     String name;
     double budgetLimit;
+
+    // One category → many transactions
+    @OneToMany(mappedBy = "category")
+    private List<Transaction> transactions;
 
 }
