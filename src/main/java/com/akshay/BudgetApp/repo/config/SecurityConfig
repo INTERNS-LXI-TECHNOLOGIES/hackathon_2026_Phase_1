@@ -1,0 +1,69 @@
+package com.akshay.BudgetApp.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.*;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http
+            .csrf(csrf -> csrf.disable()) // easy testing
+
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/budgetApp/loginPage").permitAll()
+
+                .requestMatchers("/budgetApp/addTransaction",
+                                 "/budgetApp/addCategory").hasRole("ADMIN")
+
+                .requestMatchers("/budgetApp/listAmount",
+                                 "/budgetApp/listDate",
+                                 "/budgetApp/status").hasAnyRole("ADMIN", "USER")
+
+                .anyRequest().authenticated()
+            )
+
+            .formLogin(form -> form
+                .loginPage("/budgetApp/loginPage")
+                .loginProcessingUrl("/budgetApp/login")
+                .defaultSuccessUrl("/budgetApp/status", true)
+                .permitAll()
+            )
+
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/budgetApp/loginPage")
+            );
+
+        return http.build();
+    }
+
+    // In-memory users (simple)
+    @Bean
+    public UserDetailsService userDetailsService() {
+
+        UserDetails admin = User.withUsername("admin")
+                .password("1919")
+                .roles("ADMIN")
+                .build();
+
+        UserDetails user = User.withUsername("user")
+                .password("1234")
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, user);
+    }
+
+    // No encryption (only for learning)
+    @Bean
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    }
+}

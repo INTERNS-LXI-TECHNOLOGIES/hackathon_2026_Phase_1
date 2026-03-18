@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Budget App Menu</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+background: linear-gradient(-45deg,#1d4350,#a43931,#16222a,#3a6073);
+background-size:400% 400%;
+animation:gradientMove 10s ease infinite;
+color:white;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+h2{
+margin-bottom:40px;
+font-size:32px;
+letter-spacing:1px;
+}
+
+.menu-container{
+display:grid;
+grid-template-columns:repeat(2,200px);
+gap:20px;
+}
+
+.menu-card{
+text-decoration:none;
+padding:25px;
+border-radius:12px;
+text-align:center;
+font-size:18px;
+font-weight:600;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.2);
+color:white;
+transition:0.3s;
+}
+
+.menu-card:hover{
+transform:translateY(-6px) scale(1.05);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+background:rgba(255,255,255,0.2);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Budget App Dashboard</h2>
+
+<div class="menu-container">
+
+<a class="menu-card" href="/addTransaction">Add Transaction</a>
+
+<a class="menu-card" href="/addCategory">Add Category</a>
+
+<a class="menu-card" href="/listAmount">List By Amount</a>
+
+<a class="menu-card" href="/listDate">List By Date</a>
+
+<a class="menu-card" href="/status">Dashboard</a>
+
+<a class="menu-card" href="/exit">Exit</a>
+
+</div>
+
+</body>
+</html>
