@@ -1,0 +1,122 @@
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* BACKGROUND */
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background: radial-gradient(circle at top, #1a0000, #000000 80%);
+    color:white;
+}
+
+/* CONTAINER */
+.form-container{
+    width:350px;
+    padding:30px;
+
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(15px);
+
+    border-radius:15px;
+    border:1px solid rgba(255,0,80,0.3);
+
+    box-shadow: 0 0 25px rgba(255,0,80,0.2);
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#ff004c;
+    letter-spacing:1px;
+}
+
+/* LABEL */
+label{
+    display:block;
+    margin-bottom:6px;
+    color:#aaa;
+}
+
+/* INPUT */
+input{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+
+    border-radius:8px;
+    border:1px solid rgba(255,0,80,0.3);
+
+    background: rgba(255,0,80,0.05);
+    color:white;
+
+    outline:none;
+    transition:0.3s;
+}
+
+/* INPUT FOCUS */
+input:focus{
+    border-color:#ff004c;
+    box-shadow:0 0 10px #ff004c;
+}
+
+/* BUTTON GROUP */
+.btn-group{
+    display:flex;
+    justify-content:space-between;
+}
+
+/* NORMAL BUTTON */
+button{
+    width:48%;
+    padding:10px;
+
+    border:none;
+    border-radius:8px;
+
+    background: rgba(255,255,255,0.1);
+    color:white;
+
+    cursor:pointer;
+    transition:0.3s;
+}
+
+/* DELETE BUTTON (SPECIAL) */
+.delete-btn{
+    background: rgba(255,0,80,0.2);
+    color:#ff004c;
+    border:1px solid #ff004c;
+}
+
+/* DELETE HOVER */
+.delete-btn:hover{
+    background:#ff004c;
+    color:black;
+    box-shadow:0 0 15px #ff004c;
+}
+
+/* NORMAL BUTTON HOVER */
+button:hover{
+    transform:scale(1.05);
+}
+
+/* BACK LINK */
+.back{
+    display:block;
+    margin-top:15px;
+    text-align:center;
+    text-decoration:none;
+    color:#ff004c;
+}
+
+.back:hover{
+    text-shadow:0 0 10px #ff004c;
+}

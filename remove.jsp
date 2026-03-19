@@ -1,36 +1,37 @@
-<%@ page import ="java.sql.*" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<!DOCTYPE html>
 <html>
-    <body>
-        <h1>To remove intern using Id </h1>
-        <form>
-            <label for="id">Id</label>
+<head>
+    <title>Remove Intern</title>
 
-            <input type = "text" name = "id">
-            <button type ="submit">submit</button>
-        </form>
-    </body>
+    <!-- Reuse same CSS -->
+    <link rel="stylesheet" href="css/remove.css">
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h2>Remove Intern</h2>
+
+    <form action="interns" method="post">
+
+        <input type="hidden" name="action" value="remove">
+
+        <label for="id">Enter Intern ID</label>
+        <input type="text" id="id" name="id" required>
+
+        <div class="btn-group">
+            <button type="submit" class="delete-btn">Delete</button>
+            <button type="reset">Clear</button>
+        </div>
+
+        <a href="welcome.html" class="back">Back to Home</a>
+
+    </form>
+
+</div>
+
+</body>
 </html>
-<% 
-String strId = request.getParameter("id");
-if(strId != null){
-int id = Integer.parseInt(strId);
-Connection con = null;
-PreparedStatement ps = null;
-String user = "root";
-String pass ="MYSQL";
-String url ="jdbc:mysql://localhost:3306/interns";
-
-try{
-
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    con = DriverManager.getConnection(url,user,pass);
-    String sql = "DELETE FROM intern where id = ?";
-    ps =con.prepareStatement(sql);
-    ps.setInt(1,id);
-    ps.executeUpdate();
-}
-catch(Exception e){
-    out.print(e);
-}
-}
-%>

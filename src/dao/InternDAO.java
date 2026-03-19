@@ -51,7 +51,7 @@ public class InternDAO {
           }
           return interns;
         }
-            public void update(Intern intern) {
+            public void updateIntern(Intern intern) {
             String sql = "UPDATE intern SET name = ?, email = ?, phone = ? WHERE id = ?";
             try(Connection con = getConnection()){
                 PreparedStatement ps = con.prepareStatement(sql);
@@ -65,7 +65,7 @@ public class InternDAO {
             }
 
 }
-             public void delete(int id) {
+             public void deleteIntern(int id) {
             String sql = "DELETE FROM intern WHERE id = ?";
             try(Connection con = getConnection()){
                 PreparedStatement ps = con.prepareStatement(sql);

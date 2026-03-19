@@ -1,0 +1,107 @@
+/* toggle-switch.css - Gold Theme Toggle */
+
+.theme-toggle-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.1);
+    padding: 8px 15px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+body.light-mode .theme-toggle {
+    background: rgba(255,255,255,0.3);
+    border: 1px solid #B8860B;
+}
+
+body.dark-mode .theme-toggle {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid #FFD700;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #B8860B;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #FFD700;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(30px);
+}
+
+.toggle-icon {
+    font-size: 1.2em;
+    color: #B8860B;
+}
+
+body.dark-mode .toggle-icon {
+    color: #FFD700;
+}
+
+.sun-icon, .moon-icon {
+    transition: all 0.3s ease;
+}
+
+body.light-mode .sun-icon {
+    color: #B8860B;
+    opacity: 1;
+}
+
+body.light-mode .moon-icon {
+    color: #B8860B;
+    opacity: 0.5;
+}
+
+body.dark-mode .sun-icon {
+    color: #FFD700;
+    opacity: 0.5;
+}
+
+body.dark-mode .moon-icon {
+    color: #FFD700;
+    opacity: 1;
+}
