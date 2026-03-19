@@ -12,7 +12,7 @@ public class AppController {
         return "Login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login"   )
     public String login(String username, String password) {
 
         if(username.equals("admin") && password.equals("1234")) {
@@ -21,17 +21,35 @@ public class AppController {
 
         return "login";
     }
-     
 
-    @GetMapping("/addTransaction")
-    public String addTransactionPage() {
+
+    @GetMapping("/addTransactionPage")
+    public String addTransactionPage () {
         return "AddTransaction";
     }
+     
 
-    @GetMapping("/addCategory")
+    @PostMapping("/addTransaction")
+    public String addTransactionPage( @RequestParam String description ,@RequestParam double amount ,@RequestParam String categoryName ,@RequestParam String type,
+        @RequestParam String date)
+        
+        {
+
+            System.out.print(description + " " + amount);
+        return "Menu";
+    }
+
+    @GetMapping("/addCategorypage")
     public String addCategoryPage() {
         return "AddCategory";
+
+
     }
+
+
+    @PostMapping ("/addCategory")
+
+    public String 
 
     @GetMapping("/listAmount")
     public String listAmountPage() {

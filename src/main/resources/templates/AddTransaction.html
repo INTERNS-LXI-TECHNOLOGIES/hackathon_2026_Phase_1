@@ -1,5 +1,120 @@
 <!DOCTYPE html>
+<html>
+<head>
+<title>Add Transaction</title>
 
-<html> 
-    
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(-45deg,#1d4350,#a43931,#16222a,#3a6073);
+background-size:400% 400%;
+animation:gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+.container{
+background: rgba(255,255,255,0.1);
+backdrop-filter: blur(15px);
+padding:40px;
+border-radius:15px;
+width:350px;
+box-shadow:0 8px 30px rgba(0,0,0,0.5);
+color:white;
+}
+
+h2{
+text-align:center;
+margin-bottom:25px;
+}
+
+input, select{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:8px;
+outline:none;
+background:rgba(255,255,255,0.2);
+color:white;
+}
+
+input::placeholder{
+color:#ddd;
+}
+
+select{
+color:white;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:15px;
+border:none;
+border-radius:8px;
+background:#00c9ff;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#0099cc;
+transform:scale(1.05);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<h2>Add Transaction</h2>
+
+<form action="/budgetApp/addTransaction" method="post">
+
+<input type="text" name="description" placeholder="Description" required>
+
+<input type="number" name="amount" placeholder="Amount" required>
+
+<input type="date" name="date" required>
+
+<select name="categoryName" required>
+    <option value="">Select Category</option>
+    <option>Food</option>
+    <option>Travel</option>
+    <option>Shopping</option>
+    <option>Salary</option>
+</select>
+
+<select name="type" required>
+    <option value="">Select Type</option>
+    <option>Income</option>
+    <option>Expense</option>
+</select>
+
+<button type="submit">Add</button>
+
+</form>
+</div>
+
+</body>
 </html>
