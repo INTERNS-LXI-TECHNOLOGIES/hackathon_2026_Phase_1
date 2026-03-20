@@ -1,30 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Category</title>
+<title>Add Category</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(-45deg,#141e30,#243b55,#0f2027,#2c5364);
+background-size:400% 400%;
+animation:gradientBG 10s ease infinite;
+}
+
+/* Background animation */
+@keyframes gradientBG{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* Glass container */
+.container{
+width:350px;
+padding:35px;
+border-radius:15px;
+background: rgba(255,255,255,0.1);
+backdrop-filter: blur(15px);
+box-shadow:0 8px 30px rgba(0,0,0,0.5);
+color:white;
+animation:fadeIn 1s ease;
+}
+
+/* Fade animation */
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+h2{
+text-align:center;
+margin-bottom:25px;
+font-weight:600;
+letter-spacing:1px;
+}
+
+/* Input fields */
+input, select{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:8px;
+outline:none;
+background:rgba(255,255,255,0.2);
+color:white;
+font-size:14px;
+transition:0.3s;
+}
+
+input::placeholder{
+color:#ddd;
+}
+
+/* Focus effect */
+input:focus, select:focus{
+background:rgba(255,255,255,0.3);
+transform:scale(1.02);
+}
+
+/* Button */
+button{
+width:100%;
+padding:12px;
+margin-top:15px;
+border:none;
+border-radius:8px;
+background: linear-gradient(45deg,#00c9ff,#92fe9d);
+color:#000;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+/* Hover animation */
+button:hover{
+transform:scale(1.05);
+box-shadow:0 0 15px rgba(0,201,255,0.7);
+}
+
+/* Labels */
+label{
+font-size:14px;
+opacity:0.9;
+}
+</style>
+
 </head>
+
 <body>
+
+<div class="container">
 
 <h2>Add Category</h2>
 
-<form action="/budgetApp/category/add" method="post">
+<form action="/budgetApp/addCategory" method="post">
 
-    <label>Category Name:</label>
-    <input type="text" name="name" required>
+<label>Category Name</label>
+<input type="text" name="name" placeholder="Enter category name" required>
 
-    <br><br>
+<label>Type</label>
+<select name="type">
+<option value="INCOME">Income</option>
+<option value="EXPENSE">Expense</option>
+</select>
 
-    <label>Type:</label>
-    <select name="type">
-        <option value="INCOME">Income</option>
-        <option value="EXPENSE">Expense</option>
-    </select>
-
-    <br><br>
-
-    <button type="submit">Save Category</button>
+<button type="submit">Save Category</button>
 
 </form>
+
+</div>
 
 </body>
 </html>

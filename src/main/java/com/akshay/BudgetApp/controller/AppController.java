@@ -1,5 +1,7 @@
 package com.akshay.BudgetApp.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,28 +40,32 @@ public class AppController {
             System.out.print(description + " " + amount);
         return "Menu";
     }
+  
 
-    @GetMapping("/addCategorypage")
-    public String addCategoryPage() {
-        return "AddCategory";
+    @PostMapping ("/addCategory") 
 
+    public String saveCategory (@RequestParam String CategoryName) {
+   
+        System.out.print(CategoryName);
+        return "Menu";
 
     }
 
 
-    @PostMapping ("/addCategory")
+   
+@GetMapping("/listAmount")
+public String listAmountPage(Model model) {
 
-    public String 
+    List<String> transactions = List.of(
+        "Food - 500",
+        "Travel - 2000",
+        "Shopping - 1000"
+    );
 
-    @GetMapping("/listAmount")
-    public String listAmountPage() {
-        return "ListAmount";
-    }
+    model.addAttribute("transactions", transactions);
 
-    @GetMapping("/listDate")
-    public String listDatePage() {
-        return "ListDate";
-    }
+    return "ListAmount";
+}
 
     @GetMapping("/status")
     public String statusPage() {
