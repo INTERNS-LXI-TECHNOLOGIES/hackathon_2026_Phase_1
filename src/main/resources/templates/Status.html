@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Status</title>
+
+<style>
+body{
+    font-family:'Poppins',sans-serif;
+    background:#0f2027;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    width:400px;
+    background:rgba(255,255,255,0.1);
+    padding:30px;
+    border-radius:15px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.5);
+    text-align:center;
+}
+
+h2{
+    margin-bottom:20px;
+}
+
+.card{
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+    font-size:18px;
+}
+
+.income{
+    background:#2ecc71;
+}
+
+.expense{
+    background:#e74c3c;
+}
+
+.balance{
+    background:#3498db;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Financial Status</h2>
+
+<div class="card income">
+    Total Income: <span th:text="${income}"></span>
+</div>
+
+<div class="card expense">
+    Total Expense: <span th:text="${expense}"></span>
+</div>
+
+<div class="card balance">
+    Balance: <span th:text="${balance}"></span>
+</div>
+
+</div>
+
+</body>
+</html>

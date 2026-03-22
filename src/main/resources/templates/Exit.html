@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Exit</title>
+
+<style>
+body{
+    font-family:'Poppins',sans-serif;
+    background:#0f2027;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    width:400px;
+    background:rgba(255,255,255,0.1);
+    padding:30px;
+    border-radius:15px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.5);
+    text-align:center;
+}
+
+h2{
+    margin-bottom:15px;
+}
+
+p{
+    margin-bottom:20px;
+    font-size:16px;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background:#e74c3c;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#c0392b;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>👋 Thank You!</h2>
+
+<p>You have exited the Budget App.</p>
+
+<button onclick="window.location.href='/budgetApp/loginPage'">
+    Login Again
+</button>
+
+</div>
+
+</body>
+</html>
