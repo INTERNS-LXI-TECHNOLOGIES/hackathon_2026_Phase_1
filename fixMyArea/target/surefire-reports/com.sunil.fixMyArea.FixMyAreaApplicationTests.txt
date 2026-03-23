@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.sunil.fixMyArea.FixMyAreaApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.293 s -- in com.sunil.fixMyArea.FixMyAreaApplicationTests

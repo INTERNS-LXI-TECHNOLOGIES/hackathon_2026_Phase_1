@@ -1,0 +1,8 @@
+com\sunil\fixMyArea\FixMyAreaApplication.class
+com\sunil\fixMyArea\model\Punchayath.class
+com\sunil\fixMyArea\model\UserProfile.class
+com\sunil\fixMyArea\model\CategoryOfComplint.class
+com\sunil\fixMyArea\model\Complaint.class
+com\sunil\fixMyArea\model\District.class
+com\sunil\fixMyArea\model\State.class
+com\sunil\fixMyArea\model\GeneratedValue.class

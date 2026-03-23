@@ -1,0 +1,5 @@
+# Created at 2026-03-23T21:26:38.485
+Boot Manifest-JAR contains absolute paths in classpath 'W:\WORK\Git\Hackathon_sir\hackathon_2026_Phase_1\fixMyArea\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
