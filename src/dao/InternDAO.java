@@ -20,11 +20,12 @@ public class InternDAO {
     }
     public void addIntern(Intern intern) {
         try  (Connection con = getConnection()){
-            String sql = "INSERT INTO intern (name, email, phone) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO intern (name, email, phone ,photo) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, intern.getName());
             ps.setString(2, intern.getEmail());
             ps.setString(3, intern.getPhone());
+            ps.setBytes(4, intern.getPhoto());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +44,8 @@ public class InternDAO {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String phone = rs.getString("phone");
-                Intern intern = new Intern(name, phone, email);
+                byte[] photo = rs.getBytes("photo");
+                Intern intern = new Intern(name, phone, email,photo);
                 intern.setId(id);
                 
                    interns.add(intern);
@@ -52,13 +54,14 @@ public class InternDAO {
           return interns;
         }
             public void updateIntern(Intern intern) {
-            String sql = "UPDATE intern SET name = ?, email = ?, phone = ? WHERE id = ?";
+            String sql = "UPDATE intern SET name = ?, email = ?, phone = ? , photo = ? WHERE id = ?";
             try(Connection con = getConnection()){
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setString(1, intern.getName());
                 ps.setString(2, intern.getEmail());
                 ps.setString(3, intern.getPhone());
-                ps.setInt(4, intern.getId());
+                ps.setInt(5, intern.getId());
+                ps.setBytes(4, intern.getPhoto());
                 ps.executeUpdate();
             } catch (SQLException e) {
              System.err.println("Error updating intern: " + e.getMessage());

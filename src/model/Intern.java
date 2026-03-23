@@ -5,14 +5,25 @@ public class Intern{
     private String name ;
     private String phone;
     private String email ;
+    private byte[]  photo;
 
-    public Intern( String name, String phone, String email) {
+
+    public Intern(){}
+    public Intern( String name, String phone, String email,byte[] photo ) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.photo = photo;
     }
 
     // Getters and Setters
+
+    public void setPhoto(byte[] photo){
+        this.photo=photo;
+    }
+    public byte[] getPhoto(){
+        return photo ;
+    }
     public int getId() {
         return id;
     }

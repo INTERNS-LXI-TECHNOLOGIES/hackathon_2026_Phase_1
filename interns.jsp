@@ -22,7 +22,7 @@
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
-            
+            <th>Photo </th>
         </tr>
 
 <%
@@ -37,9 +37,10 @@
             <td><%= intern.getName() %></td>
             <td><%= intern.getPhone() %></td>
             <td><%= intern.getEmail() %></td>
+          <td> <img src ="request.getContexPath()    image?id=<%= intern.getId() %>"</td>
 
             
-                </form>
+           
             </td>
         </tr>
 
@@ -53,7 +54,7 @@
     }
 %>
 
-    <a href="welcome.html" class="back">Back to Home</a>
+    <a href="welcome.jsp" class="back">Back to Home</a>
 
 </div>
 

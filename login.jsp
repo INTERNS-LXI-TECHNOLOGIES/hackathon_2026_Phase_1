@@ -15,10 +15,10 @@
 
     <h2>Create Intern</h2>
 
-    <form action="interns" method="post">
+<form action="interns" method="post" enctype="multipart/form-data">
 
         <!-- Important for servlet -->
-        <input type="hidden" name="action" value="create">
+        <input type="hidden" name="action" value="insert">
 
         <label>Name</label>
         <input type="text" name="name" required>
@@ -28,6 +28,8 @@
 
         <label>Phone</label>
         <input type="text" name="phone" required>
+        <label> Profile Photo</label>
+        <input type ="file" name ="photo">
 
         <div class="btn-group">
             <button type="submit">Create</button>
@@ -35,7 +37,7 @@
         </div>
 
         <!-- Correct way (NOT button inside link) -->
-        <a href="welcome.html" class="back">Back to Home</a>
+        <a href="welcome.jsp" class="back">Back to Home</a>
 
     </form>
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,12 +12,10 @@
 
 <body>
 
-
+   
 <div class="container">
     <h1>⚡ Interns Portal</h1>
-    <p>Welcome to Lxi Soft</p>
-
-    <ul>
+    <p>welcome  Lxi Soft</p>
         <li><a href="login.jsp">Create intern   </a></li>
         <li><a href="interns">Read Interns</a></li>
         <li><a href="update.jsp">Update</a></li>

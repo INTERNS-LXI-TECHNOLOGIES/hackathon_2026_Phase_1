@@ -27,7 +27,7 @@
             <button type="reset">Clear</button>
         </div>
 
-        <a href="welcome.html" class="back">Back to Home</a>
+        <a href="welcome.jsp" class="back">Back to Home</a>
 
     </form>
 

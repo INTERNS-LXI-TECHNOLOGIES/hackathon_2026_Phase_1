@@ -30,13 +30,14 @@
 
         <label for="email">Email</label>
         <input type="email" id="email" name="email">
-
+        <label >Photo</label>
+        <input type ="file" name ="photo">
         <div class="btn-group">
             <button type="submit">Update</button>
             <button type="reset">Clear</button>
         </div>
 
-        <a href="welcome.html" class="back">Back to Home</a>
+        <a href="welcome.jsp" class="back">Back to Home</a>
 
     </form>
 
