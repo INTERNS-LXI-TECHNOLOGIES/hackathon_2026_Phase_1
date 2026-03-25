@@ -31,13 +31,13 @@ public class InternDAO {
             e.printStackTrace();
         }
     }
-     public List<Intern>  getAllInterns() throws SQLException{
+     public List<Intern>  getAllInterns(int start , int total ) throws SQLException{
      List<Intern> interns = new ArrayList<>();
-     
-
-     String sql = "SELECT * FROM intern";
+     String sql = "SELECT * FROM intern LIMIT ? , ?";
           try(Connection  con = getConnection()){
             PreparedStatement ps = con.prepareStatement(sql);
+           ps.setInt(1,start);
+           ps.setInt(2,total);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -77,5 +77,22 @@ public class InternDAO {
             } catch (SQLException e) {
                 System.err.println("Error deleting intern: " + e.getMessage());
             }
+        }
+
+       public  int getTotalRecords(){
+          int count = 0 ; 
+          try{
+  Connection con = getConnection();
+  String sql = "SELECT COUNT(*) from intern ";
+        PreparedStatement ps = con.prepareStatement(sql);
+          ResultSet rs = ps.executeQuery();
+          if(rs.next()){
+            count = rs.getInt(1);
+          }
+        } 
+    catch (Exception e){
+         e.printStackTrace();
+    }
+            return count  ;
         }
     }

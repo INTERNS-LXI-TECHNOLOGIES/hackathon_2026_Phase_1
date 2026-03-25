@@ -37,26 +37,51 @@
             <td><%= intern.getName() %></td>
             <td><%= intern.getPhone() %></td>
             <td><%= intern.getEmail() %></td>
-          <td> <img src ="request.getContexPath()    image?id=<%= intern.getId() %>"</td>
-
-            
-           
-            </td>
+         <td>
+    <img src="<%= request.getContextPath() %>/image?id=<%= intern.getId() %>" 
+         width="100" height="100"/>
+</td>
         </tr>
 
 <%
         }
     } else {
 %>
-    </table>
+   
     <p class="no-data">No interns found</p>
 <%
     }
 %>
+ </table>
+    
 
-    <a href="welcome.jsp" class="back">Back to Home</a>
+
+<%
+Integer currentPageObj = (Integer) request.getAttribute("currentPage");
+Integer totalPagesObj = (Integer) request.getAttribute("totalPages");
+
+int currentPage = (currentPageObj != null) ? currentPageObj : 1;
+int totalPages = (totalPagesObj != null) ? totalPagesObj : 1;
+%>
+<div     class ="pagination" style="margin-top:20px;">
+
+    <% if (currentPage > 1) { %>
+        <a href="interns?page=<%= currentPage - 1 %>">Prev</a>
+    <% } %>
+
+    <% for (int i = 1; i <= totalPages; i++) { %>
+        <a href="interns?page=<%= i %>"><%= i %></a>
+    <% } %>
+
+    <% if (currentPage < totalPages) { %>
+        <a href="interns?page=<%= currentP  age + 1 %>">Next</a>
+    <% } %>
 
 </div>
+<a href="welcome.jsp" class="back">Back to Home</a>
+
+</div>
+
 
 </body>
 </html>

@@ -44,8 +44,7 @@
                 out.print(e);
             }
             %>
-            
-        
+    
         </table>
         </center>
     </body>

@@ -49,8 +49,9 @@ import jakarta.servlet.annotation.MultipartConfig;
             Intern intern = new Intern( name, phonne, email,photoInByte);
             InternDAO dao = new InternDAO();
             dao.addIntern(intern); 
-           response.sendRedirect("welcome.jsp");
-            //Write 
+           
+         RequestDispatcher rd =request.getRequestDispatcher("welcome.jsp");
+         rd.forward(request,response);
 
         }
         if(action.equals("update")){
@@ -66,9 +67,10 @@ import jakarta.servlet.annotation.MultipartConfig;
             try{
 
             internDAO.updateIntern(intern);
-            request.setAttribute("interns", internDAO.getAllInterns());
-    RequestDispatcher rd = request.getRequestDispatcher("interns.jsp");
-    rd.forward(request, response);
+           // request.setAttribute("interns", internDAO.getAllInterns());
+    //RequestDispatcher rd = request.getRequestDispatcher("interns.jsp");
+  //  rd.forward(request, response);
+             RequestDispatcher rb = request.getRequestDispatcher("welcome.jsp");
             }catch(Exception e){
                 System.err.println(e.getMessage());
             }
@@ -89,23 +91,45 @@ import jakarta.servlet.annotation.MultipartConfig;
         }
     }
     }
-        protected void doGet(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+      //  protected void doGet(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
             
             
-            try {
-                List<Intern> intern = internDAO.getAllInterns();
-                request.setAttribute("interns", intern);
-                request.getRequestDispatcher("interns.jsp").forward(request, response);
-                
+          protected void doGet(HttpServletRequest request , HttpServletResponse response) 
+        throws ServletException, IOException {
 
+    try {
+        int page = 1;                 // default page
+        int recordsPerPage = 5;       // how many per page
 
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
         }
+
+        //  calculate start (OFFSET)
+        int start = (page - 1) * recordsPerPage;
+
+        //  call DAO with pagination
+        List<Intern> internList = internDAO.getAllInterns(start, recordsPerPage);
+
+        //  get total records
+        int totalRecords = internDAO.getTotalRecords();
+
+        //  calculate total pages
+        int totalPages = (int) Math.ceil((double) totalRecords / recordsPerPage);
+System.out.println("Page: " + page);
+System.out.println("Start: " + start);
+System.out.println("Total Records: " + totalRecords);
+System.out.println("List Size: " + internList.size());
+        //  send data to JSP
+        request.setAttribute("interns", internList);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+
+        request.getRequestDispatcher("interns.jsp").forward(request, response);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
 
     }

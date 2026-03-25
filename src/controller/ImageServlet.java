@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,11 +24,21 @@ public class ImageServlet extends HttpServlet {
         PreparedStatement ps =con.prepareStatement("SELECT photo FROM intern WHERE id = ?");
         ps.setInt(1 , i);
         ResultSet rs =  ps.executeQuery();
-        if(rs.next()){
-                byte[] img = rs.getBytes("photo");
-                resp.setContentType("imgae/jpeg") ;
-                resp.getOutputStream().write(img);         
-        }
+        
+
+            if (rs.next()) {
+
+                byte[] imageData = rs.getBytes("photo");
+
+                if (imageData != null) {
+
+                    resp.setContentType("image/jpeg"); // or image/png
+                    OutputStream os = resp.getOutputStream();
+
+                    os.write(imageData);
+                    os.flush();
+                }
+            }
            } catch (Exception e) {
 // TODO: handle exception
         

@@ -5,7 +5,6 @@
 <head>
     <title>Create Intern</title>
 
-    <!-- Use SAME CSS -->
     <link rel="stylesheet" href="css/form.css">
 </head>
 
@@ -36,7 +35,6 @@
             <button type="reset">Clear</button>
         </div>
 
-        <!-- Correct way (NOT button inside link) -->
         <a href="welcome.jsp" class="back">Back to Home</a>
 
     </form>
