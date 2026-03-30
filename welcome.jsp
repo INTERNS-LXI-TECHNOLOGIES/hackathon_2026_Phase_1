@@ -14,7 +14,7 @@
 
    
 <div class="container">
-    <h1>⚡ Interns Portal</h1>
+    <h1> Interns Portal</h1>
     <p>welcome  Lxi Soft</p>
         <li><a href="login.jsp">Create intern   </a></li>
         <li><a href="interns">Read Interns</a></li>

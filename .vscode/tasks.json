@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "maven build",
+			"type": "shell",
+			"command": "mvn -q -e -DskipTests package",
+			"args": [],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$java"
+			]
+		}
+	]
+}
