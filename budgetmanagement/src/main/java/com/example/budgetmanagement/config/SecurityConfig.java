@@ -45,6 +45,23 @@ public class SecurityConfig {
                 )
 
                 // Add JwtFilter before Spring's default login filter
+                .exceptionHandling(ex -> ex
+    .authenticationEntryPoint((request, response, authException) -> {
+        response.setStatus(401);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"status\": 401, \"error\": \"Unauthorized\"}");
+    })
+     .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(403);
+                            response.setContentType("application/json");
+                            response.getWriter().write(
+                                "{\"status\": 403, \"error\": \"Forbidden - You don't have permission\"}"
+                            );
+                        })
+                )
+                
+                
+                
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

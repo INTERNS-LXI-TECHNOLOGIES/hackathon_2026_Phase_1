@@ -2,6 +2,8 @@ package com.example.budgetmanagement.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -11,8 +13,13 @@ import java.util.Date;
 public class JwtUtil {
 
     // Secret key - must be 256-bit minimum for HS256
-    private static final String SECRET = "budgetTrackerSecretKey2024XyZ@#$%";
-    private static final long EXPIRATION_MS = 86400000; // 24 hours
+    @Value("${jwt.secret}")
+    private String SECRET;
+
+    @Value("${jwt.expiration}")
+    private long EXPIRATION_MS;
+    //private static final String SECRET = "budgetTrackerSecretKey2024XyZ@#$%";
+    //private static final long EXPIRATION_MS = 86400000; // 24 hours
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
