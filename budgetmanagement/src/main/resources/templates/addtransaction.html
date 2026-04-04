@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Add Transaction</title>
+</head>
+
+<body>
+
+    <h1>Add Transaction</h1>
+
+    <!-- Error message -->
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
+    <form th:action="@{/api/transaction/add}" th:object="${transaction}" method="post">
+        <div>
+            <label>Description</label>
+            <input type="text" th:field="*{description}">
+        </div>
+        <div>
+            <label>Amount</label>
+            <input type="text" th:field="*{amount}" required>
+        </div>
+        <div>
+            <label>Category Name</label>
+            <input type="text" th:field="*{categoryName}" required>
+        </div>
+
+        <br>
+
+
+
+        <br>
+
+        <div>
+            <label>Transaction Type</label>
+            <select th:field="*{type}">
+                <option value="EXPENSE">Expense</option>
+                <option value="INCOME">Income</option>
+            </select>
+        </div>
+
+        <br>
+
+
+
+        <br>
+
+
+
+        <br>
+
+        <button type="submit">Add Transaction</button>
+
+    </form>
+
+    <br>
+
+    <a th:href="@{/api/transaction/viewaddtransaction}">
+        View Transactions
+    </a>
+<a href="/api/transaction/homepage">Back to Home</a>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Category</title>
+</head>
+
+<body>
+
+    <h1>All Categories</h1>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Budget Limit</th>
+
+        </tr>
+
+        <tr th:each="c : ${categories}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.name}"></td>
+            <td th:text="${c.budgetLimit}"></td>
+
+        </tr>
+
+    </table>
+    <br>
+
+    <a href="/api/transaction/homepage">Back to Home</a>
+
+</body>
+
+</html>

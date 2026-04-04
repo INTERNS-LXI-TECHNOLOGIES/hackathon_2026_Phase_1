@@ -1,0 +1,32 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<head>
+    <title>Menu Page</title>
+</head>
+
+<body>
+
+    <h1>Menu Page</h1>
+
+
+    <a href="/api/transaction/addpage">Add Transaction</a>
+    <a href="/api/category/addcategorys">Add Category</a>
+    <a href="/api/transaction/sortedbyamount">Sorted By Amount</a>
+    <a href="/api/transaction/sortedbydate">Sorted By Date</a>
+    <div sec:authorize="hasRole('ADMIN')">
+    <a href="/api/analytics/advancedstatus">Show Advanced Status</a>
+    </div>
+    <a href="/api/dashboard/board">Show DashBoard</a>
+
+
+
+
+
+
+    </form>
+
+</body>
+
+</html>
